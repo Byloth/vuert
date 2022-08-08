@@ -1,0 +1,31 @@
+# Files created by OS
+#
+.DS_Store
+Desktop.ini
+
+# Files created by IDE
+#
+/.idea/
+/.vscode/
+
+/*.code-workspace
+
+# Downloadable & installable modules & components
+#
+/node_modules/
+
+# Generated & compiled files
+#
+/dist/
+
+# Environmental files
+#
+.env
+
+# Log files
+#
+/yarn-error.log
+
+# Not ignored
+#
+!.gitkeep
