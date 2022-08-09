@@ -5,6 +5,6 @@ export type Unsubscriber = () => void;
 export type SubscribeCallback = (callback: AlertCallback) => Unsubscriber;
 
 export const injectionKeys = {
-    alert: Symbol("[vue-plugin-alert]: alert") as InjectionKey<AlertCallback>,
-    subscribe: Symbol("[vue-plugin-alert]: subscribe") as InjectionKey<SubscribeCallback>
+    alert: Symbol("[vuert]: alert") as InjectionKey<AlertCallback>,
+    subscribe: Symbol("[vuert]: subscribe") as InjectionKey<SubscribeCallback>
 };

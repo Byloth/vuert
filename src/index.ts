@@ -2,7 +2,7 @@ import { inject, App, Plugin } from "vue";
 
 import { AlertCallback, Unsubscriber, SubscribeCallback, injectionKeys } from "./core";
 
-const VuePluginAlert: Plugin = {
+const Vuert: Plugin = {
     install(app: App, options: unknown)
     {
         const subscribers: Array<(options: unknown) => void> = [];
@@ -34,7 +34,7 @@ export const useAlert = (): AlertCallback =>
     const $alert = inject(injectionKeys.alert);
     if (!$alert)
     {
-        throw new Error("`useAlert` was called with no active instance. Did you forget to install VuePluginAlert?");
+        throw new Error("`useAlert` was called with no active instance. Did you forget to install Vuert?");
     }
 
     return $alert;
@@ -44,10 +44,10 @@ export const useSubscribe = (): SubscribeCallback =>
     const $subscribe = inject(injectionKeys.subscribe);
     if (!$subscribe)
     {
-        throw new Error("`useSubscribe` was called with no active instance. Did you forget to install VuePluginAlert?");
+        throw new Error("`useSubscribe` was called with no active instance. Did you forget to install Vuert?");
     }
 
     return $subscribe;
 };
 
-export default VuePluginAlert;
+export default Vuert;

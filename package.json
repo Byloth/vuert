@@ -1,14 +1,14 @@
 {
-  "name": "@byloth/vue-plugin-alert",
+  "name": "@byloth/vuert",
   "version": "0.0.0",
   "type": "module",
   "files": ["dist"],
-  "main": "./dist/vue-plugin-alert.umd.cjs",
-  "module": "./dist/vue-plugin-alert.js",
+  "main": "./dist/vuert.umd.cjs",
+  "module": "./dist/vuert.js",
   "exports": {
     ".": {
-      "import": "./dist/vue-plugin-alert.js",
-      "require": "./dist/vue-plugin-alert.umd.cjs"
+      "import": "./dist/vuert.js",
+      "require": "./dist/vuert.umd.cjs"
     }
   },
   "scripts": {
