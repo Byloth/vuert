@@ -16,7 +16,10 @@ module.exports = {
     },
     {
       files: ["*.ts"],
-      rules: { "no-unused-vars": "off" }
+      rules: {
+        "no-redeclare": "off",
+        "no-unused-vars": "off"
+      }
     }
   ]
 };
