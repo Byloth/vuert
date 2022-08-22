@@ -4,7 +4,7 @@ import { injectionKeys } from "./core";
 import { ConfigurationException } from "./exceptions";
 import Vuert, { VuertOptions } from "./vuert";
 
-export const createVuert = (options: VuertOptions): Plugin =>
+export const createVuert = (options?: VuertOptions): Plugin =>
 {
     return {
         install: (app: App): void =>

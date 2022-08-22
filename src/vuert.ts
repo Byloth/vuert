@@ -10,7 +10,7 @@ export default class Vuert
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected _subscribers: AlertListener<any>[];
 
-    public constructor(options: VuertOptions)
+    public constructor(options?: VuertOptions)
     {
         this._subscribers = [];
     }

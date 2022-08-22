@@ -30,6 +30,7 @@
       "require": "./dist/vuert.umd.cjs"
     }
   },
+  "types": "./src/index.ts",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,6 +1,8 @@
 <template>
     <Component :is="is">
-        <slot :close="close" :alert="alert.properties">
+        <slot :alert="alert?.properties"
+              :close="close"
+              :is-open="isOpen">
         </slot>
     </Component>
 </template>
@@ -30,8 +32,8 @@
             type: Number
         },
         filter: {
-            default: (alert: Alert<unknown>) => true, // () => (alert: unknown) => true
-            type: [Function]
+            default: (alert: Alert<unknown>) => true,
+            type: Function
         }
     });
 
@@ -45,7 +47,7 @@
     const isOpen = ref(false);
 
     const alerts = reactive<AlertWrapper<unknown>[]>([]);
-    const alert = computed(() => alerts[0]);
+    const alert = computed<AlertWrapper<unknown> | undefined>(() => alerts[0]);
 
     let openedTimeout: number;
     let closingTimeout: number;
@@ -64,7 +66,7 @@
         isOpen.value = true;
         openedTimeout = setTimeout(() =>
         {
-            const timeout = alert.value.properties.timeout;
+            const timeout = alert.value!.properties.timeout;
             if (timeout !== undefined)
             {
                 if (timeout < 1)
@@ -103,7 +105,7 @@
         {
             closedTimeout = setTimeout(() =>
             {
-                const resolver = alert.value.resolver;
+                const resolver = alert.value!.resolver;
 
                 alerts.shift();
 
