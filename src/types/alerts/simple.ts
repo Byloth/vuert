@@ -3,8 +3,6 @@ import { CoreAlert } from "./core";
 
 export interface SimpleAlert extends CoreAlert
 {
-    icon?: string;
-    title?: string;
     message: string;
 }
 

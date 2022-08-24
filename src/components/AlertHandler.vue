@@ -132,6 +132,8 @@
             {
                 return new Promise((resolve, reject) =>
                 {
+                    // FIXME: Istanziare un nuovo oggetto `alert` con tutte le proprietà del caso.
+                    //
                     alerts.push({ properties: alert, resolver: resolve });
 
                     if (alerts.length === 1)
