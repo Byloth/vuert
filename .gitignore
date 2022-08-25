@@ -18,6 +18,8 @@ Desktop.ini
 #
 /dist/
 
+/*.tgz
+
 # Environmental files
 #
 .env

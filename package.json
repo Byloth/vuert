@@ -20,7 +20,8 @@
   "type": "module",
   "files": [
     "dist",
-    "src"
+    "src",
+    "index.html"
   ],
   "main": "./dist/vuert.umd.cjs",
   "module": "./dist/vuert.js",
