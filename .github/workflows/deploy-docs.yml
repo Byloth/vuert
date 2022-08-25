@@ -37,3 +37,7 @@ jobs:
       - id: deployment
         name: GitHub Pages deployment
         uses: actions/deploy-pages@v1
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
