@@ -13,6 +13,11 @@ export interface Alert<T> extends CoreAlert
     title?: string;
     message?: string;
     component?: Component;
+
+    // TODO: Passare delle `props` al componente?
+    //       Come posso rendere le informazioni dinamiche, in caso contrario?
+    //
+
     actions?: Action<T>[];
 }
 
