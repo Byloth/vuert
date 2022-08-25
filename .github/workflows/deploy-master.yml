@@ -10,7 +10,7 @@ concurrency:
 jobs:
   master-build:
     name: "`master`"
-    uses: ./.github/workflows/templates/build.yml
+    uses: ./.github/workflows/build-template.yml
 
   gh-pages-deploy:
     name: GitHub Pages deploy

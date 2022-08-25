@@ -6,12 +6,12 @@ on:
 jobs:
   artifact-build:
     name: Artifact
-    uses: ./.github/workflows/templates/build.yml
+    uses: ./.github/workflows/build-template.yml
 
   gpr-release:
     name: GPR
     needs: artifact-build
-    uses: ./.github/workflows/templates/release.yml
+    uses: ./.github/workflows/release-template.yml
     with:
       auth-token: ${{ secrets.GITHUB_TOKEN }}
       registry-url: https://npm.pkg.github.com/
