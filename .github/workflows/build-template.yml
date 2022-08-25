@@ -1,4 +1,4 @@
-name: Artifact build template
+name: "<npm build template>"
 on:
   workflow_call:
 

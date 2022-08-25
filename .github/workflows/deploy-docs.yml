@@ -1,4 +1,4 @@
-name: "`master` deploy"
+name: Docs deploy
 on:
   push:
     branches: [master]
@@ -8,13 +8,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  master-build:
-    name: "`master`"
+  docs-build:
+    name: Docs
     uses: ./.github/workflows/build-template.yml
 
-  gh-pages-deploy:
+  docs-deploy:
     name: GitHub Pages deploy
-    needs: master-build
+    needs: docs-build
     runs-on: ubuntu-latest
     permissions:
       contents: read
