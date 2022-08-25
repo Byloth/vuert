@@ -25,12 +25,12 @@ jobs:
       - name: Artifact creation
         run: |
           PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
-          PACKAGE_NAME="vuert-v${PACKAGE_VERSION}.tgz"
+          PACKAGE_NAME="byloth-vuert-v${PACKAGE_VERSION}.tgz"
           yarn pack
           tar -xzvf "${PACKAGE_NAME}" -C "."
 
       - name: Artifact upload
         uses: actions/upload-artifact@v3
         with:
-          name: vuert
+          name: byloth-vuert
           path: package
