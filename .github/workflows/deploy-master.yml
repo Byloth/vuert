@@ -1,0 +1,39 @@
+name: "`master` deploy"
+on:
+  push:
+    branches: [master]
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  master-build:
+    name: "`master`"
+    uses: ./.github/workflows/templates/build.yml
+
+  gh-pages-deploy:
+    name: GitHub Pages deploy
+    needs: master-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Artifact download
+        uses: actions/download-artifact@v3
+        with:
+          name: vuert
+
+      - name: GitHub Pages setup
+        uses: actions/configure-pages@v1
+      - name: Artifact upload
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "."
+
+      - id: deployment
+        name: GitHub Pages deployment
+        uses: actions/deploy-pages@v1

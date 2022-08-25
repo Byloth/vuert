@@ -1,0 +1,36 @@
+name: Package release
+on:
+  workflow_call:
+    inputs:
+      auth-token:
+        required: true
+        type: string
+
+      registry-url:
+        default: https://registry.npmjs.org
+        type: string
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Artifact download
+        uses: actions/download-artifact@v3
+        with:
+          name: vuert
+
+      - name: Node.js 16 (LTS) setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: ${{ inputs.registry-url }}
+
+      - name: Package release
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ inputs.auth_token }}

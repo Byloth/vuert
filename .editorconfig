@@ -16,7 +16,7 @@ indent_size = 2
 [.eslintrc.{cjs,js}]
 indent_size = 2
 
-[*.json]
+[*.{json,yml}]
 indent_size = 2
 
 [*.md]
