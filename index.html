@@ -4,18 +4,31 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vuert.js</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" />
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-reboot.min.css" /> -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-grid.min.css" /> -->
+        <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/brands.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/solid.min.css" />
         <style type="text/css">
             :root
             {
-                --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+                --font-family: Ubuntu;
             }
 
-            body, html
+            html
+            {
+                scroll-behavior: smooth;
+            }
+            body, pre
             {
                 font-family: var(--font-family);
-                margin: 0;
-                padding: 0;
-                text-align: center;
+            }
+
+            [\:hidden]
+            {
+                display: none;
             }
 
             .flex
@@ -23,17 +36,17 @@
                 align-items: center;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: space-evenly;
             }
 
             .container
             {
-                height: 100vh;
+                text-align: center;
             }
             .jumbotron
             {
                 flex: 1;
-                font-size: 3em;
+                height: 100vh;
             }
 
             .grey
@@ -42,26 +55,166 @@
             }
             .heart
             {
-                color: #F00;
+                color: #FF0000;
+            }
+            .modal
+            {
+                display: block;
+            }
+
+            .v-enter-active, .v-leave-active
+            {
+                transition: opacity 200ms ease;
+            }
+            .v-enter-from, .v-leave-to
+            {
+                opacity: 0;
             }
         </style>
     </head>
-    <body>
-        <div class="flex container">
-            <main class="flex jumbotron">
-                <h1>Vuert.js</h1>
-                <h3>
-                    Work in progress... 🤓<sup>💭</sup><br />
-                    <small class="grey">Please, stand by...</small>
-                </h3>
-            </main>
-            <footer class="footer">
-                <p>
-                    Made with lot of <span class="heart">❤️</span> by
-                    <a href="https://www.byloth.net/" target="_blank">Byloth</a>.
-                </p>
-            </footer>
-        </div>
-        <script src="/dist/vuert.umd.cjs"></script>
+    <body id="app">
+        <alert-handler id="#modal" class="alert-handler" :hidden="hasBeenMounted" v-slot="{ alert, close, isOpen }">
+            <transition>
+                <div v-if="alert" v-show="isOpen" class="modal show" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 v-if="alert.title" class="modal-title">
+                                    <span v-if="alert.icon" class="fa-solid" :class="`fa-${alert.icon}`"></span>
+                                    {{ alert.title }}
+                                </h5>
+                                <button v-if="alert.dismissable" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <pre v-if="alert.message">{{ alert.message }}</pre>
+                                <template v-else>
+                                    <component :is="alert.component" />
+                                </template>
+                            </div>
+                            <div v-if="alert.actions" class="modal-footer">
+                                <button v-for="action in alert.actions" :key="action.id" type="button" class="btn" :class="`btn-${action.type}`" @click="close">
+                                    <span v-if="action.icon" class="fa-solid" :class="`fa-${action.icon}`"></span>
+                                    {{ action.label }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+        </alert-handler>
+        <header id="home" class="flex jumbotron">
+            <h1>Vuert.js</h1>
+            <h3>A library to easily emits any kind of alerts you may need in your Vue app.</h3>
+            <div class="container">
+                <hr />
+            </div>
+            <button id="random-btn" @click="emitRandomAlert">Surprise me!</button>
+            <a href="#info">
+                <span class="fa-solid fa-angles-down"></span>
+            </a>
+        </header>
+        <main id="info" class="container">
+            <section>
+                <h2>Why Vuert?</h2>
+                <h4>Principles</h4>
+                <dl>
+                    <dt>Insanely Easy</dt>
+                    <dd>
+                        Stop struggling in vain!<br />
+                        <br />
+                        Done like you would... Designed to be as developer-friendly as possible.<br />
+                        Go straight to the point!
+                    </dd>
+                    <dt>Simply Headless</dt>
+                    <dd>
+                        It's just pure logic!<br />
+                        <br />
+                        Nobody styled anything... Allowing you to style it to match exactly your theme.<br />
+                        Unleash your imagination!
+                    </dd>
+                    <dt>Meticulously Managed</dt>
+                    <dd>
+                        It's disaster proof!<br />
+                        <br />
+                        Don't worry about what happens... Just stay focused on what you do best.<br />
+                        Slee... <i>Ahem...</i> Develop soundly!
+                    </dd>
+                    <dt>Perfectly Typed</dt>
+                    <dd>
+                        100% written in TypeScript!<br />
+                        <br />
+                        You know what it's need as an input... You know what you get as an output.<br />
+                        You can't go wrong!
+                    </dd>
+                </dl>
+            </section>
+            <hr />
+            <section>
+                <h2>Installation</h2>
+            </section>
+            <hr />
+            <section>
+                <h2>How to use</h2>
+            </section>
+            <hr />
+            <section>
+                <h2>Sponsors</h2>
+                <h4>Special Sponsors</h4>
+            </section>
+            <hr />
+            <section>
+                <h2>Special thanks</h2>
+            </section>
+        </main>
+        <footer class="footer container">
+            <p>
+                Made with lot of <span class="heart">❤️</span> by
+                <a href="https://www.byloth.net/" target="_blank">Byloth</a>.
+            </p>
+        </footer>
+        <script crossorigin defer src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
+        <script defer src="./dist/vuert.umd.cjs"></script>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", () =>
+            {
+                const app = Vue.createApp({
+                    data: () => ({ hasBeenMounted: false }),
+                    methods: {
+                        emitRandomAlert()
+                        {
+                            this.$vuert.emit({
+                                type: "info",
+                                icon: "person-digging",
+                                title: "Work in progess!",
+                                message:
+                                    "Sorry... We aren't ready yet! 🥺\n\n" +
+                                    "Our team (it's just me) is still working on this docs page!\n" +
+                                    "Please, be a little more patient and come back later! 👋",
+
+                                dismissable: true,
+                                actions: [{
+                                    id: "confirm",
+                                    type: "primary",
+                                    icon: "hand-peace",
+                                    label: "Gotcha!"
+                                }]
+                            })
+                        }
+                    },
+                    mounted: () =>
+                    {
+                        this.hasBeenMounted = true;
+                    }
+                });
+
+                app.use(Vuert.createVuert({ }));
+                app.component("alert-handler", Vuert.AlertHandler);
+                app.mount("#app");
+
+                const vuert = app.config.globalProperties.$vuert;
+
+                console.log(vuert);
+            });
+        </script>
     </body>
 </html>
