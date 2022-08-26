@@ -73,17 +73,18 @@
         </style>
     </head>
     <body id="app">
-        <alert-handler id="#modal" class="alert-handler" :hidden="hasBeenMounted" v-slot="{ alert, close, isOpen }">
+        <alert-handler id="#modal" class="alert-handler" :hidden="hasBeenMounted"
+                       v-slot="{ alert, close, isOpen }">
             <transition>
-                <div v-if="alert" v-show="isOpen" class="modal show" tabindex="-1">
+                <div v-if="alert" v-show="isOpen" class="modal show">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 v-if="alert.title" class="modal-title">
+                                <h5 class="modal-title">
                                     <span v-if="alert.icon" class="fa-solid" :class="`fa-${alert.icon}`"></span>
-                                    {{ alert.title }}
+                                    <span v-if="alert.title">{{ alert.title }}</span>
                                 </h5>
-                                <button v-if="alert.dismissable" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="close"></button>
+                                <button v-if="alert.dismissable" class="btn-close" @click="close"></button>
                             </div>
                             <div class="modal-body">
                                 <pre v-if="alert.message">{{ alert.message }}</pre>
@@ -92,7 +93,8 @@
                                 </template>
                             </div>
                             <div v-if="alert.actions" class="modal-footer">
-                                <button v-for="action in alert.actions" :key="action.id" type="button" class="btn" :class="`btn-${action.type}`" @click="close">
+                                <button v-for="action in alert.actions" :key="action.id"
+                                        class="btn" :class="`btn-${action.type}`" @click="close">
                                     <span v-if="action.icon" class="fa-solid" :class="`fa-${action.icon}`"></span>
                                     {{ action.label }}
                                 </button>
@@ -129,17 +131,27 @@
                     <dd>
                         It's just pure logic!<br />
                         <br />
-                        Nobody styled anything... Allowing you to style it to match exactly your theme.<br />
+                        Vuert comes with no style... Actually, it comes with no renderable elements!<br />
+                        This allows you to define your own components and to style them to match exactly your theme.<br />
                         Unleash your imagination!
                     </dd>
-                    <dt>Meticulously Managed</dt>
+                    <dt>Simply Unstoppable</dt>
                     <dd>
                         It's disaster proof!<br />
+                        <br />
+                        Say your app enters an infinite loop emitting gazillions of alerts...<br />
+                        Your users won't be overwhelmed with popups and notifications!<br />
+                        Everything will continue working just fine... Even if your app is imploding, under the hood.<br />
+                        <br />
+                        <i>
+                            Someone said "Debouncing" or "Throttling"?<br />
+                            There will be in future releases!
+                        </i>
                         <br />
                         Don't worry about what happens... Just stay focused on what you do best.<br />
                         Slee... <i>Ahem...</i> Develop soundly!
                     </dd>
-                    <dt>Perfectly Typed</dt>
+                    <dt>Meticulously Typed</dt>
                     <dd>
                         100% written in TypeScript!<br />
                         <br />
@@ -174,41 +186,151 @@
         </footer>
         <script crossorigin defer src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
         <script defer src="./dist/vuert.umd.cjs"></script>
+        <script id="someone-just-template" type="text/x-template">
+            <img :src="avatar" />
+            <span>{{ fullname }} just {{ action }}.</span>
+        </script>
         <script type="text/javascript">
+            const FULLNAMES = [
+                "Someone",
+
+                "Matteo \"Byloth\" Bilotta",
+
+                "Altaïr Ibn-La'Ahad",
+                "Arthas Menethil",
+                "Bruce Wayne",
+                "Cole MacGrath",
+                "Ezio Auditore from Firenze",
+                "Geralt of Rivia",
+                "Jaina Proudmoore",
+                "Lt.Cdr. John Shepard",
+                "Liara T'Soni",
+                "Pepper Potts",
+                "Lt. Simon \"Ghost\" Riley",
+                "Tony Stark",
+                "Triss Merigold",
+                "Ulfric Stormcloak",
+                "Emperor Uriel Septim VII",
+                "Yennefer of Vengerberg",
+
+                "John Doe",
+                "Karen Smith",
+                "Mario Rossi",
+                "Sofia Bianchi",
+                "Ivan Ivanovich Ivanovsky",
+                "Maria Papadopoulos",
+                "أدهم خان",  // Arabic for `Adham Khan`
+                "Akinyi Too",
+                "田中 中村",     // Japanese for `Tanaka Nakamura`
+                "嘉颖 杨"       // Chinese for `Jiā Yǐng Yáng`
+            ];
+            const ACTIONS = [
+                "did something",
+
+                "asked something to Alexa",
+                "baked some yummy cookies",
+                "drank a refreshing glass of water",
+                "verified a fact on Wikipedia",
+                "liked a post on Facebook",
+                "posted a new photo on Instagram",
+                "shoot a new TikTok dance video",
+                "searched something on Google",
+                "desperately search how to solve a problem on StackOverflow",
+                "satisfactorily squashed an annoying mosquito",
+                "woke up late for work (as usual)",
+
+                "generously backed the Vuert project",
+                "contributed to the Vuert project",
+                "cloned the Vuert repository",
+                "downloaded the Vuert source code",
+                "forked the Vuert project on GitHub",
+                "found a bug in the Vuert source code",
+                "fixed a bug on the Vuert source code",
+                "illigally sold Vuert as an own product",
+                "installed the Vuert package in a real project",
+                "landed on this awesome documentation",
+                "opened a new issue on the Vuert GitHub project",
+                "proudly shared the Vuert project on Twitter",
+                "read all the Vuert documentation before using it",
+                "reviewed the Vuert source code on GitHub",
+                "starred the Vuert project on GitHub",
+                "submitted a new pull request on the Vuert GitHub project",
+            ];
+
+            const random = (min, max) =>
+            {
+                if (max === undefined)
+                {
+                    max = min;
+                    min = 0;
+                }
+
+                multiplier = max - min;
+
+                return Math.floor(Math.random() * multiplier) + min;
+            };
+            const pickOne = (array) =>
+            {
+                const length = array.length;
+                const index = random(length);
+
+                return array[index];
+            };
+
             document.addEventListener("DOMContentLoaded", () =>
             {
+                const SomeoneJust = Vue.defineComponent({
+                    name: "SomeoneJust",
+                    template: "#someone-just-template",
+
+                    data: () => ({
+                        avatar: "https://picsum.photos/50",
+                        fullname: "",
+                        action: ""
+                    }),
+                    mounted: () =>
+                    {
+                        this.fullname = pickOne(FULLNAMES);
+                        this.action = pickOne(ACTIONS);
+                    }
+                });
+
+                const ALERTS = [{
+                    type: "info",
+                    icon: "person-digging",
+                    title: "Work in progess!",
+                    message:
+                        "Sorry... We aren't ready yet! 🥺\n\n" +
+                        "Our team (it's just me) is still working on this docs page!\n" +
+                        "Please, be a little more patient and come back later! 👋",
+
+                    dismissable: true,
+                    actions: [{
+                        id: "confirm",
+                        type: "primary",
+                        icon: "hand-peace",
+                        label: "Gotcha!"
+                    }]
+                }];
+
                 const app = Vue.createApp({
+                    name: "App",
+                    components: { "alert-handler": Vuert.AlertHandler },
+
                     data: () => ({ hasBeenMounted: false }),
+                    mounted: () => { this.hasBeenMounted = true; },
+
                     methods: {
                         emitRandomAlert()
                         {
-                            this.$vuert.emit({
-                                type: "info",
-                                icon: "person-digging",
-                                title: "Work in progess!",
-                                message:
-                                    "Sorry... We aren't ready yet! 🥺\n\n" +
-                                    "Our team (it's just me) is still working on this docs page!\n" +
-                                    "Please, be a little more patient and come back later! 👋",
+                            const alert = pickOne(ALERTS);
 
-                                dismissable: true,
-                                actions: [{
-                                    id: "confirm",
-                                    type: "primary",
-                                    icon: "hand-peace",
-                                    label: "Gotcha!"
-                                }]
-                            })
+                            this.$vuert.emit(alert);
                         }
-                    },
-                    mounted: () =>
-                    {
-                        this.hasBeenMounted = true;
                     }
                 });
 
                 app.use(Vuert.createVuert({ }));
-                app.component("alert-handler", Vuert.AlertHandler);
                 app.mount("#app");
 
                 const vuert = app.config.globalProperties.$vuert;
