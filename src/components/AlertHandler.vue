@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { computed, onMounted, onUnmounted, provide, reactive, ref } from "vue";
+    import { nextTick, onMounted, onUnmounted, provide, reactive, ref } from "vue";
 
     import { useVuert } from "../index";
     import { injectionKeys } from "../core";
@@ -47,13 +47,13 @@
     const isOpen = ref(false);
 
     const alerts = reactive<AlertWrapper<unknown>[]>([]);
-    const alert = computed<AlertWrapper<unknown> | undefined>(() => alerts[0]);
+    const alert = ref<AlertWrapper<unknown> | undefined>();
 
     let openedTimeout: number;
     let closingTimeout: number;
     let closedTimeout: number;
 
-    const open = () =>
+    const open = (_alert: AlertWrapper<unknown>) =>
     {
         if (isOpen.value)
         {
@@ -63,10 +63,12 @@
             );
         }
 
+        alert.value = _alert;
         isOpen.value = true;
+
         openedTimeout = setTimeout(() =>
         {
-            const timeout = alert.value!.properties.timeout;
+            const timeout = _alert.properties.timeout;
             if (timeout !== undefined)
             {
                 if (timeout < 1)
@@ -105,17 +107,22 @@
         {
             closedTimeout = setTimeout(() =>
             {
-                const resolver = alert.value!.resolver;
+                const _alert = alert.value!;
 
+                alert.value = undefined;
                 alerts.shift();
 
-                if (alerts.length > 0)
+                nextTick(() =>
                 {
-                    open();
-                }
+                    if (alerts.length > 0)
+                    {
+                        open(alerts[0]);
+                    }
+                });
 
                 emit("onClosed");
-                resolver(result);
+
+                _alert.resolver(result);
                 resolve();
 
             }, props.duration);
@@ -126,19 +133,19 @@
 
     onMounted(() =>
     {
-        unsubscribe = vuert.subscribe((alert: Alert<unknown>) =>
+        unsubscribe = vuert.subscribe((_alert: Alert<unknown>) =>
         {
-            if (props.filter(alert))
+            if (props.filter(_alert))
             {
                 return new Promise((resolve, reject) =>
                 {
                     // FIXME: Istanziare un nuovo oggetto `alert` con tutte le proprietà del caso.
                     //
-                    alerts.push({ properties: alert, resolver: resolve });
+                    alerts.push({ properties: _alert, resolver: resolve });
 
                     if (alerts.length === 1)
                     {
-                        open();
+                        open(alerts[0]);
                     }
                 });
             }

@@ -5,113 +5,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vuert.js</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" />
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
-        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-reboot.min.css" /> -->
-        <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-grid.min.css" /> -->
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-reboot.min.css" />
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.2.0/dist/css/bootstrap-grid.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/brands.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.2/css/solid.min.css" />
-        <style type="text/css">
-            :root
-            {
-                --font-family: Ubuntu;
-            }
-
-            html
-            {
-                scroll-behavior: smooth;
-            }
-            body, pre
-            {
-                font-family: var(--font-family);
-            }
-
-            [\:hidden]
-            {
-                display: none;
-            }
-
-            .flex
-            {
-                align-items: center;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-            }
-
-            .container
-            {
-                text-align: center;
-            }
-            .jumbotron
-            {
-                flex: 1;
-                height: 100vh;
-            }
-
-            .grey
-            {
-                opacity: 0.666;
-            }
-            .heart
-            {
-                color: #FF0000;
-            }
-            .modal
-            {
-                background-color: rgba(0, 0, 0, 0.5);
-                display: block;
-            }
-
-            .v-enter-active, .v-leave-active
-            {
-                transition: opacity 200ms ease;
-            }
-            .v-enter-from, .v-leave-to
-            {
-                opacity: 0;
-            }
-        </style>
+        <link rel="stylesheet" href="./static/css/styles.css" />
     </head>
     <body id="app">
-        <alert-handler id="#modal" class="alert-handler" :hidden="hasBeenMounted"
-                       v-slot="{ alert, close, isOpen }">
-            <transition>
-                <div v-if="alert" v-show="isOpen" class="modal show">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    <span v-if="alert.icon" class="fa-solid" :class="`fa-${alert.icon}`"></span>
-                                    <span v-if="alert.title">{{ alert.title }}</span>
-                                </h5>
-                                <button v-if="alert.dismissable" class="btn-close" @click="close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <pre v-if="alert.message">{{ alert.message }}</pre>
-                                <template v-else>
-                                    <component :is="alert.component" />
-                                </template>
-                            </div>
-                            <div v-if="alert.actions" class="modal-footer">
-                                <button v-for="action in alert.actions" :key="action.id"
-                                        class="btn" :class="`btn-${action.type}`" @click="close">
-                                    <span v-if="action.icon" class="fa-solid" :class="`fa-${action.icon}`"></span>
-                                    {{ action.label }}
-                                </button>
-                            </div>
+        <alert-handler class="alert-handler" :hidden="!hasBeenMounted"
+                       v-slot="{ alert, close, isOpen }" :filter="(a) => a.priority === 'high'">
+            <transition name="modal" mode="in-out">
+                <div v-if="alert" v-show="isOpen" class="flex overlay">
+                    <div class="flex modal">
+                        <div class="flex modal-header">
+                            <h5 class="modal-title">
+                                <span v-if="alert.icon" class="fa-solid" :class="`fa-${alert.icon}`"></span>
+                                <span v-if="alert.title">{{ alert.title }}</span>
+                            </h5>
+                            <button v-if="alert.dismissable" class="modal-close" @click="close">
+                                <span class="fa-solid fa-circle-xmark"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <pre v-if="alert.message" class="modal-message">{{ alert.message }}</pre>
+                            <template v-else>
+                                <component :is="alert.component" />
+                            </template>
+                        </div>
+                        <div v-if="alert.actions" class="flex modal-footer">
+                            <button v-for="action in alert.actions" :key="action.id"
+                                    class="button" :class="action.type" @click="close">
+                                <span v-if="action.icon" class="fa-solid" :class="`fa-${action.icon}`"></span>
+                                {{ action.label }}
+                            </button>
                         </div>
                     </div>
                 </div>
             </transition>
         </alert-handler>
+        <alert-handler class="alert-handler" :hidden="!hasBeenMounted"
+                       v-slot="{ alert, close, isOpen }" :filter="(a) => a.priority === 'low'">
+            <transition name="toast" mode="in-out">
+                <div v-if="alert" v-show="isOpen" class="toast">
+                    <component :is="alert.component" />
+                </div>
+            </transition>
+        </alert-handler>
         <header id="home" class="flex jumbotron">
             <h1>Vuert.js</h1>
-            <h3>A library to easily emits any kind of alerts you may need in your Vue app.</h3>
+            <h3>The headless alerts, notifications & popups library for Vue.js craftsmen.</h3>
             <div class="container">
                 <hr />
             </div>
-            <button id="random-btn" @click="emitRandomAlert">Surprise me!</button>
+            <button class="button primary" @click="emitRandomAlert">Surprise me!</button>
             <a href="#info">
                 <span class="fa-solid fa-angles-down"></span>
             </a>
@@ -119,25 +66,28 @@
         <main id="info" class="container">
             <section>
                 <h2>Why Vuert?</h2>
-                <h4>Principles</h4>
-                <dl>
-                    <dt>Insanely Easy</dt>
-                    <dd>
+                <div class="left">
+                    <h4>Insanely Easy</h4>
+                    <p>
                         Stop struggling in vain!<br />
                         <br />
                         Done like you would... Designed to be as developer-friendly as possible.<br />
                         Go straight to the point!
-                    </dd>
-                    <dt>Completely Headless</dt>
-                    <dd>
+                    </p>
+                </div>
+                <div class="right">
+                    <h4>Completely Headless</h4>
+                    <p>
                         It's just pure logic!<br />
                         <br />
                         Vuert comes with no style... Actually, it comes with no renderable elements!<br />
                         This allows you to define your own components and to style them to match exactly your theme.<br />
                         Unleash your imagination!
-                    </dd>
-                    <dt>Simply Unstoppable</dt>
-                    <dd>
+                    </p>
+                </div>
+                <div class="left">
+                    <h4>Simply Managed</h4>
+                    <p>
                         It's disaster proof!<br />
                         <br />
                         Say your app enters an infinite loop emitting gazillions of alerts...<br />
@@ -151,15 +101,17 @@
                         <br />
                         Don't worry about what happens... Just stay focused on what you do best.<br />
                         Slee... <i>Ahem...</i> Develop soundly!
-                    </dd>
-                    <dt>Meticulously Typed</dt>
-                    <dd>
+                    </p>
+                </div>
+                <div class="right">
+                    <h4>Meticulously Typed</h4>
+                    <p>
                         100% written in TypeScript!<br />
                         <br />
                         You know what it's need as an input... You know what you get as an output.<br />
                         You can't go wrong!
-                    </dd>
-                </dl>
+                    </p>
+                </div>
             </section>
             <hr />
             <section>
@@ -181,163 +133,20 @@
         </main>
         <footer class="footer container">
             <p>
-                Made with lot of <span class="heart">❤️</span> by
+                Made with lot of <span class="fa-solid fa-heart"></span> by
                 <a href="https://www.byloth.net/" target="_blank">Byloth</a>.
             </p>
         </footer>
         <script crossorigin defer src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
         <script defer src="./dist/vuert.umd.cjs"></script>
         <script id="someone-just-template" type="text/x-template">
-            <img :src="avatar" />
-            <span>{{ fullname }} just {{ action }}.</span>
+            <div class="flex someone-just">
+                <img class="avatar" :src="avatar" />
+                <span>
+                    <strong>{{ fullname }}</strong> just {{ action }}.
+                </span>
+            </div>
         </script>
-        <script type="text/javascript">
-            const FULLNAMES = [
-                "Someone",
-
-                "Matteo \"Byloth\" Bilotta",
-
-                "Altaïr Ibn-La'Ahad",
-                "Arthas Menethil",
-                "Bruce Wayne",
-                "Cole MacGrath",
-                "Ezio Auditore from Firenze",
-                "Geralt of Rivia",
-                "Jaina Proudmoore",
-                "Lt.Cdr. John Shepard",
-                "Liara T'Soni",
-                "Pepper Potts",
-                "Lt. Simon \"Ghost\" Riley",
-                "Tony Stark",
-                "Triss Merigold",
-                "Ulfric Stormcloak",
-                "Emperor Uriel Septim VII",
-                "Yennefer of Vengerberg",
-
-                "John Doe",
-                "Karen Smith",
-                "Mario Rossi",
-                "Sofia Bianchi",
-                "Ivan Ivanovich Ivanovsky",
-                "Maria Papadopoulos",
-                "أدهم خان",  // Arabic for `Adham Khan`
-                "Akinyi Too",
-                "田中 中村",     // Japanese for `Tanaka Nakamura`
-                "嘉颖 杨"       // Chinese for `Jiā Yǐng Yáng`
-            ];
-            const ACTIONS = [
-                "did something",
-
-                "asked something to Alexa",
-                "baked some yummy cookies",
-                "drank a refreshing glass of water",
-                "verified a fact on Wikipedia",
-                "liked a post on Facebook",
-                "posted a new photo on Instagram",
-                "shoot a new TikTok dance video",
-                "searched something on Google",
-                "desperately search how to solve a problem on StackOverflow",
-                "satisfactorily squashed an annoying mosquito",
-                "woke up late for work (as usual)",
-
-                "generously backed the Vuert project",
-                "contributed to the Vuert project",
-                "cloned the Vuert repository",
-                "downloaded the Vuert source code",
-                "forked the Vuert project on GitHub",
-                "found a bug in the Vuert source code",
-                "fixed a bug on the Vuert source code",
-                "illigally sold Vuert as an own product",
-                "installed the Vuert package in a real project",
-                "landed on this awesome documentation",
-                "opened a new issue on the Vuert GitHub project",
-                "proudly shared the Vuert project on Twitter",
-                "read all the Vuert documentation before using it",
-                "reviewed the Vuert source code on GitHub",
-                "starred the Vuert project on GitHub",
-                "submitted a new pull request on the Vuert GitHub project",
-            ];
-
-            const random = (min, max) =>
-            {
-                if (max === undefined)
-                {
-                    max = min;
-                    min = 0;
-                }
-
-                multiplier = max - min;
-
-                return Math.floor(Math.random() * multiplier) + min;
-            };
-            const pickOne = (array) =>
-            {
-                const length = array.length;
-                const index = random(length);
-
-                return array[index];
-            };
-
-            document.addEventListener("DOMContentLoaded", () =>
-            {
-                const SomeoneJust = Vue.defineComponent({
-                    name: "SomeoneJust",
-                    template: "#someone-just-template",
-
-                    data: () => ({
-                        avatar: "https://picsum.photos/50",
-                        fullname: "",
-                        action: ""
-                    }),
-                    mounted: () =>
-                    {
-                        this.fullname = pickOne(FULLNAMES);
-                        this.action = pickOne(ACTIONS);
-                    }
-                });
-
-                const ALERTS = [{
-                    type: "info",
-                    icon: "person-digging",
-                    title: "Work in progess!",
-                    message:
-                        "Sorry... We aren't ready yet! 🥺\n\n" +
-                        "Our team (it's just me) is still working on this docs page!\n" +
-                        "Please, be a little more patient and come back later! 👋",
-
-                    dismissable: true,
-                    actions: [{
-                        id: "confirm",
-                        type: "primary",
-                        icon: "hand-peace",
-                        label: "Gotcha!"
-                    }]
-                }];
-
-                const app = Vue.createApp({
-                    name: "App",
-                    components: { "alert-handler": Vuert.AlertHandler },
-
-                    data: () => ({ hasBeenMounted: false }),
-                    mounted: () => { this.hasBeenMounted = true; },
-
-                    methods: {
-                        emitRandomAlert()
-                        {
-                            const alert = pickOne(ALERTS);
-
-                            this.$vuert.emit(alert);
-                        }
-                    }
-                });
-
-                app.use(Vuert.createVuert({ }));
-                app.mount("#app");
-
-                const vuert = app.config.globalProperties.$vuert;
-
-                console.log(vuert);
-            });
-        </script>
+        <script defer src="./static/js/scripts.js"></script>
     </body>
 </html>

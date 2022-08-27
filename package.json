@@ -1,7 +1,7 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.0.0",
-  "description": "",
+  "version": "3.0.0",
+  "description": "The headless alerts, notifications & popups library for Vue.js craftsmen.",
   "keywords": [],
   "homepage": "https://github.com/Byloth/vuert#readme",
   "repository": {
@@ -21,6 +21,7 @@
   "files": [
     "dist",
     "src",
+    "static",
     "index.html"
   ],
   "main": "./dist/vuert.umd.cjs",
