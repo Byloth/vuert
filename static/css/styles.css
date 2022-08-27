@@ -224,8 +224,8 @@ body
 {
     transition: opacity 200ms ease-in-out;
 }
-    .modal-enter-active > .dialog,
-    .modal-leave-active > .dialog
+    .modal-enter-active > .modal,
+    .modal-leave-active > .modal
     {
         transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
     }
@@ -235,10 +235,10 @@ body
 {
     opacity: 0;
 }
-    .modal-enter-from > .dialog,
-    .modal-leave-to > .dialog
+    .modal-enter-from > .modal,
+    .modal-leave-to > .modal
     {
-        transform: translateY(-33.333%);
+        transform: translateY(-12.5%);
     }
 
 .toast-enter-active,
