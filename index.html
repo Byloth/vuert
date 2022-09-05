@@ -13,12 +13,12 @@
         <link rel="stylesheet" href="./static/css/styles.css" />
     </head>
     <body id="app">
-        <alert-handler class="alert-handler" :hidden="!hasBeenMounted"
-                       v-slot="{ alert, close, isOpen }" :filter="(a) => a.priority === 'high'">
+        <alert-handler class="modal-handler" :hidden="!hasBeenMounted"
+                       v-slot="{ alert, close, isOpen }" :filter="(a) => !a._id && a.priority === 'high'">
             <transition name="modal" mode="in-out">
                 <div v-if="alert" v-show="isOpen" class="flex overlay">
                     <div class="flex modal">
-                        <div class="flex modal-header">
+                        <div class="flex horizontal modal-header">
                             <h5 class="modal-title">
                                 <span v-if="alert.icon" class="fa-solid" :class="`fa-${alert.icon}`"></span>
                                 <span v-if="alert.title">{{ alert.title }}</span>
@@ -44,8 +44,8 @@
                 </div>
             </transition>
         </alert-handler>
-        <alert-handler class="alert-handler" :hidden="!hasBeenMounted"
-                       v-slot="{ alert, close, isOpen }" :filter="(a) => a.priority === 'low'">
+        <alert-handler class="toast-handler" :hidden="!hasBeenMounted"
+                       v-slot="{ alert, close, isOpen }" :filter="(a) => !a._id && a.priority === 'low'">
             <transition name="toast" mode="in-out">
                 <div v-if="alert" v-show="isOpen" class="toast">
                     <component :is="alert.component" />
@@ -120,6 +120,61 @@
             <hr />
             <section>
                 <h2>How to use</h2>
+                <code-block :id="0" title="A basic simple use">
+                    <template #left>
+                        <pre v-pre>
+&lt;!-- YourSimpleCustomAlert.vue --&gt;
+
+&lt;template&gt;
+    &lt;AlertHandler v-slot="{ alert }"&gt;
+        &lt;div v-if="alert" class="alert" :class="alert.type"&gt;
+            {{ alert.message }}
+        &lt;/div&gt;
+    &lt;/AlertHandler&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+    .alert
+    {
+        background-color: #E2E3E5;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 1em;
+        box-shadow: 2.5px 2.5px 5px rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 2em;
+        z-index: 10;
+    }
+    .alert.info { background-color: #D1ECF1; }
+    .alert.success { background-color: #D4EDDA; }
+    .alert.warning { background-color: #FFF3CD; }
+    .alert.error { background-color: #F8D7DA; }
+&lt;/style&gt;</pre>
+                    </template>
+                    <template #right>
+                        <pre v-pre>
+/**
+ * You can invoke it anywehere in your app...
+ */
+
+import { useVuert } from "@byloth/vuert";
+
+const vuert = useVuert();
+vuert.emit({
+    type: "info",
+    message: "This is one of the simplest alerts you can implement!",
+    timeout: 2500
+});</pre>
+                    </template>
+                </code-block>
+                <alert-handler class="example-0-handler" :hidden="!hasBeenMounted"
+                               v-slot="{ alert, close, isOpen }" :filter="(a) => a._id === 0">
+                    <div v-if="alert" class="alert container modal" :class="alert.type">
+                        {{ alert.message }}
+                    </div>
+                </alert-handler>
             </section>
             <hr />
             <section>
@@ -139,8 +194,22 @@
         </footer>
         <script crossorigin defer src="https://unpkg.com/vue@3.2.37/dist/vue.global.prod.js"></script>
         <script defer src="./dist/vuert.umd.cjs"></script>
+        <script id="code-block-template" type="text/x-template">
+            <div class="code-block">
+                <h4 v-if="title">{{ title }}</h4>
+                <div class="flex horizontal">
+                    <div class="left">
+                        <slot name="left"></slot>
+                    </div>
+                    <div class="right">
+                        <slot name="right"></slot>
+                    </div>
+                </div>
+                <button class="button primary" @click="emit">Emit now!</button>
+            </div>
+        </script>
         <script id="someone-just-template" type="text/x-template">
-            <div class="flex someone-just">
+            <div class="flex horizontal someone-just">
                 <img class="avatar" :src="avatar" />
                 <span>
                     <strong>{{ fullname }}</strong> just {{ action }}.

@@ -106,6 +106,25 @@ document.addEventListener("DOMContentLoaded", () =>
     /*
      * Vue Components
      */
+    const CodeBlock = Vue.defineComponent({
+        name: "CodeBlock",
+        template: template("code-block-template"),
+        props: {
+            id: {
+                required: true,
+                type: Number
+            },
+            title: {
+                default: null,
+                type: String
+            }
+        },
+
+        methods: {
+            emit() { this.$vuert.emit(ALERTS[this.id]); }
+        }
+    });
+
     const SomeoneJust = Vue.defineComponent({
         name: "SomeoneJust",
         template: template("someone-just-template"),
@@ -123,6 +142,12 @@ document.addEventListener("DOMContentLoaded", () =>
     });
 
     const ALERTS = [
+        {
+            _id: 0,
+            type: "info",
+            message: "This is one of the simplest alerts you can implement!",
+            timeout: 2500
+        },
         {
             type: "info",
             priority: "high",
@@ -145,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () =>
 
     const app = Vue.createApp({
         name: "App",
-        components: { "alert-handler": Vuert.AlertHandler },
+        components: {
+            "alert-handler": Vuert.AlertHandler,
+            "code-block": CodeBlock
+        },
 
         data: () => ({
             title: "Vue.js + Alert",
@@ -159,6 +187,10 @@ document.addEventListener("DOMContentLoaded", () =>
         },
 
         methods: {
+            emitExample(index)
+            {
+                this.$vuert.emit(ALERTS[index]);
+            },
             emitRandomAlert()
             {
                 const alert = pickOne(ALERTS);
