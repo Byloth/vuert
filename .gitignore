@@ -17,6 +17,7 @@ Desktop.ini
 # Generated & compiled files
 #
 /dist/
+/docs/.vitepress/dist/
 
 /*.tgz
 

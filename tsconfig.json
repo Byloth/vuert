@@ -22,11 +22,13 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] },
-    "types": ["vite/client"]
+    "types": [
+      "vite/client",
+      "vitepress/client"
+    ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue"
+    "docs/**/*",
+    "src/**/*",
   ]
 }
