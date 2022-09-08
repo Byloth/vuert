@@ -29,6 +29,7 @@
   },
   "include": [
     "docs/**/*",
-    "src/**/*",
+    "docs/.vitepress/**/*",
+    "src/**/*"
   ]
 }

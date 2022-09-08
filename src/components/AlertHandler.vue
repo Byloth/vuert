@@ -10,6 +10,8 @@
 <script lang="ts" setup>
     import { nextTick, onMounted, onUnmounted, provide, reactive, ref } from "vue";
 
+    import { defineConfig } from "vitepress";
+
     import { useVuert } from "../index";
     import { injectionKeys } from "../core";
     import { RuntimeException, ValueException } from "../exceptions";
