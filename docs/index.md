@@ -1,3 +1,5 @@
-# Vuert.js
+<script lang="ts" setup>
+    import VuertHero from "./components/VuertHero.vue";
+</script>
 
-The headless alerts, notifications & popups library for Vue.js craftsmen.
+<VuertHero />

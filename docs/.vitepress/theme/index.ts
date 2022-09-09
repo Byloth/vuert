@@ -1,7 +1,7 @@
 import { EnhanceAppContext, Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
-import { createVuert } from "@/index";
+import { createVuert } from "@core/index";
 
 const VuertTheme: Theme = {
     ...DefaultTheme,

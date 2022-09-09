@@ -23,6 +23,9 @@ export default defineConfig({
   },
   plugins: [Vue()],
   resolve: {
-    alias: { "@": resolve(__dirname, "src") }
+    alias: {
+      "@core": resolve(__dirname, "src"),
+      "@docs": resolve(__dirname, "docs")
+    }
   }
 });

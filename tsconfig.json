@@ -21,7 +21,10 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] },
+    "paths": {
+      "@core/*": ["src/*"],
+      "@docs/*": ["docs/*"]
+    },
     "types": [
       "vite/client",
       "vitepress/client"
