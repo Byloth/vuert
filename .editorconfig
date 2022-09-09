@@ -10,7 +10,7 @@ indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.config.js]
+[{config.js,*.config.js}]
 indent_size = 2
 
 [.eslintrc.{cjs,js}]

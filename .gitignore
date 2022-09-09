@@ -13,11 +13,12 @@ Desktop.ini
 # Downloadable & installable modules & components
 #
 /node_modules/
+/docs/node_modules/
 
 # Generated & compiled files
 #
 /dist/
-/public/
+/docs/.vitepress/dist/
 
 /*.tgz
 

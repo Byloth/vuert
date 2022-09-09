@@ -6,7 +6,7 @@ import { createVuert } from "@/index";
 const VuertTheme: Theme = {
     ...DefaultTheme,
 
-    enhanceApp(context: EnhanceAppContext)
+    enhanceApp: (context: EnhanceAppContext): void =>
     {
         const vuert = createVuert({ });
 

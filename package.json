@@ -40,7 +40,7 @@
     "lint:prod": "export NODE_ENV=\"production\" && yarn lint",
     "ci": "yarn install --frozen-lockfile",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs && rmdir docs/node_modules",
+    "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
