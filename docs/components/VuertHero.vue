@@ -21,8 +21,7 @@
     {
         const alert = pickOne(Alerts);
 
-        console.log(alert);
-        // vuert.emit(alert as SimpleAlert);
+        vuert.emit(alert as SimpleAlert);
     };
 </script>
 

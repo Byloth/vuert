@@ -13,7 +13,6 @@
     "strict": true,
     "jsx": "preserve",
     "noEmit": true,
-    // "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -31,19 +30,13 @@
     ]
   },
   "include": [
-    "docs/**/*.js",
+    "docs/**/*",
     "docs/**/*.json",
-    "docs/**/*.ts",
-    "docs/**/*.vue",
 
-    "docs/.vitepress/**/*.js",
+    "docs/.vitepress/**/*",
     "docs/.vitepress/**/*.json",
-    "docs/.vitepress/**/*.ts",
-    "docs/.vitepress/**/*.vue",
 
-    "src/**/*.js",
-    "src/**/*.json",
-    "src/**/*.ts",
-    "src/**/*.vue",
+    "src/**/*",
+    "src/**/*.json"
   ]
 }
