@@ -31,8 +31,19 @@
     ]
   },
   "include": [
-    "docs/**/*",
-    "docs/.vitepress/**/*",
-    "src/**/*"
+    "docs/**/*.js",
+    "docs/**/*.json",
+    "docs/**/*.ts",
+    "docs/**/*.vue",
+
+    "docs/.vitepress/**/*.js",
+    "docs/.vitepress/**/*.json",
+    "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.vue",
+
+    "src/**/*.js",
+    "src/**/*.json",
+    "src/**/*.ts",
+    "src/**/*.vue",
   ]
 }
