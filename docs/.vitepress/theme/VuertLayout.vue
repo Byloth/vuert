@@ -18,6 +18,7 @@
         </Transition>
     </AlertHandler>
     <Layout />
+    <VuertFooter />
 </template>
 
 <script lang="ts" setup>
@@ -26,6 +27,7 @@
     import { AlertHandler } from "@core/index";
     import { Alert } from "@core/types";
 
+    import VuertFooter from "@docs/components/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
     import ToastAlert from "@docs/components/alerts/ToastAlert.vue";
 
@@ -41,6 +43,13 @@
         transition: background-color 250ms ease, color 250ms ease;
     }
 
+    .VPHomeHero
+    {
+        .tagline
+        {
+            transition: color 250ms ease;
+        }
+    }
     .VPNav
     {
         transition: background-color 250ms ease, color 250ms ease;
@@ -53,14 +62,23 @@
             {
                 transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
 
-                .label
+                .group
                 {
-                    transition: color 125ms ease;
+                    transition: border-color 250ms ease;
+
+                    .label
+                    {
+                        transition: color 250ms ease;
+                    }
                 }
             }
-            .VPNavBarTitle > a.title
+            .VPNavBarTitle > .title
             {
                 transition: color 250ms ease, opacity 250ms ease;
+            }
+            .VPSocialLinks > .VPSocialLink
+            {
+                transition: color 250ms ease;
             }
         }
 
@@ -74,7 +92,16 @@
 
                 .text
                 {
-                    transition: color 62.5ms ease;
+                    transition: color 250ms ease;
+                }
+            }
+            .VPNavScreenMenu > .VPNavScreenMenuGroup
+            {
+                transition: border-color 250ms;
+
+                & > .button
+                {
+                    transition: color 250ms;
                 }
             }
         }

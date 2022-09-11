@@ -30,15 +30,15 @@
     {
         --hero-height: calc(100vh - var(--vp-nav-height));
 
-        @media (min-width: 768px)
-        {
-            --hero-height: calc(100vh - var(--vp-nav-height));
-        }
-
         align-items: center;
         display: flex;
         flex-direction: column;
         height: var(--hero-height);
         justify-content: space-evenly;
+
+        @media (min-width: 768px)
+        {
+            --hero-height: calc(100vh - var(--vp-nav-height));
+        }
     }
 </style>
