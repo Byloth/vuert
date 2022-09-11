@@ -35,5 +35,48 @@
     const toastFilter = (a: Alert<unknown>) => !a._id && a.priority === "low";
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    body
+    {
+        transition: background-color 250ms ease, color 250ms ease;
+    }
+
+    .VPNav
+    {
+        transition: background-color 250ms ease, color 250ms ease;
+
+        & > .VPNavBar
+        {
+            transition: background-color 250ms ease, border-color 250ms ease;
+
+            .VPMenu
+            {
+                transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+
+                .label
+                {
+                    transition: color 125ms ease;
+                }
+            }
+            .VPNavBarTitle > a.title
+            {
+                transition: color 250ms ease, opacity 250ms ease;
+            }
+        }
+
+        & > .VPNavScreen
+        {
+            transition: background-color 250ms ease;
+
+            .VPNavScreenAppearance
+            {
+                transition: background-color 250ms ease;
+
+                .text
+                {
+                    transition: color 62.5ms ease;
+                }
+            }
+        }
+    }
 </style>
