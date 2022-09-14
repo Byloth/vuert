@@ -1,14 +1,14 @@
 <template>
     <footer class="vuert-footer">
         <div class="container">
-            <p class="message">
+            <p class="license">
                 Released under the
                 <a class="link"
                    href="https://opensource.org/licenses/Apache-2.0"
                    target="_blank">Apache 2.0 License</a>.
             </p>
             <p class="copyright">
-                Copyright © 2021-{{ currentYear }}
+                Copyright © 2021-{{ new Date().getFullYear() }}
                 <a class="link"
                    href="https://www.byloth.net/"
                    target="_blank">Matteo Bilotta</a>.
@@ -18,17 +18,19 @@
 </template>
 
 <script lang="ts" setup>
-    import { ref } from "vue";
-
-    const currentYear = ref(new Date().getFullYear());
 </script>
 
 <style lang="scss" scoped>
     .vuert-footer
     {
-        border-top: 1px solid var(--vp-c-divider-light);
+        background-color: var(--vp-button-alt-bg);
+        bottom: 0px;
+        left: 0px;
         padding: 32px 24px;
-        transition: border-color 250ms ease;
+        position: fixed;
+        right: 0px;
+        transition: background-color 250ms ease, border-color 250ms ease;
+        z-index: -1;
 
         & > .container
         {
@@ -37,9 +39,9 @@
             text-align: center;
 
             & > .copyright,
-            & > .message
+            & > .license
             {
-                color: var(--vp-c-text-2);
+                color: var(--vp-button-alt-text);
                 font-size: 14px;
                 font-weight: 500;
                 line-height: 24px;
@@ -47,9 +49,9 @@
 
                 & > .link
                 {
-                    color: var(--vp-c-brand);
+                    color: var(--vuert-strong-link-color);
                     opacity: 0.875;
-                    transition: opacity 250ms ease;
+                    transition: color 250ms ease, opacity 250ms ease;
 
                     &:hover
                     {
