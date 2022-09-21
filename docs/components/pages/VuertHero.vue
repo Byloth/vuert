@@ -9,11 +9,11 @@
                     <span>The headless alerts, notifications &amp; popups library for Vue.js craftsmen.</span>
                 </p>
                 <div class="actions">
-                    <VuertButton>
-                        Get Started
+                    <VuertButton theme="brand" @click="emitRandomAlert">
+                        Surprise me!
                     </VuertButton>
                     <VuertButton>
-                        View on GitHub
+                        Get started
                     </VuertButton>
                 </div>
             </div>
@@ -26,7 +26,7 @@
     import { SimpleAlert } from "@core/types/alerts";
 
     import Alerts from "@docs/data/alerts.json";
-    import { pickOne } from "@docs/utils";
+    // import { pickOne } from "@docs/utils";
 
     import VuertButton from "../ui/VuertButton.vue";
 
@@ -34,7 +34,7 @@
 
     const emitRandomAlert = () =>
     {
-        const alert = pickOne(Alerts);
+        const alert = Alerts[1]; // pickOne(Alerts);
 
         vuert.emit(alert as SimpleAlert);
     };

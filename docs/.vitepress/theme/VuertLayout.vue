@@ -1,19 +1,20 @@
 <template>
-    <AlertHandler v-slot="alert"
+    <AlertHandler v-slot="{ alert, close, isOpen }"
                   class="modal-handler"
                   :filter="modalFilter">
         <Transition name="modal" mode="in-out">
             <ModalAlert v-if="alert"
-                        v-show="alert.isOpen"
-                        :alert="alert" />
+                        v-show="isOpen"
+                        :alert="alert"
+                        :close="close" />
         </Transition>
     </AlertHandler>
-    <AlertHandler v-slot="alert"
+    <AlertHandler v-slot="{ alert, close, isOpen }"
                   class="toast-handler"
                   :filter="toastFilter">
         <Transition name="toast" mode="in-out">
             <ToastAlert v-if="alert"
-                        v-show="alert.isOpen"
+                        v-show="isOpen"
                         :alert="alert" />
         </Transition>
     </AlertHandler>
@@ -38,6 +39,12 @@
 </script>
 
 <style lang="scss">
+    $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
+
+    @import "@fortawesome/fontawesome-free/scss/fontawesome";
+    @import "@fortawesome/fontawesome-free/scss/solid";
+    @import "@fortawesome/fontawesome-free/scss/brands";
+
     :root
     {
         --vuert-strong-link-color: var(--vp-c-brand-dark);
@@ -118,5 +125,61 @@
                 }
             }
         }
+    }
+
+    .flex
+    {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        &.horizontal
+        {
+            flex-direction: row;
+        }
+    }
+    .overlay
+    {
+        background-color: rgba(0, 0, 0, 0.5);
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 21;
+    }
+
+    .modal-enter-active,
+    .modal-leave-active
+    {
+        transition: opacity 200ms ease-in-out;
+
+        & > .modal
+        {
+            transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+        }
+    }
+    .modal-enter-from,
+    .modal-leave-to
+    {
+        opacity: 0;
+
+        & > .modal
+        {
+            transform: translateY(-12.5%);
+        }
+    }
+
+    .toast-enter-active,
+    .toast-leave-active
+    {
+        transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+    }
+    .toast-enter-from,
+    .toast-leave-to
+    {
+        opacity: 0;
+        transform: translateX(33.333%);
     }
 </style>
