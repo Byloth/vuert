@@ -10,11 +10,11 @@ export default defineConfig({
       name: "Vuert"
     },
     rollupOptions: {
-      external: [/* "@byloth/exceptions", */ "vue"],
+      external: ["@byloth/exceptions", "vue"],
       output: {
         exports: "named",
         globals: {
-          // "@byloth/exceptions": "Exceptions",
+          "@byloth/exceptions": "Exceptions",
           "vue": "Vue"
         },
         sourcemap: true
@@ -23,6 +23,9 @@ export default defineConfig({
   },
   plugins: [Vue()],
   resolve: {
-    alias: { "@": resolve(__dirname, "src") }
+    alias: {
+      "@core": resolve(__dirname, "src"),
+      "@docs": resolve(__dirname, "docs")
+    }
   }
 });

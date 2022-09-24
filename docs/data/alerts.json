@@ -1,0 +1,22 @@
+[
+  {
+    "_id": 0,
+    "type": "info",
+    "message": "This is one of the simplest alerts you can implement!",
+    "timeout": 2500
+  },
+  {
+    "type": "info",
+    "priority": "high",
+    "icon": "person-digging",
+    "title": "Work in progess!",
+    "message": "Sorry... We aren't ready yet! 🥺\n\nOur team (it's just me) is still working on this docs page!\nPlease, be a little more patient and come back later! 👋",
+    "dismissable": true,
+    "actions": [{
+      "id": "confirm",
+      "type": "primary",
+      "icon": "hand-peace",
+      "label": "Gotcha!"
+    }]
+  }
+]

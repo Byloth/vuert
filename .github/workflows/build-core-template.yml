@@ -1,4 +1,4 @@
-name: "<npm build template>"
+name: "<build:core template>"
 on:
   workflow_call:
 
@@ -21,7 +21,7 @@ jobs:
       - name: Types integrity check
         run: yarn check:types
       - name: Source code build
-        run: yarn build
+        run: yarn build:core
       - name: Artifact creation
         run: |
           PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
@@ -32,5 +32,5 @@ jobs:
       - name: Artifact upload
         uses: actions/upload-artifact@v3
         with:
-          name: byloth-vuert
+          name: byloth-vuert-core
           path: package

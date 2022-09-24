@@ -13,7 +13,6 @@
     "strict": true,
     "jsx": "preserve",
     "noEmit": true,
-    // "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -21,12 +20,23 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] },
-    "types": ["vite/client"]
+    "paths": {
+      "@core/*": ["src/*"],
+      "@docs/*": ["docs/*"]
+    },
+    "types": [
+      "vite/client",
+      "vitepress/client"
+    ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue"
+    "docs/**/*",
+    "docs/**/*.json",
+
+    "docs/.vitepress/**/*",
+    "docs/.vitepress/**/*.json",
+
+    "src/**/*",
+    "src/**/*.json"
   ]
 }

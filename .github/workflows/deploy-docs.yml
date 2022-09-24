@@ -9,8 +9,29 @@ concurrency:
 
 jobs:
   docs-build:
-    name: Docs
-    uses: ./.github/workflows/build-template.yml
+    name: Docs build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Source code clone
+        uses: actions/checkout@v3
+      - name: Node.js 16 (LTS) setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Dependencies installation
+        run: yarn ci
+      - name: Coding standard check
+        run: yarn lint:prod
+      - name: Types integrity check
+        run: yarn check:types
+      - name: Source code build
+        run: yarn build
+      - name: Artifact upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: byloth-vuert-docs
+          path: docs/.vitepress/dist
 
   docs-deploy:
     name: GitHub Pages deploy
@@ -25,7 +46,7 @@ jobs:
       - name: Artifact download
         uses: actions/download-artifact@v3
         with:
-          name: byloth-vuert
+          name: byloth-vuert-docs
 
       - name: GitHub Pages setup
         uses: actions/configure-pages@v1
