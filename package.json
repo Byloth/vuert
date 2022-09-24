@@ -32,16 +32,15 @@
   },
   "types": "./src/index.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "vitepress dev docs",
+    "build": "yarn build:core && yarn build:docs",
+    "build:core": "vite build",
+    "build:docs": "vitepress build docs",
+    "preview": "vitepress serve docs",
     "check:types": "vue-tsc",
     "lint": "eslint --ext .js,.json,.ts,.vue --ignore-path .gitignore .",
     "lint:prod": "export NODE_ENV=\"production\" && yarn lint",
-    "ci": "yarn install --frozen-lockfile",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@byloth/exceptions": "^1.0.0",

@@ -6,7 +6,7 @@ on:
 jobs:
   artifact-build:
     name: Artifact
-    uses: ./.github/workflows/build-template.yml
+    uses: ./.github/workflows/build-core-template.yml
 
   npm-release:
     name: NPM
