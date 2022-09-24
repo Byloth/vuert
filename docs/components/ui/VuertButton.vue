@@ -1,16 +1,24 @@
 <template>
-    <button class="vuert-button medium" :class="theme">
+    <button class="vuert-button" :class="classes">
         <slot></slot>
     </button>
 </template>
 
 <script lang="ts" setup>
-    defineProps({
+    import { computed } from "vue";
+
+    const props = defineProps({
+        size: {
+            default: "medium",
+            type: String
+        },
         theme: {
             default: "alt",
             type: String
         }
     });
+
+    const classes = computed((): string[] => [props.theme, props.size]);
 </script>
 
 <style lang="scss" scoped>
@@ -61,12 +69,27 @@
                 color: var(--vp-button-brand-active-text);
             }
         }
+
+        &.small
+        {
+            border-radius: 16px;
+            font-size: 12px;
+            line-height: 30px;
+            padding: 0px 16px;
+        }
         &.medium
         {
             border-radius: 20px;
             font-size: 14px;
             line-height: 38px;
             padding: 0 20px;
+        }
+        &.big
+        {
+            border-radius: 24px;
+            font-size: 16px;
+            line-height: 46px;
+            padding: 0px 24px;
         }
     }
 </style>

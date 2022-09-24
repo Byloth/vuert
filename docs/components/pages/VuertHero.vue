@@ -9,10 +9,12 @@
                     <span>The headless alerts, notifications &amp; popups library for Vue.js craftsmen.</span>
                 </p>
                 <div class="actions">
-                    <VuertButton theme="brand" @click="emitRandomAlert">
+                    <VuertButton size="medium"
+                                 theme="brand"
+                                 @click="emitRandomAlert">
                         Surprise me!
                     </VuertButton>
-                    <VuertButton>
+                    <VuertButton size="medium">
                         Get started
                     </VuertButton>
                 </div>

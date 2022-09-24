@@ -25,6 +25,7 @@
                              :key="action.id"
                              class="button"
                              :class="action.type"
+                             size="small"
                              @click="close">
                     <span v-if="action.icon"
                           class="fa-solid"
@@ -55,8 +56,8 @@
 <style lang="scss" scoped>
     .modal
     {
-        background-color: #FFFFFF;
-        border: 1px solid #D7D7D7;
+        background-color: var(--vp-c-bg);
+        border: 1px solid var(--vp-c-divider-light);
         border-radius: 1em;
         box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
 
@@ -70,11 +71,12 @@
 
         & > .modal-header
         {
-            border-bottom: 1px solid #D7D7D7;
+            border-bottom: 1px solid var(--vp-c-divider-light);
 
             & > .modal-title
             {
                 flex: 1;
+                font-weight: bold;
                 margin-bottom: 0;
 
                 & > .fa-solid
@@ -86,6 +88,7 @@
             {
                 background: none;
                 border: none;
+                font-size: 1em;
                 opacity: 0.5;
                 transition: opacity 200ms ease-in-out;
 
@@ -98,13 +101,14 @@
 
         & > .modal-body > .modal-message
         {
-            font-family: "Ubuntu";
-            margin-bottom: 0;
+            font-family: var(--vp-font-family-base);
+            font-size: 0.875em;
+            margin: 0px;
         }
 
         & > .modal-footer
         {
-            border-top: 1px solid #D7D7D7;
+            border-top: 1px solid var(--vp-c-divider-light);
             flex-direction: row-reverse;
             justify-content: end;
 

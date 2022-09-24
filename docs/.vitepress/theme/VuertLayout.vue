@@ -23,19 +23,43 @@
 </template>
 
 <script lang="ts" setup>
+    import { onMounted } from "vue";
     import DefaultTheme from "vitepress/theme";
 
-    import { AlertHandler } from "@core/index";
+    import { useVuert, AlertHandler } from "@core/index";
     import { Alert } from "@core/types";
 
     import VuertFooter from "@docs/components/globals/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
     import ToastAlert from "@docs/components/alerts/ToastAlert.vue";
 
+    import { random } from "@docs/utils";
+
     const { Layout } = DefaultTheme;
 
     const modalFilter = (a: Alert<unknown>) => !a._id && a.priority === "high";
     const toastFilter = (a: Alert<unknown>) => !a._id && a.priority === "low";
+
+    const vuert = useVuert();
+
+    const emitRandomAlert = () =>
+    {
+        const delay = random(10, 30) * 1000;
+
+        setTimeout(async () =>
+        {
+            await vuert.emit({
+                type: "info",
+                priority: "low",
+                timeout: 7500
+            });
+
+            emitRandomAlert();
+
+        }, delay);
+    };
+
+    onMounted(emitRandomAlert);
 </script>
 
 <style lang="scss">
@@ -66,7 +90,7 @@
     .VPContent
     {
         background-color: var(--vp-c-bg);
-        height: 100vh;
+        min-height: 100vh;
         transition: background-color 250ms ease;
     }
     .VPNav
@@ -147,7 +171,7 @@
         position: fixed;
         right: 0;
         top: 0;
-        z-index: 21;
+        z-index: 22;
     }
 
     .modal-enter-active,
