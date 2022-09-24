@@ -48,7 +48,7 @@
         },
         close: {
             required: true,
-            type: Object
+            type: Function
         }
     });
 </script>

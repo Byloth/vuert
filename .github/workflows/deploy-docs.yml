@@ -23,8 +23,8 @@ jobs:
         run: yarn ci
       - name: Coding standard check
         run: yarn lint:prod
-      - name: Types integrity check
-        run: yarn check:types
+      # - name: Types integrity check
+      #   run: yarn check:types
       - name: Source code build
         run: yarn build
       - name: Artifact upload

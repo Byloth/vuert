@@ -9,7 +9,7 @@
                         :close="close" />
         </Transition>
     </AlertHandler>
-    <AlertHandler v-slot="{ alert, close, isOpen }"
+    <AlertHandler v-slot="{ alert, isOpen }"
                   class="toast-handler"
                   :filter="toastFilter">
         <Transition name="toast" mode="in-out">

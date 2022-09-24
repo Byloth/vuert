@@ -16,6 +16,10 @@ module.exports = {
       rules: { "indent": ["error", 2, { SwitchCase: 1 }] }
     },
     {
+      files: ["*.json"],
+      rules: { "max-len": "off" }
+    },
+    {
       files: ["*.ts"],
       rules: { "no-dupe-class-members": "off" }
     }
