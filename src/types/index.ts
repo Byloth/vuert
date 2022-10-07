@@ -1,25 +1,23 @@
 import { Component } from "vue";
 
-import { SimpleAction } from "./actions";
+import { Props } from "@core/core/types";
+
+import { Action } from "./actions";
 import { CoreAlert } from "./alerts/core";
 
-export interface Action<T> extends SimpleAction
+export interface ActionOptions<R> extends Action
 {
-    result?: () => T;
+    callback?: () => R;
 }
-export interface Alert<T> extends CoreAlert
+export interface AlertOptions<R> extends Partial<CoreAlert>
 {
-    icon?: string;
-    title?: string;
     message?: string;
+
     component?: Component;
+    props?: Props;
 
-    // TODO: Passare delle `props` al componente?
-    //       Come posso rendere le informazioni dinamiche, in caso contrario?
-    //
-
-    actions?: Action<T>[];
+    actions?: ActionOptions<R>[];
 }
 
-export type AlertListener<T> = (alert: Alert<T>) => Promise<T> | undefined;
-export type PromiseResolver<T> = (result: T | PromiseLike<T>) => void;
+export type AlertListener<R> = (alert: AlertOptions<R>) => Promise<R> | undefined;
+export type PromiseResolver<R> = (result: R | PromiseLike<R>) => void;

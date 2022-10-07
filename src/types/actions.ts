@@ -1,12 +1,11 @@
-export interface SimpleAction
+export interface Action
 {
-    id: string;
+    id: symbol;
     type: "primary" | "secondary" | "accent";
+    icon?: string;
     label: string;
-
-    // TODO: Aggiungere il tipo `icon` anche qui? 🤔
 }
-export interface ActionWithResult<T> extends SimpleAction
+export interface ActionWithResult<R> extends Action
 {
-    result: () => T;
+    callback: () => R;
 }

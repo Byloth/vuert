@@ -8,17 +8,16 @@
 </template>
 
 <script lang="ts" setup>
-    import { nextTick, onMounted, onUnmounted, provide, reactive, ref } from "vue";
+    import { nextTick, onMounted, onUnmounted, reactive, ref } from "vue";
 
     import { useVuert } from "../index";
-    import { injectionKeys } from "../core";
     import { RuntimeException, ValueException } from "../exceptions";
     import { Alert, PromiseResolver } from "../types";
 
-    interface AlertWrapper<T>
+    interface AlertWrapper<R>
     {
-        properties: Alert<T>;
-        resolver: PromiseResolver<T>;
+        properties: Alert<R>;
+        resolver: PromiseResolver<R>;
     }
 
     const vuert = useVuert();
@@ -49,9 +48,9 @@
     const alerts = reactive<AlertWrapper<unknown>[]>([]);
     const alert = ref<AlertWrapper<unknown> | undefined>();
 
-    let openedTimeout: number;
-    let closingTimeout: number;
-    let closedTimeout: number;
+    let openedTimeout: number | undefined;
+    let closingTimeout: number | undefined;
+    let closedTimeout: number | undefined;
 
     const open = (_alert: AlertWrapper<unknown>) =>
     {
@@ -76,11 +75,17 @@
                     throw new ValueException("Alert `timeout` value must be greater than 0 or -at least- `undefined`.");
                 }
 
-                closingTimeout = setTimeout(close, timeout);
+                closingTimeout = setTimeout(() =>
+                {
+                    close();
+
+                    closingTimeout = undefined;
+                }, timeout);
             }
 
             emit("onOpened");
 
+            openedTimeout = undefined;
         }, props.duration);
 
         emit("onOpening");
@@ -98,6 +103,8 @@
         if (closingTimeout)
         {
             clearTimeout(closingTimeout);
+
+            closingTimeout = undefined;
         }
 
         isOpen.value = false;
@@ -125,6 +132,7 @@
                 _alert.resolver(result);
                 resolve();
 
+                closedTimeout = undefined;
             }, props.duration);
         });
     };
@@ -158,16 +166,20 @@
         if (openedTimeout)
         {
             clearTimeout(openedTimeout);
+
+            openedTimeout = undefined;
         }
         if (closingTimeout)
         {
             clearTimeout(closingTimeout);
+
+            closingTimeout = undefined;
         }
         if (closedTimeout)
         {
             clearTimeout(closedTimeout);
+
+            closedTimeout = undefined;
         }
     });
-
-    provide(injectionKeys.close, close);
 </script>

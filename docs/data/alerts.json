@@ -11,7 +11,7 @@
     "icon": "person-digging",
     "title": "Work in progess!",
     "message": "Sorry... We aren't ready yet! 🥺\n\nOur team (it's just me) is still working on this docs page!\nPlease, be a little more patient and come back later! 👋",
-    "dismissable": true,
+    "dismissible": true,
     "actions": [{
       "id": "confirm",
       "type": "primary",

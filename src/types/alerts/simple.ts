@@ -6,8 +6,13 @@ export interface SimpleAlert extends CoreAlert
     message: string;
 }
 
-export type BlockingAlert = SimpleAlert & { dismissable?: false; timeout?: undefined };
-export type DismissableAlert = SimpleAlert & ({ dismissable: true; } | { timeout: number });
+type Blocking = { dismissible?: false; timeout?: undefined };
+type Dismissible = { dismissible: true; } | { timeout: number };
 
-export type AlertWithResult<T> = BlockingAlert & { actions: ActionWithResult<T>[]; };
-export type AlertWithUncertainResult<T> = DismissableAlert & { actions: ActionWithResult<T>[]; };
+export type BlockingAlert = SimpleAlert & Blocking;
+export type DismissibleAlert = SimpleAlert & Dismissible;
+
+type WithResult<R> = { actions: ActionWithResult<R>[]; };
+
+export type AlertWithResult<R> = BlockingAlert & WithResult<R>;
+export type AlertWithUncertainResult<R> = DismissibleAlert & WithResult<R>;

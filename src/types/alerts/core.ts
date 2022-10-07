@@ -1,15 +1,13 @@
-import { SimpleAction } from "../actions";
+import { Action } from "../actions";
 
 export interface CoreAlert
 {
-    // TODO: È corretto rendere obbligatorio il tipo?
-    //       Non potrebbe essere opzionale, in alcuni casi?
-    //
-    type: "error" | "warning" | "info" | "success";
-    priority?: "high" | "low";
+    id: symbol;
+    type: "info" | "success" | "warning" | "error" | "question";
+    priority: "high" | "normal" | "low";
     icon?: string;
     title?: string;
-    actions?: SimpleAction[];
-    timeout?: number;
-    dismissable?: boolean;
+    actions: Action[];
+    dismissible: boolean;
+    timeout: number;
 }
