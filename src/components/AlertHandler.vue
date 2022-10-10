@@ -6,11 +6,13 @@
 </template>
 
 <script lang="ts" setup>
-    import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from "vue";
+    import { computed, nextTick, onMounted, onUnmounted } from "vue";
 
     import { useVuert } from "../index";
-    import { RuntimeException, UnattainableException, ValueException } from "../exceptions";
+
     import Alert from "../models/alert";
+
+    import { UnattainableException } from "../exceptions";
     import { AlertOptions } from "../models/alert/types";
 
     const vuert = useVuert();
@@ -24,7 +26,7 @@
             type: Number
         },
         filter: {
-            default: (alert: AlertOptions<unknown>) => true,
+            default: (_alert: AlertOptions<unknown>) => true,
             type: Function
         }
     });
@@ -36,95 +38,62 @@
         "onClosed"
     ]);
 
-    const alerts = reactive<Alert<unknown>[]>([]);
+    const alerts: Alert<unknown>[] = [];
     const alert = computed((): Alert<unknown> | undefined => (alerts.length > 0) ? alerts[0] : undefined);
 
-    let openedTimeout: number | undefined;
-    let closingTimeout: number | undefined;
-    let closedTimeout: number | undefined;
+    let _openedTimeout: number | undefined;
+    let _closedTimeout: number | undefined;
 
     const open = () =>
     {
-        openedTimeout = setTimeout(() =>
+        emit("onOpening");
+
+        _openedTimeout = setTimeout(() =>
         {
-            const _alert = alert.value;
-            if (_alert === undefined)
+            if (alert.value === undefined)
             {
                 throw new UnattainableException();
             }
 
-            const timeout = _alert.timeout;
-            if (timeout !== undefined)
-            {
-                closingTimeout = setTimeout(() =>
-                {
-                    close();
+            alert.value.open();
 
-                    closingTimeout = undefined;
-                }, timeout);
-            }
-
-            _alert.open();
             emit("onOpened");
 
-            openedTimeout = undefined;
+            _openedTimeout = undefined;
         }, props.duration);
-
-        emit("onOpening");
     };
-    const close = (result?: unknown) =>
+    const close = () =>
     {
-        if (closingTimeout)
-        {
-            clearTimeout(closingTimeout);
-
-            closingTimeout = undefined;
-        }
-
         emit("onClosing");
 
-        return new Promise<void>((resolve, reject) =>
+        _closedTimeout = setTimeout(() =>
         {
-            closedTimeout = setTimeout(() =>
+            alerts.shift();
+
+            nextTick(() =>
             {
-                const _alert = alert.value!;
-
-                alerts.shift();
-
-                nextTick(() =>
+                if (alert.value)
                 {
-                    if (alert.value)
-                    {
-                        open();
-                    }
-                });
+                    open();
+                }
+            });
 
-                emit("onClosed");
+            emit("onClosed");
 
-                _alert.close(result);
-                resolve();
-
-                closedTimeout = undefined;
-            }, props.duration);
-        });
+            _closedTimeout = undefined;
+        }, props.duration);
     };
 
-    let unsubscribe: () => void;
-
+    let _unsubscribe: () => void;
     onMounted(() =>
     {
-        unsubscribe = vuert.subscribe(<T>(options: AlertOptions<T>) =>
+        _unsubscribe = vuert.subscribe((options: AlertOptions<unknown>) =>
         {
             if (props.filter(options))
             {
-                return new Promise<T>((resolve, reject) =>
+                return new Promise<unknown>((resolve, reject) =>
                 {
-                    const _alert = new Alert<T>(options);
-
-                    _alert.close = resolve;
-
-                    alerts.push(_alert);
-
+                    alerts.push(new Alert<unknown>(options, { close, resolve, reject }));
                     if (alerts.length === 1)
                     {
                         open();
@@ -135,25 +104,17 @@
     });
     onUnmounted(() =>
     {
-        unsubscribe();
+        _unsubscribe();
 
-        if (openedTimeout)
+        if (_openedTimeout !== undefined)
         {
-            clearTimeout(openedTimeout);
-
-            openedTimeout = undefined;
+            clearTimeout(_openedTimeout);
+            _openedTimeout = undefined;
         }
-        if (closingTimeout)
+        if (_closedTimeout !== undefined)
         {
-            clearTimeout(closingTimeout);
-
-            closingTimeout = undefined;
-        }
-        if (closedTimeout)
-        {
-            clearTimeout(closedTimeout);
-
-            closedTimeout = undefined;
+            clearTimeout(_closedTimeout);
+            _closedTimeout = undefined;
         }
     });
 </script>
