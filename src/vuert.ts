@@ -1,6 +1,8 @@
-import { Alert, AlertListener } from "./types";
-import { SimpleAlert, AlertWithResult, AlertWithUncertainResult } from "./types/alerts/simple";
-import { CustomAlert, CustomAlertWithResult, CustomAlertWithUncertainResult } from "./types/alerts/custom";
+import { AlertListener } from "./types";
+
+import { AlertOptions } from "./models/alert/types";
+import { BlockingAlert, DismissibleAlert } from "./models/alert/types/simple";
+import { BlockingCustomAlert, DismissibleCustomAlert } from "./models/alert/types/custom";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface VuertOptions { /* ... */ }
@@ -15,13 +17,11 @@ export default class Vuert
         this._subscribers = [];
     }
 
-    public emit(alert: SimpleAlert): Promise<void>;
-    public emit(alert: CustomAlert): Promise<void>;
-    public emit<T>(alert: AlertWithResult<T>): Promise<T>;
-    public emit<T>(alert: CustomAlertWithResult<T>): Promise<T>;
-    public emit<T>(alert: AlertWithUncertainResult<T>): Promise<T | undefined>;
-    public emit<T>(alert: CustomAlertWithUncertainResult<T>): Promise<T | undefined>;
-    public emit<T = void>(alert: Alert<T>): Promise<T | undefined>
+    public emit<R = void>(alert: BlockingAlert<R>): Promise<R>;
+    public emit<R = void>(alert: DismissibleAlert<R>): Promise<R | void>;
+    public emit<R = void>(alert: BlockingCustomAlert<R>): Promise<R>;
+    public emit<R = void>(alert: DismissibleCustomAlert<R>): Promise<R | void>;
+    public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>
     {
         const subscribers = this._subscribers.slice();
         const results = subscribers.map((subscriber) => subscriber(alert));
@@ -29,7 +29,7 @@ export default class Vuert
         return Promise.any(results.filter((element) => !!(element)));
     }
 
-    public subscribe<T = unknown>(listener: AlertListener<T>): () => AlertListener<T>
+    public subscribe<R = unknown>(listener: AlertListener<R>): () => AlertListener<R>
     {
         this._subscribers.push(listener);
 

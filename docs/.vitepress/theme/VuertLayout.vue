@@ -26,8 +26,8 @@
     import { onMounted } from "vue";
     import DefaultTheme from "vitepress/theme";
 
-    import { useVuert, AlertHandler } from "@core/index";
-    import { Alert } from "@core/types";
+    import { useVuert, AlertHandler } from "@vuert/index";
+    import { AlertOptions } from "@vuert/models/alert/types";
 
     import VuertFooter from "@docs/components/globals/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
@@ -37,8 +37,8 @@
 
     const { Layout } = DefaultTheme;
 
-    const modalFilter = (a: Alert<unknown>) => !a._id && a.priority === "high";
-    const toastFilter = (a: Alert<unknown>) => !a._id && a.priority === "low";
+    const modalFilter = (a: AlertOptions<unknown>) => !a.id && a.priority === "high";
+    const toastFilter = (a: AlertOptions<unknown>) => !a.id && a.priority === "low";
 
     const vuert = useVuert();
 
@@ -49,7 +49,7 @@
         setTimeout(async () =>
         {
             await vuert.emit({
-                type: "info",
+                message: "",
                 priority: "low",
                 timeout: 7500
             });

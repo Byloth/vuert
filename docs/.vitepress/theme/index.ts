@@ -1,7 +1,7 @@
 import { EnhanceAppContext, Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 
-import { createVuert } from "@core/index";
+import { createVuert } from "@vuert/index";
 
 import VuertLayout from "./VuertLayout.vue";
 

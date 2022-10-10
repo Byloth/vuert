@@ -8,7 +8,7 @@
                           :class="`fa-${alert.icon}`"></span>
                     <span v-if="alert.title">{{ alert.title }}</span>
                 </h5>
-                <button v-if="alert.dismissable"
+                <button v-if="alert.dismissible"
                         class="modal-close"
                         @click="close">
                     <span class="fa-solid fa-circle-xmark"></span>
