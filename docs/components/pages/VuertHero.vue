@@ -24,8 +24,9 @@
 </template>
 
 <script lang="ts" setup>
-    import { useVuert } from "@core/index";
-    import { SimpleAlert } from "@core/types/alerts";
+    import { useVuert } from "@vuert/index";
+
+    import { AlertOptions } from "@vuert/models/alert/types";
 
     import Alerts from "@docs/data/alerts.json";
     // import { pickOne } from "@docs/utils";
@@ -36,9 +37,9 @@
 
     const emitRandomAlert = () =>
     {
-        const alert = Alerts[1]; // pickOne(Alerts);
+        const alert = Alerts[1] as unknown; // pickOne(Alerts);
 
-        vuert.emit(alert as SimpleAlert);
+        vuert.emit(alert as AlertOptions<unknown>);
     };
 </script>
 

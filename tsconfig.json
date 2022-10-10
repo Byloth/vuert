@@ -21,7 +21,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["src/*"],
+      "@vuert/*": ["src/*"],
       "@docs/*": ["docs/*"]
     },
     "types": [

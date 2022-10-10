@@ -1,6 +1,6 @@
 import { IAction, ActionOptions } from "./types";
 
-export default class Action<R> implements IAction<R>
+export default class Action<R = void> implements IAction<R>
 {
     public id: symbol;
     public type: "primary" | "secondary" | "alternative";

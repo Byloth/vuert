@@ -1,11 +1,13 @@
 import { Component } from "vue";
 
-import { Props } from "@core/core/types";
+import { Props } from "@vuert/core/types";
 
 import { CoreAlert, BlockingMixin, DismissibleMixin } from "./core";
 
 export interface CustomAlert<R = void> extends CoreAlert<R>
 {
+    message?: undefined;
+
     component: Component;
     props?: Props;
 }

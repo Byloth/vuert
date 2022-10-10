@@ -1,12 +1,18 @@
 import { Component } from "vue";
 
-import { Props } from "@core/core/types";
+import { Props } from "@vuert/core/types";
+import { RuntimeException } from "@vuert/exceptions";
 
-import { IAlert, AlertOptions, SimpleAlertOptions, CustomAlertOptions } from "./types";
 import Action from "../action";
-import AlertHandlerVue from "@core/components/AlertHandler.vue";
 
-export default class Alert<R = void> implements IAlert<R>
+import { AlertOptions } from "./types";
+import { IAlert } from "./types/core";
+
+type MaybePromise<T> = T | PromiseLike<T>;
+type AlertResolver<T> = (result: MaybePromise<T>) => void;
+type AlertRejecter = (reason: Error) => void;
+
+export default class Alert<R = void> extends Promise<R> implements IAlert<R>
 {
     public id: symbol;
 
@@ -26,10 +32,23 @@ export default class Alert<R = void> implements IAlert<R>
     public dismissible: boolean;
     public timeout: number;
 
-    public constructor(options: SimpleAlertOptions<R>);
-    public constructor(options: CustomAlertOptions<R>);
+    protected _isOpen: boolean;
+    public get isOpen(): boolean
+    {
+        return this._isOpen;
+    }
+
+    protected _resolver!: AlertResolver<R>;
+    protected _rejecter!: AlertRejecter;
+
     public constructor(options: AlertOptions<R>)
     {
+        super((resolve, reject) =>
+        {
+            this._resolver = resolve;
+            this._rejecter = reject;
+        });
+
         this.id = (options.id !== undefined) ? options.id : Symbol();
 
         this.type = (options.type !== undefined) ? options.type : "info";
@@ -47,14 +66,40 @@ export default class Alert<R = void> implements IAlert<R>
 
         this.dismissible = (options.dismissible || false);
         this.timeout = (options.timeout !== undefined) ? options.timeout : 0;
+
+        this._isOpen = false;
+    }
+
+    public open(): void
+    {
+        if (this._isOpen)
+        {
+            throw new RuntimeException("Unable to open this alert. It has already been opened.");
+        }
+
+        this._isOpen = true;
+    }
+
+    public resolve(result: MaybePromise<R>): void
+    {
+        if (!this._isOpen)
+        {
+            throw new RuntimeException("Unable to close this alert. It has already been closed.");
+        }
+
+        this._isOpen = false;
+
+        this._resolver(result);
+    }
+    public reject(reason: Error): void
+    {
+        if (!this._isOpen)
+        {
+            throw new RuntimeException("Unable to close this alert. It has already been closed.");
+        }
+
+        this._isOpen = false;
+
+        this._rejecter(reason);
     }
 }
-
-const myAlert = new Alert({
-    // message: "",
-    actions: [{ label: "Ok" }],
-    component: AlertHandlerVue,
-    props: {
-        is: "div"
-    }
-});

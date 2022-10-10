@@ -1,6 +1,5 @@
 [
   {
-    "_id": 0,
     "type": "info",
     "message": "This is one of the simplest alerts you can implement!",
     "timeout": 2500
