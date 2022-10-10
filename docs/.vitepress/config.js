@@ -12,15 +12,21 @@ export default defineConfig({
   lastUpdated: true,
   themeConfig: {
     nav: [
-      { text: "Guide", link: "/guide" },
-      { text: "Configs", link: "/configs" },
+      { text: "Guide", link: "/guide/" },
+      { text: "Configs", link: "/configs/" },
       {
         text: "1.0.0-rc1",
-        items: [
-          { text: "Releases", link: `${REPO_HOME}/releases` }
-        ]
+        items: [{ text: "Releases", link: `${REPO_HOME}/releases` }]
       }
     ],
+    sidebar: [{
+      text: "Introduction",
+      collapsible: true,
+      items: [
+        { text: "What is Vuert.js?", link: "/guide/what-is-vuertjs" },
+        { text: "Getting started", link: "/guide/getting-started" }
+      ]
+    }],
     socialLinks: [{ icon: "github", link: REPO_HOME }]
   },
 

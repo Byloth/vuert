@@ -87,12 +87,6 @@
         transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease;
     }
 
-    .VPContent
-    {
-        background-color: var(--vp-c-bg);
-        min-height: 100vh;
-        transition: background-color 250ms ease;
-    }
     .VPNav
     {
         box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.25);
@@ -116,13 +110,24 @@
                     }
                 }
             }
-            .VPNavBarTitle > .title
+            .VPNavBarTitle
             {
-                transition: color 250ms ease, opacity 250ms ease;
+                border-bottom: none;
+
+                & > .title
+                {
+                    transition: color 250ms ease, opacity 250ms ease;
+                }
             }
-            .VPSocialLinks > .VPSocialLink
+
+            .content
             {
-                transition: color 250ms ease;
+                transition: background-color 250ms ease;
+
+                & > .VPSocialLinks > .VPSocialLink
+                {
+                    transition: color 250ms ease;
+                }
             }
         }
 
@@ -149,6 +154,16 @@
                 }
             }
         }
+    }
+    .VPSidebar
+    {
+        transition: background-color 250ms ease, opacity 250ms ease, transform 250ms ease !important;
+    }
+    .VPContent
+    {
+        background-color: var(--vp-c-bg);
+        min-height: 100vh;
+        transition: background-color 250ms ease;
     }
 
     .flex
