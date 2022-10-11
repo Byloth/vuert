@@ -3,7 +3,7 @@ import { Component } from "vue";
 import { Props } from "@vuert/core/types";
 import { IAction, ActionOptions } from "@vuert/models/action/types";
 
-export interface IAlert<R = void>
+export interface IAlert
 {
     id: symbol;
 
@@ -18,16 +18,16 @@ export interface IAlert<R = void>
     component?: Component;
     props?: Props;
 
-    actions: IAction<R>[];
+    actions: IAction[];
 
     dismissible: boolean;
     timeout: number;
 }
 
-type PartialAlert<R> = Partial<IAlert<R>>;
+type PartialAlert = Partial<IAlert>;
 type OmittedProperty = "message" | "component" | "props" | "actions";
-type OmittedAlert<R> = Omit<PartialAlert<R>, OmittedProperty>;
-export interface CoreAlert<R = void> extends OmittedAlert<R>
+type OmittedAlert = Omit<PartialAlert, OmittedProperty>;
+export interface CoreAlert<R = void> extends OmittedAlert
 {
     actions?: ActionOptions<R>[];
 }

@@ -11,7 +11,7 @@
                 <div class="actions">
                     <VuertButton size="medium"
                                  theme="brand"
-                                 @click="emitRandomAlert">
+                                 @click="emitAlert">
                         Surprise me!
                     </VuertButton>
                     <VuertButton size="medium">
@@ -26,20 +26,29 @@
 <script lang="ts" setup>
     import { useVuert } from "@vuert/index";
 
-    import { AlertOptions } from "@vuert/models/alert/types";
-
-    import Alerts from "@docs/data/alerts.json";
-    // import { pickOne } from "@docs/utils";
-
     import VuertButton from "../ui/VuertButton.vue";
 
     const vuert = useVuert();
 
-    const emitRandomAlert = () =>
+    const emitAlert = () =>
     {
-        const alert = Alerts[1] as unknown; // pickOne(Alerts);
+        vuert.emit({
+            type: "info",
+            priority: "high",
+            icon: "person-digging",
+            title: "Work in progress!",
+            message:
+                "Sorry... We aren't ready yet! 🥺\n\n" +
+                "Our team (it's just me) is still working on this docs page!\n" +
+                "Please, be a little more patient and come back later! 👋",
 
-        vuert.emit(alert as AlertOptions<unknown>);
+            dismissible: true,
+            actions: [{
+                type: "primary",
+                icon: "hand-peace",
+                label: "Gotcha!"
+            }]
+        });
     };
 </script>
 

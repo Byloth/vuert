@@ -8,6 +8,8 @@
 </template>
 
 <script lang="ts" setup>
+    import Alert from "@vuert/models/alert";
+
     import Actions from "@docs/data/actions.json";
     import People from "@docs/data/people.json";
 
@@ -15,8 +17,8 @@
 
     defineProps({
         alert: {
-            required: true,
-            type: Object
+            default: undefined,
+            type: Alert
         }
     });
 

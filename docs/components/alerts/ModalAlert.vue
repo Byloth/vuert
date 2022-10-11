@@ -10,7 +10,7 @@
                 </h5>
                 <button v-if="alert.dismissible"
                         class="modal-close"
-                        @click="close">
+                        @click="alert.dismiss">
                     <span class="fa-solid fa-circle-xmark"></span>
                 </button>
             </div>
@@ -26,7 +26,7 @@
                              class="button"
                              :class="action.type"
                              size="small"
-                             @click="close">
+                             @click="action.callback">
                     <span v-if="action.icon"
                           class="fa-solid"
                           :class="`fa-${action.icon}`">
@@ -39,16 +39,14 @@
 </template>
 
 <script lang="ts" setup>
+    import Alert from "@vuert/models/alert";
+
     import VuertButton from "../ui/VuertButton.vue";
 
     defineProps({
         alert: {
             required: true,
-            type: Object
-        },
-        close: {
-            required: true,
-            type: Function
+            type: Alert
         }
     });
 </script>

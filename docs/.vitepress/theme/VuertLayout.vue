@@ -1,21 +1,20 @@
 <template>
-    <AlertHandler v-slot="{ alert, close, isOpen }"
+    <AlertHandler v-slot="{ alert }"
                   class="modal-handler"
                   :filter="modalFilter">
         <Transition name="modal" mode="in-out">
             <ModalAlert v-if="alert"
-                        v-show="isOpen"
-                        :alert="alert"
-                        :close="close" />
+                        v-show="alert.isOpen"
+                        :alert="alert" />
         </Transition>
     </AlertHandler>
-    <AlertHandler v-slot="{ alert, isOpen }"
+    <AlertHandler v-slot="{ alert }"
                   class="toast-handler"
                   :filter="toastFilter">
         <Transition name="toast" mode="in-out">
-            <ToastAlert v-if="alert"
-                        v-show="isOpen"
-                        :alert="alert" />
+            <Component :is="alert.component"
+                       v-if="alert"
+                       v-show="alert.isOpen" />
         </Transition>
     </AlertHandler>
     <Layout />
@@ -37,29 +36,29 @@
 
     const { Layout } = DefaultTheme;
 
-    const modalFilter = (a: AlertOptions<unknown>) => !a.id && a.priority === "high";
-    const toastFilter = (a: AlertOptions<unknown>) => !a.id && a.priority === "low";
+    const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
+    const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
 
     const vuert = useVuert();
 
-    const emitRandomAlert = () =>
+    const emitToast = () =>
     {
         const delay = random(10, 30) * 1000;
 
         setTimeout(async () =>
         {
             await vuert.emit({
-                message: "",
+                component: ToastAlert,
                 priority: "low",
                 timeout: 7500
             });
 
-            emitRandomAlert();
+            emitToast();
 
         }, delay);
     };
 
-    onMounted(emitRandomAlert);
+    onMounted(emitToast);
 </script>
 
 <style lang="scss">

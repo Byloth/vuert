@@ -2,24 +2,21 @@ import { Component } from "vue";
 
 import { Props } from "@vuert/core/types";
 import { InvalidOperationException, RuntimeException, ValueException } from "@vuert/exceptions";
+import { MaybePromise, PromiseResolver, PromiseRejecter } from "@vuert/types";
 
 import Action from "../action";
 
 import { AlertOptions } from "./types";
 import { IAlert } from "./types/core";
 
-type MaybePromise<T> = T | PromiseLike<T>;
-type AlertResolver<T> = (result?: MaybePromise<T>) => void;
-type AlertRejecter = (reason: Error) => void;
-
 interface AlertClosures<R>
 {
     close: () => void;
-    resolve: AlertResolver<R | undefined>;
-    reject: AlertRejecter;
+    resolve: PromiseResolver<R | undefined>;
+    reject: PromiseRejecter;
 }
 
-export default class Alert<R = void> implements IAlert<R>
+export default class Alert<R = void> implements IAlert
 {
     public readonly id: symbol;
 
@@ -47,8 +44,8 @@ export default class Alert<R = void> implements IAlert<R>
     }
 
     protected _closer: () => void;
-    protected _resolver: AlertResolver<R | undefined>;
-    protected _rejecter: AlertRejecter;
+    protected _resolver: PromiseResolver<R | undefined>;
+    protected _rejecter: PromiseRejecter;
 
     public constructor(options: AlertOptions<R>, closures: AlertClosures<R>)
     {
@@ -71,7 +68,8 @@ export default class Alert<R = void> implements IAlert<R>
         this.component = options.component;
         this.props = options.props;
 
-        this.actions = (options.actions !== undefined) ? options.actions.map((a) => new Action(a)) : [];
+        this.actions = (options.actions !== undefined) ?
+            options.actions.map((a) => new Action(a, { resolve: this.resolve as PromiseResolver<R | undefined> })) : [];
 
         this.dismissible = (options.dismissible || false);
 
