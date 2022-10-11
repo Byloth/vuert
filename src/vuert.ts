@@ -1,8 +1,9 @@
-import { AlertListener } from "./types";
+import { AlertHandler } from "./types";
 
 import { AlertOptions } from "./types/alert";
 import { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
 import { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
+import { RuntimeException } from "./exceptions";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface VuertOptions { /* ... */ }
@@ -10,11 +11,11 @@ export interface VuertOptions { /* ... */ }
 export default class Vuert
 {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected _subscribers: AlertListener<any>[];
+    protected _handlers: AlertHandler<any>[];
 
     public constructor(options?: VuertOptions)
     {
-        this._subscribers = [];
+        this._handlers = [];
     }
 
     public emit<R = void>(alert: BlockingAlert<R>): Promise<R>;
@@ -23,16 +24,24 @@ export default class Vuert
     public emit<R = void>(alert: DismissibleCustomAlert<R>): Promise<R | void>;
     public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>
     {
-        const subscribers = this._subscribers.slice();
-        const results = subscribers.map((subscriber) => subscriber(alert));
+        const handlers = this._handlers.slice();
+        const promises = handlers.map((handler) => handler(alert));
 
-        return Promise.any(results.filter((element) => !!(element)));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const results = promises.filter((element) => !!(element)) as Promise<any>[];
+
+        if (!results)
+        {
+            throw new RuntimeException("Unable to handle the emitted alert. There wasn't found any supported handler.");
+        }
+
+        return Promise.any(results);
     }
 
-    public subscribe<R = unknown>(listener: AlertListener<R>): () => AlertListener<R>
+    public subscribe<R = unknown>(handler: AlertHandler<R>): () => AlertHandler<R>
     {
-        this._subscribers.push(listener);
+        this._handlers.push(handler);
 
-        return () => this._subscribers.splice(this._subscribers.indexOf(listener), 1)[0];
+        return () => this._handlers.splice(this._handlers.indexOf(handler), 1)[0];
     }
 }

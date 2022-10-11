@@ -1,13 +1,6 @@
 import { Exception } from "@byloth/exceptions";
 
-export class ImplementationException extends Exception
-{
-    public constructor(message?: string, cause?: unknown, name = "ImplementationException")
-    {
-        super(message, cause, name);
-    }
-}
-export class UnattainableException extends ImplementationException
+export class UnattainableException extends Exception
 {
     public constructor(message?: string, cause?: unknown, name = "UnattainableException")
     {
@@ -22,9 +15,9 @@ export class UnattainableException extends ImplementationException
     }
 }
 
-export class InvalidOperationException extends Exception
+export class InstanceException extends Exception
 {
-    public constructor(message?: string, cause?: unknown, name = "InvalidOperationException")
+    public constructor(message?: string, cause?: unknown, name = "InstanceException")
     {
         super(message, cause, name);
     }
@@ -32,6 +25,13 @@ export class InvalidOperationException extends Exception
 export class RuntimeException extends Exception
 {
     public constructor(message?: string, cause?: unknown, name = "RuntimeException")
+    {
+        super(message, cause, name);
+    }
+}
+export class ValidationException extends Exception
+{
+    public constructor(message?: string, cause?: unknown, name = "ValidationException")
     {
         super(message, cause, name);
     }

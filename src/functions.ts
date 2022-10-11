@@ -1,7 +1,7 @@
 import { inject, App, Plugin } from "vue";
 
 import { InjectionKeys } from "./core";
-import { ImplementationException } from "./exceptions";
+import { InstanceException } from "./exceptions";
 import Vuert, { VuertOptions } from "./vuert";
 
 export const createVuert = (options?: VuertOptions): Plugin =>
@@ -22,7 +22,7 @@ export const useVuert = (): Vuert =>
     const $vuert = inject(InjectionKeys.$vuert);
     if (!$vuert)
     {
-        throw new ImplementationException(
+        throw new InstanceException(
             "`useVuert` was called with no active instance. " +
             "Did you forget to install `Vuert` plugin in your App?"
         );

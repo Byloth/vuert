@@ -1,9 +1,9 @@
 import { Component } from "vue";
 
-import { InvalidOperationException, RuntimeException, ValueException } from "@vuert/exceptions";
+import { RuntimeException, ValidationException, ValueException } from "@vuert/exceptions";
 import { MaybePromise, PromiseResolver, PromiseRejecter } from "@vuert/types";
 
-import { Props } from "../types";
+import { Props } from "../types/core";
 import { IAlert, AlertOptions } from "../types/alert";
 
 import Action from "./action";
@@ -133,8 +133,7 @@ export default class Alert<R = void> implements IAlert
         }
         if (!this.dismissible)
         {
-            throw new InvalidOperationException("You cannot dismiss an alert that" +
-                                                " hasn't been defined as `dismissible`.");
+            throw new ValidationException("You cannot dismiss an alert that hasn't been defined as `dismissible`.");
         }
 
         this._close();
