@@ -8,12 +8,11 @@
 <script lang="ts" setup>
     import { computed, nextTick, onMounted, onUnmounted } from "vue";
 
-    import { useVuert } from "../index";
+    import { useVuert } from "..";
+    import { UnattainableException } from "../exceptions";
+    import { AlertOptions } from "../types/alert";
 
     import Alert from "../models/alert";
-
-    import { UnattainableException } from "../exceptions";
-    import { AlertOptions } from "../models/alert/types";
 
     const vuert = useVuert();
     const props = defineProps({

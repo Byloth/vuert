@@ -26,7 +26,7 @@
     import DefaultTheme from "vitepress/theme";
 
     import { useVuert, AlertHandler } from "@vuert/index";
-    import { AlertOptions } from "@vuert/models/alert/types";
+    import { AlertOptions } from "@vuert/types/alert";
 
     import VuertFooter from "@docs/components/globals/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";

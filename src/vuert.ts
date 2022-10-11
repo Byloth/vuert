@@ -1,8 +1,8 @@
 import { AlertListener } from "./types";
 
-import { AlertOptions } from "./models/alert/types";
-import { BlockingAlert, DismissibleAlert } from "./models/alert/types/simple";
-import { BlockingCustomAlert, DismissibleCustomAlert } from "./models/alert/types/custom";
+import { AlertOptions } from "./types/alert";
+import { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
+import { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface VuertOptions { /* ... */ }

@@ -1,13 +1,12 @@
 import { Component } from "vue";
 
-import { Props } from "@vuert/core/types";
 import { InvalidOperationException, RuntimeException, ValueException } from "@vuert/exceptions";
 import { MaybePromise, PromiseResolver, PromiseRejecter } from "@vuert/types";
 
-import Action from "../action";
+import { Props } from "../types";
+import { IAlert, AlertOptions } from "../types/alert";
 
-import { AlertOptions } from "./types";
-import { IAlert } from "./types/core";
+import Action from "./action";
 
 interface AlertClosures<R>
 {

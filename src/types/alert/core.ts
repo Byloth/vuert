@@ -1,7 +1,7 @@
 import { Component } from "vue";
 
-import { Props } from "@vuert/core/types";
-import { IAction, ActionOptions } from "@vuert/models/action/types";
+import { Props } from "..";
+import { IAction, ActionOptions } from "../action";
 
 export interface IAlert
 {

@@ -1,6 +1,6 @@
 import { PromiseResolver } from "@vuert/types";
 
-import { IAction, ActionOptions } from "./types";
+import { IAction, ActionOptions } from "../types/action";
 
 interface AlertClosures<R>
 {
