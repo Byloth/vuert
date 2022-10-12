@@ -10,8 +10,7 @@ export interface VuertOptions { /* ... */ }
 
 export default class Vuert
 {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected _handlers: AlertHandler<any>[];
+    protected _handlers: AlertHandler<unknown>[];
 
     public constructor(options?: VuertOptions)
     {
@@ -26,22 +25,26 @@ export default class Vuert
     {
         const handlers = this._handlers.slice();
         const promises = handlers.map((handler) => handler(alert));
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const results = promises.filter((element) => !!(element)) as Promise<any>[];
+        const results = promises.filter((element) => !!(element)) as Promise<unknown>[];
 
         if (!results)
         {
-            throw new RuntimeException("Unable to handle the emitted alert. There wasn't found any supported handler.");
+            throw new RuntimeException("Unable to handle the emitted alert properly. " +
+                                       "There wasn't found any supported handler.");
         }
 
-        return Promise.any(results);
+        return Promise.any(results) as Promise<R | void>;
     }
 
     public subscribe<R = unknown>(handler: AlertHandler<R>): () => AlertHandler<R>
     {
-        this._handlers.push(handler);
+        this._handlers.push(handler as AlertHandler<unknown>);
 
-        return () => this._handlers.splice(this._handlers.indexOf(handler), 1)[0];
+        return () =>
+        {
+            const index = this._handlers.indexOf(handler as AlertHandler<unknown>);
+
+            return this._handlers.splice(index, 1)[0] as AlertHandler<R>;
+        };
     }
 }

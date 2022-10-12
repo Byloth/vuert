@@ -10,7 +10,7 @@ import Action from "./action";
 
 interface AlertClosures<R>
 {
-    close: () => void;
+    close: (alert: Alert<R>) => void;
     resolve: PromiseResolver<R | undefined>;
     reject: PromiseRejecter;
 }
@@ -42,7 +42,7 @@ export default class Alert<R = void> implements IAlert
         return this._isOpen;
     }
 
-    protected _closer: () => void;
+    protected _closer: (alert: this) => void;
     protected _resolver: PromiseResolver<R | undefined>;
     protected _rejecter: PromiseRejecter;
 
@@ -76,7 +76,8 @@ export default class Alert<R = void> implements IAlert
         {
             if (options.timeout <= 0)
             {
-                throw new ValueException("The `timeout` property must be a positive integer.");
+                throw new ValueException("The `timeout` property must be a positive" +
+                                         " integer or -at least- `undefined`.");
             }
 
             this.timeout = options.timeout;
@@ -102,7 +103,7 @@ export default class Alert<R = void> implements IAlert
         }
 
         this._isOpen = false;
-        this._closer();
+        this._closer(this);
     }
 
     public open(): void
@@ -110,16 +111,6 @@ export default class Alert<R = void> implements IAlert
         if (this._isOpen)
         {
             throw new RuntimeException("Unable to open the alert. It has already been opened.");
-        }
-
-        if (this.timeout)
-        {
-            this._timeoutId = setTimeout(() =>
-            {
-                this._close();
-                this._resolver();
-
-            }, this.timeout);
         }
 
         this._isOpen = true;
@@ -159,5 +150,20 @@ export default class Alert<R = void> implements IAlert
 
         this._close();
         this._rejecter(reason);
+    }
+
+    public setTimeout(): void
+    {
+        if (!this.timeout)
+        {
+            throw new ValueException("The `timeout` value wasn't defined during alert's initialization.");
+        }
+
+        this._timeoutId = setTimeout(() =>
+        {
+            this._close();
+            this._resolver();
+
+        }, this.timeout);
     }
 }

@@ -1,15 +1,16 @@
 <template>
     <Component :is="is">
-        <slot :alert="alert">
-        </slot>
+        <slot :alert="alert"></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
-    import { computed, nextTick, onMounted, onUnmounted } from "vue";
+    import { nextTick, onMounted, onUnmounted, ref } from "vue";
+
+    import { handle } from "@byloth/exceptions";
 
     import { useVuert } from "..";
-    import { UnattainableException } from "../exceptions";
+    import { UnattainableException, ValueException } from "../exceptions";
     import { AlertOptions } from "../types/alert";
 
     import Alert from "../models/alert";
@@ -38,46 +39,61 @@
     ]);
 
     const alerts: Alert<unknown>[] = [];
-    const alert = computed((): Alert<unknown> | undefined => (alerts.length > 0) ? alerts[0] : undefined);
+    const alert = ref<Alert<unknown>>();
 
     let _openedTimeout: number | undefined;
     let _closedTimeout: number | undefined;
 
-    const open = () =>
+    const open = (_alert: Alert<unknown>): void =>
     {
+        alert.value = _alert;
+        alert.value.open();
+
         emit("onOpening");
 
         _openedTimeout = setTimeout(() =>
         {
-            if (alert.value === undefined)
-            {
-                throw new UnattainableException();
-            }
-
-            alert.value.open();
-
             emit("onOpened");
+
+            try
+            {
+                _alert.setTimeout();
+            }
+            catch (error)
+            {
+                // TODO: Aggiungere alla libreria `@byloth/exceptions` il metodo `ignore`.
+                //
+                handle(error)
+                    .on(ValueException)
+                    .do(() => { /* ... */ })
+                    .end();
+            }
 
             _openedTimeout = undefined;
         }, props.duration);
     };
-    const close = () =>
+    const close = (_alert: Alert<unknown>): void =>
     {
+        if (alert.value !== _alert)
+        {
+            throw new UnattainableException();
+        }
+
         emit("onClosing");
 
         _closedTimeout = setTimeout(() =>
         {
             alerts.shift();
-
-            nextTick(() =>
-            {
-                if (alert.value)
-                {
-                    open();
-                }
-            });
+            alert.value = undefined;
 
             emit("onClosed");
+            nextTick(() =>
+            {
+                if (alerts.length > 0)
+                {
+                    open(alerts[0]);
+                }
+            });
 
             _closedTimeout = undefined;
         }, props.duration);
@@ -95,7 +111,7 @@
                     alerts.push(new Alert<unknown>(options, { close, resolve, reject }));
                     if (alerts.length === 1)
                     {
-                        open();
+                        open(alerts[0]);
                     }
                 });
             }
