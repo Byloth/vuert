@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AlertHandler } from "./types";
 
 import { AlertOptions } from "./types/alert";
@@ -10,7 +12,7 @@ export interface VuertOptions { /* ... */ }
 
 export default class Vuert
 {
-    protected _handlers: AlertHandler<unknown>[];
+    protected _handlers: AlertHandler<any>[];
 
     public constructor(options?: VuertOptions)
     {
@@ -25,26 +27,26 @@ export default class Vuert
     {
         const handlers = this._handlers.slice();
         const promises = handlers.map((handler) => handler(alert));
-        const results = promises.filter((element) => !!(element)) as Promise<unknown>[];
+        const results = promises.filter((element) => !!(element)) as Promise<any>[];
 
-        if (!results)
+        if (!results.length)
         {
             throw new RuntimeException("Unable to handle the emitted alert properly. " +
                                        "There wasn't found any supported handler.");
         }
 
-        return Promise.any(results) as Promise<R | void>;
+        return Promise.any(results);
     }
 
-    public subscribe<R = unknown>(handler: AlertHandler<R>): () => AlertHandler<R>
+    public subscribe<R>(handler: AlertHandler<R>): () => AlertHandler<R>
     {
-        this._handlers.push(handler as AlertHandler<unknown>);
+        this._handlers.push(handler);
 
-        return () =>
+        return (): AlertHandler<R> =>
         {
-            const index = this._handlers.indexOf(handler as AlertHandler<unknown>);
+            const index = this._handlers.indexOf(handler);
 
-            return this._handlers.splice(index, 1)[0] as AlertHandler<R>;
+            return this._handlers.splice(index, 1)[0];
         };
     }
 }

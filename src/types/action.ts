@@ -1,16 +1,17 @@
-export interface IAction
+export interface IAction<R>
 {
     id: symbol;
     type: "primary" | "secondary" | "alternative";
     icon?: string;
     label: string;
 
-    callback: () => void;
+    callback: () => R | undefined;
 }
-type PartialAction = Partial<IAction>;
-type OmittedAction = Omit<PartialAction, "callback">;
 
-export interface ActionOptions<R = void> extends OmittedAction
+type PartialAction<R> = Partial<IAction<R>>;
+type OmittedAction<R> = Omit<PartialAction<R>, "callback">;
+
+export interface ActionOptions<R = void> extends OmittedAction<R>
 {
     label: string;
 

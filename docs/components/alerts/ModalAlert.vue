@@ -26,7 +26,7 @@
                              class="button"
                              :class="action.type"
                              size="small"
-                             @click="action.callback">
+                             @click="alert.resolve(action.callback())">
                     <span v-if="action.icon"
                           class="fa-solid"
                           :class="`fa-${action.icon}`">

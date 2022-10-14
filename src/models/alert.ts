@@ -8,10 +8,10 @@ import { IAlert, AlertOptions } from "../types/alert";
 
 import Action from "./action";
 
-interface AlertClosures<R>
+interface AlertClosures<R = void>
 {
     close: (alert: Alert<R>) => void;
-    resolve: PromiseResolver<R | undefined>;
+    resolve: PromiseResolver<R>;
     reject: PromiseRejecter;
 }
 
@@ -43,7 +43,8 @@ export default class Alert<R = void> implements IAlert
     }
 
     protected _closer: (alert: this) => void;
-    protected _resolver: PromiseResolver<R | undefined>;
+
+    protected _resolver: PromiseResolver<R>;
     protected _rejecter: PromiseRejecter;
 
     public constructor(options: AlertOptions<R>, closures: AlertClosures<R>)
@@ -68,7 +69,7 @@ export default class Alert<R = void> implements IAlert
         this.props = options.props;
 
         this.actions = (options.actions !== undefined) ?
-            options.actions.map((a) => new Action(a, { resolve: this.resolve as PromiseResolver<R | undefined> })) : [];
+            options.actions.map((a) => new Action(a)) : [];
 
         this.dismissible = (options.dismissible || false);
 
@@ -131,7 +132,7 @@ export default class Alert<R = void> implements IAlert
         this._resolver();
     }
 
-    public resolve(result: MaybePromise<R>): void
+    public resolve(result?: MaybePromise<R | undefined>): void
     {
         if (!this._isOpen)
         {

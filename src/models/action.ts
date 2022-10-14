@@ -1,23 +1,16 @@
-import { PromiseResolver } from "@vuert/types";
-
 import { IAction, ActionOptions } from "../types/action";
 
-interface AlertClosures<R>
+export default class Action<R = void> implements IAction<R>
 {
-    resolve: PromiseResolver<R | undefined>;
-}
+    public readonly id: symbol;
+    public readonly type: "primary" | "secondary" | "alternative";
 
-export default class Action<R = void> implements IAction
-{
-    public id: symbol;
-    public type: "primary" | "secondary" | "alternative";
+    public readonly icon?: string | undefined;
+    public readonly label: string;
 
-    public icon?: string | undefined;
-    public label: string;
+    public readonly callback: () => R | undefined;
 
-    public callback: () => void;
-
-    public constructor(options: ActionOptions<R>, closures: AlertClosures<R>)
+    public constructor(options: ActionOptions<R>)
     {
         this.id = (options.id !== undefined) ? options.id : Symbol();
         this.type = (options.type !== undefined) ? options.type : "secondary";
@@ -25,7 +18,6 @@ export default class Action<R = void> implements IAction
         this.icon = options.icon;
         this.label = options.label;
 
-        const _callback = (options.callback !== undefined) ? options.callback : () => undefined;
-        this.callback = () => closures.resolve(_callback());
+        this.callback = (options.callback !== undefined) ? options.callback : () => undefined;
     }
 }

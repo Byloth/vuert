@@ -74,7 +74,7 @@
     };
     const close = (_alert: Alert<unknown>): void =>
     {
-        if (alert.value !== _alert)
+        if (alert.value?.id !== _alert.id)
         {
             throw new UnattainableException();
         }
