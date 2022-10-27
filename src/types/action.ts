@@ -9,9 +9,9 @@ export interface IAction<R>
 }
 
 type PartialAction<R> = Partial<IAction<R>>;
-type OmittedAction<R> = Omit<PartialAction<R>, "callback">;
+type OmittedAction = Omit<PartialAction<never>, "callback">;
 
-export interface ActionOptions<R = void> extends OmittedAction<R>
+export interface ActionOptions<R = void> extends OmittedAction
 {
     label: string;
 

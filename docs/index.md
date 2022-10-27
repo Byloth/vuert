@@ -18,7 +18,7 @@ layout: home
             Stop struggling in vain!
         </p>
     </VuertFeature>
-    <VuertFeature icon="🧠">
+    <VuertFeature icon="🧟">
         <h2 class="title">
             Completely Headless
         </h2>
@@ -26,7 +26,7 @@ layout: home
             It's just pure logic!
         </p>
     </VuertFeature>
-    <VuertFeature icon="🛠️">
+    <VuertFeature icon="🧞">
         <h2 class="title">
             Simply Managed
         </h2>
@@ -34,7 +34,7 @@ layout: home
             It's disaster proof!
         </p>
     </VuertFeature>
-    <VuertFeature icon="👨‍💻">
+    <VuertFeature icon="💎">
         <h2 class="title">
             Meticulously Typed
         </h2>

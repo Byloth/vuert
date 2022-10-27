@@ -1,19 +1,25 @@
 <template>
     <Component :is="is">
-        <slot :alert="alert"></slot>
+        <slot v-if="context"
+              :alert="context.alert"
+              :is-open="context.isOpen"
+              :dismiss="context.dismiss"
+              :resolve="context.resolve"
+              :reject="context.reject"></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
-    import { nextTick, onMounted, onUnmounted, ref } from "vue";
+    /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    import { handle } from "@byloth/exceptions";
+    import { onMounted, onUnmounted, PropType, shallowRef } from "vue";
 
     import { useVuert } from "..";
-    import { UnattainableException, ValueException } from "../exceptions";
+    import { UnattainableException } from "../exceptions";
+    import { Context } from "../models";
+    import { PromiseClosures } from "../types";
     import { AlertOptions } from "../types/alert";
-
-    import Alert from "../models/alert";
+    import { delay, update } from "../utils";
 
     const vuert = useVuert();
     const props = defineProps({
@@ -23,11 +29,15 @@
         },
         duration: {
             default: 200,
-            type: Number
+            type: [Number, String],
+
+            // TODO: Add support for `{ enter: number, leave: number }` type property.
+            //
+            validator: (value: unknown): boolean => isFinite(Number(value))
         },
         filter: {
-            default: (_alert: AlertOptions<unknown>) => true,
-            type: Function
+            default: (options: AlertOptions<unknown>) => true,
+            type: Function as PropType<(options: AlertOptions<unknown>) => boolean>
         }
     });
 
@@ -38,98 +48,67 @@
         "onClosed"
     ]);
 
-    const alerts: Alert<unknown>[] = [];
-    const alert = ref<Alert<unknown>>();
+    const contexts: Context<any>[] = [];
+    const context = shallowRef<Context<any>>();
 
-    let _openedTimeout: number | undefined;
-    let _closedTimeout: number | undefined;
-
-    const open = (_alert: Alert<unknown>): void =>
+    const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>) =>
     {
-        alert.value = _alert;
-        alert.value.open();
+        contexts.push(new Context(options, { close, resolve, reject }));
 
+        if (contexts.length === 1)
+        {
+            open(contexts[0]);
+        }
+    };
+
+    const open = async <R>(ctx: Context<R>): Promise<void> =>
+    {
+        const enterDuration = Number(props.duration);
+
+        context.value = ctx;
+
+        ctx.opening();
         emit("onOpening");
 
-        _openedTimeout = setTimeout(() =>
-        {
-            emit("onOpened");
+        await delay(enterDuration);
 
-            try
-            {
-                _alert.setTimeout();
-            }
-            catch (error)
-            {
-                // TODO: Aggiungere alla libreria `@byloth/exceptions` il metodo `ignore`.
-                //
-                handle(error)
-                    .on(ValueException)
-                    .do(() => { /* ... */ })
-                    .end();
-            }
-
-            _openedTimeout = undefined;
-        }, props.duration);
+        emit("onOpened");
+        ctx.opened();
     };
-    const close = (_alert: Alert<unknown>): void =>
+    const close = async <R>(ctx: Context<R>): Promise<void> =>
     {
-        if (alert.value?.id !== _alert.id)
+        const leaveDuration = Number(props.duration);
+
+        if (context.value?.alert.id !== ctx.alert.id)
         {
             throw new UnattainableException();
         }
 
         emit("onClosing");
+        await delay(leaveDuration);
+        emit("onClosed");
 
-        _closedTimeout = setTimeout(() =>
+        contexts.shift();
+        context.value = undefined;
+
+        await update();
+
+        if (contexts.length > 0)
         {
-            alerts.shift();
-            alert.value = undefined;
-
-            emit("onClosed");
-            nextTick(() =>
-            {
-                if (alerts.length > 0)
-                {
-                    open(alerts[0]);
-                }
-            });
-
-            _closedTimeout = undefined;
-        }, props.duration);
+            open(contexts[0]);
+        }
     };
 
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = vuert.subscribe((options: AlertOptions<unknown>) =>
+        _unsubscribe = vuert.subscribe(<R>(options: AlertOptions<R>) =>
         {
             if (props.filter(options))
             {
-                return new Promise<unknown>((resolve, reject) =>
-                {
-                    alerts.push(new Alert<unknown>(options, { close, resolve, reject }));
-                    if (alerts.length === 1)
-                    {
-                        open(alerts[0]);
-                    }
-                });
+                return new Promise<R>((resolve, reject) => register(options, { resolve, reject }));
             }
         });
     });
-    onUnmounted(() =>
-    {
-        _unsubscribe();
-
-        if (_openedTimeout !== undefined)
-        {
-            clearTimeout(_openedTimeout);
-            _openedTimeout = undefined;
-        }
-        if (_closedTimeout !== undefined)
-        {
-            clearTimeout(_closedTimeout);
-            _closedTimeout = undefined;
-        }
-    });
+    onUnmounted(() => _unsubscribe());
 </script>

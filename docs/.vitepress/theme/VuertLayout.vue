@@ -1,20 +1,23 @@
 <template>
-    <AlertHandler v-slot="{ alert }"
+    <AlertHandler v-slot="{ alert, isOpen, dismiss, resolve }"
                   class="modal-handler"
                   :filter="modalFilter">
-        <Transition name="modal" mode="in-out">
-            <ModalAlert v-if="alert"
-                        v-show="alert.isOpen"
-                        :alert="alert" />
+        <Transition appear
+                    name="modal"
+                    mode="in-out">
+            <ModalAlert v-if="isOpen"
+                        :alert="alert"
+                        :dismiss="dismiss"
+                        :resolve="resolve" />
         </Transition>
     </AlertHandler>
-    <AlertHandler v-slot="{ alert }"
+    <AlertHandler v-slot="{ alert, isOpen }"
                   class="toast-handler"
                   :filter="toastFilter">
-        <Transition name="toast" mode="in-out">
-            <Component :is="alert.component"
-                       v-if="alert"
-                       v-show="alert.isOpen" />
+        <Transition appear
+                    name="toast"
+                    mode="in-out">
+            <Component :is="alert.component" v-if="isOpen" />
         </Transition>
     </AlertHandler>
     <Layout />
@@ -83,86 +86,21 @@
         border-bottom: 1px solid var(--vp-c-divider-light);
         box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.5);
         margin-bottom: 112px;
-        transition: background-color 250ms ease, border-color 250ms ease, color 250ms ease;
     }
 
     .VPNav
     {
         box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.25);
-        transition: background-color 250ms ease, color 250ms ease;
 
-        & > .VPNavBar
+        & > .VPNavBar > .VPNavBarTitle
         {
-            transition: background-color 250ms ease, border-color 250ms ease;
-
-            .VPMenu
-            {
-                transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
-
-                .group
-                {
-                    transition: border-color 250ms ease;
-
-                    .label
-                    {
-                        transition: color 250ms ease;
-                    }
-                }
-            }
-            .VPNavBarTitle
-            {
-                border-bottom: none;
-
-                & > .title
-                {
-                    transition: color 250ms ease, opacity 250ms ease;
-                }
-            }
-
-            .content
-            {
-                transition: background-color 250ms ease;
-
-                & > .VPSocialLinks > .VPSocialLink
-                {
-                    transition: color 250ms ease;
-                }
-            }
+            border-bottom: none;
         }
-
-        & > .VPNavScreen
-        {
-            transition: background-color 250ms ease;
-
-            .VPNavScreenAppearance
-            {
-                transition: background-color 250ms ease;
-
-                .text
-                {
-                    transition: color 250ms ease;
-                }
-            }
-            .VPNavScreenMenu > .VPNavScreenMenuGroup
-            {
-                transition: border-color 250ms;
-
-                & > .button
-                {
-                    transition: color 250ms;
-                }
-            }
-        }
-    }
-    .VPSidebar
-    {
-        transition: background-color 250ms ease, opacity 250ms ease, transform 250ms ease !important;
     }
     .VPContent
     {
         background-color: var(--vp-c-bg);
         min-height: 100vh;
-        transition: background-color 250ms ease;
     }
 
     .flex

@@ -3,7 +3,7 @@ import { Component } from "vue";
 import { Props } from "../core";
 import { IAction, ActionOptions } from "../action";
 
-export interface IAlert
+export interface IAlert<R = void>
 {
     id: symbol;
 
@@ -18,15 +18,15 @@ export interface IAlert
     component?: Component;
     props?: Props;
 
-    actions: IAction[];
+    actions: IAction<R>[];
 
     dismissible: boolean;
     timeout: number;
 }
 
-type PartialAlert = Partial<IAlert>;
+type PartialAlert<R> = Partial<IAlert<R>>;
 type OmittedProperty = "message" | "component" | "props" | "actions";
-type OmittedAlert = Omit<PartialAlert, OmittedProperty>;
+type OmittedAlert = Omit<PartialAlert<never>, OmittedProperty>;
 export interface CoreAlert<R = void> extends OmittedAlert
 {
     actions?: ActionOptions<R>[];

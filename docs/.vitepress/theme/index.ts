@@ -10,11 +10,11 @@ const VuertTheme: Theme = {
 
     Layout: VuertLayout,
 
-    enhanceApp: (context: EnhanceAppContext): void =>
+    enhanceApp: (cxt: EnhanceAppContext): void =>
     {
         const vuert = createVuert({ });
 
-        context.app.use(vuert);
+        cxt.app.use(vuert);
     }
 };
 
