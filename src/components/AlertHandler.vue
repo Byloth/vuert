@@ -2,8 +2,7 @@
     <Component :is="is">
         <slot v-if="context"
               :alert="context.alert"
-              :is-open="context.isOpen"
-              :dismiss="context.dismiss"
+              :is-open="context.isOpen.value"
               :resolve="context.resolve"
               :reject="context.reject"></slot>
     </Component>

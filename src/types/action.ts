@@ -1,3 +1,7 @@
+import { MaybePromise } from "../types";
+
+export type ActionCallback<T> = () => MaybePromise<T>;
+
 export interface IAction<R>
 {
     id: symbol;
@@ -5,7 +9,7 @@ export interface IAction<R>
     icon?: string;
     label: string;
 
-    callback: () => R | undefined;
+    callback: ActionCallback<R | undefined>;
 }
 
 type PartialAction<R> = Partial<IAction<R>>;
@@ -15,5 +19,5 @@ export interface ActionOptions<R = void> extends OmittedAction
 {
     label: string;
 
-    callback?: () => R;
+    callback?: ActionCallback<R>;
 }

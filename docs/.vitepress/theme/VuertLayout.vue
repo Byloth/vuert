@@ -1,5 +1,5 @@
 <template>
-    <AlertHandler v-slot="{ alert, isOpen, dismiss, resolve }"
+    <AlertHandler v-slot="{ alert, isOpen, resolve }"
                   class="modal-handler"
                   :filter="modalFilter">
         <Transition appear
@@ -7,8 +7,7 @@
                     mode="in-out">
             <ModalAlert v-if="isOpen"
                         :alert="alert"
-                        :dismiss="dismiss"
-                        :resolve="resolve" />
+                        :close="resolve" />
         </Transition>
     </AlertHandler>
     <AlertHandler v-slot="{ alert, isOpen }"

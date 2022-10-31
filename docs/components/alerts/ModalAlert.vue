@@ -10,7 +10,7 @@
                 </h5>
                 <button v-if="alert.dismissible"
                         class="modal-close"
-                        @click="dismiss">
+                        @click="close()">
                     <span class="fa-solid fa-circle-xmark"></span>
                 </button>
             </div>
@@ -26,7 +26,7 @@
                              class="button"
                              :class="action.type"
                              size="small"
-                             @click="resolve(action.callback())">
+                             @click="close(action)">
                     <span v-if="action.icon"
                           class="fa-solid"
                           :class="`fa-${action.icon}`">
@@ -50,13 +50,9 @@
             required: true,
             type: Alert
         },
-        dismiss: {
+        close: {
             required: true,
-            type: Function as PropType<() => void>
-        },
-        resolve: {
-            required: true,
-            type: Function as PropType<(result: unknown) => void>
+            type: Function as PropType<(result?: unknown) => void>
         }
     });
 </script>
