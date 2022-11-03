@@ -32,11 +32,14 @@
   "include": [
     "docs/**/*",
     "docs/**/*.json",
+    "docs/**/*.vue",
 
     "docs/.vitepress/**/*",
     "docs/.vitepress/**/*.json",
+    "docs/.vitepress/**/*.vue",
 
     "src/**/*",
-    "src/**/*.json"
+    "src/**/*.json",
+    "src/**/*.vue"
   ]
 }

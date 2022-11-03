@@ -28,11 +28,22 @@
         },
         duration: {
             default: 200,
-            type: [Number, String],
+            type: [Number, String, Object],
 
-            // TODO: Add support for `{ enter: number, leave: number }` type property.
-            //
-            validator: (value: unknown): boolean => isFinite(Number(value))
+            validator: (value: unknown): boolean =>
+            {
+                if (value instanceof Object)
+                {
+                    if (("enter" in value) && ("leave" in value))
+                    {
+                        return isFinite(Number(value["enter"])) && isFinite(Number(value["leave"]));
+                    }
+
+                    return false;
+                }
+
+                return isFinite(Number(value));
+            }
         },
         filter: {
             default: (options: AlertOptions<unknown>) => true,
@@ -62,7 +73,15 @@
 
     const open = async <R>(ctx: Context<R>): Promise<void> =>
     {
-        const enterDuration = Number(props.duration);
+        let enterDuration: number;
+        if (props.duration instanceof Object)
+        {
+            enterDuration = Number(props.duration["enter"]);
+        }
+        else
+        {
+            enterDuration = Number(props.duration);
+        }
 
         context.value = ctx;
 
@@ -76,7 +95,15 @@
     };
     const close = async <R>(ctx: Context<R>): Promise<void> =>
     {
-        const leaveDuration = Number(props.duration);
+        let leaveDuration: number;
+        if (props.duration instanceof Object)
+        {
+            leaveDuration = Number(props.duration["leave"]);
+        }
+        else
+        {
+            leaveDuration = Number(props.duration);
+        }
 
         if (context.value?.alert.id !== ctx.alert.id)
         {
