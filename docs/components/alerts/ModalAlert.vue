@@ -17,7 +17,7 @@
             <div class="modal-body">
                 <pre v-if="alert.message" class="modal-message">{{ alert.message }}</pre>
                 <template v-else>
-                    <component :is="alert.component" />
+                    <component :is="alert.component" v-bind="alert.props" />
                 </template>
             </div>
             <div v-if="alert.actions" class="flex modal-footer">

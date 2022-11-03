@@ -16,7 +16,9 @@
         <Transition appear
                     name="toast"
                     mode="in-out">
-            <Component :is="alert.component" v-if="isOpen" />
+            <Component :is="alert.component"
+                       v-if="isOpen"
+                       v-bind="alert.props" />
         </Transition>
     </AlertHandler>
     <Layout />
