@@ -5,16 +5,31 @@ import { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
 import { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
 import { RuntimeException } from "./exceptions";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface VuertOptions { /* ... */ }
+export interface VuertOptions
+{
+    duration: number | string | { enter: number | string; leave: number | string; };
+}
 
 export default class Vuert
 {
+    public static get DEFAULT_OPTS(): VuertOptions
+    {
+        return { duration: 200 };
+    }
+
     protected _subscribers: AlertSubscriber<any>[];
 
-    public constructor(options?: VuertOptions)
+    protected _options: VuertOptions;
+    public get options(): VuertOptions
+    {
+        return { ...this._options };
+    }
+
+    public constructor(options?: Partial<VuertOptions>)
     {
         this._subscribers = [];
+
+        this._options = { ...Vuert.DEFAULT_OPTS, ...options };
     }
 
     public emit<R = void>(alert: BlockingAlert<R>): Promise<R>;

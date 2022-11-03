@@ -27,7 +27,7 @@
             type: [String, Object]
         },
         duration: {
-            default: 200,
+            default: () => useVuert().options.duration,
             type: [Number, String, Object],
 
             validator: (value: unknown): boolean =>
