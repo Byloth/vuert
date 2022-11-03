@@ -29,13 +29,6 @@ export class RuntimeException extends Exception
         super(message, cause, name);
     }
 }
-export class ValidationException extends Exception
-{
-    public constructor(message?: string, cause?: unknown, name = "ValidationException")
-    {
-        super(message, cause, name);
-    }
-}
 export class ValueException extends Exception
 {
     public constructor(message?: string, cause?: unknown, name = "ValueException")
