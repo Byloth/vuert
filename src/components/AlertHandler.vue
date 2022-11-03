@@ -15,7 +15,7 @@
 
     import { useVuert } from "..";
     import { UnattainableException } from "../exceptions";
-    import { Context } from "../models";
+    import { Alert, Context } from "../models";
     import { PromiseClosures } from "../types";
     import { AlertOptions } from "../types/alert";
     import { delay, update } from "../utils";
@@ -51,12 +51,12 @@
         }
     });
 
-    const emit = defineEmits([
-        "onOpening",
-        "onOpened",
-        "onClosing",
-        "onClosed"
-    ]);
+    const emit = defineEmits({
+        onOpening: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        onOpened: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        onClosing: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        onClosed: <R>(alert: Alert<R>) => alert instanceof Alert<R>
+    });
 
     const contexts: Context<any>[] = [];
     const context = shallowRef<Context<any>>();
@@ -86,11 +86,11 @@
         context.value = ctx;
 
         ctx.opening();
-        emit("onOpening");
+        emit("onOpening", ctx.alert);
 
         await delay(enterDuration);
 
-        emit("onOpened");
+        emit("onOpened", ctx.alert);
         ctx.opened();
     };
     const close = async <R>(ctx: Context<R>): Promise<void> =>
@@ -110,9 +110,9 @@
             throw new UnattainableException();
         }
 
-        emit("onClosing");
+        emit("onClosing", ctx.alert);
         await delay(leaveDuration);
-        emit("onClosed");
+        emit("onClosed", ctx.alert);
 
         contexts.shift();
         context.value = undefined;
