@@ -21,7 +21,15 @@ module.exports = {
     },
     {
       files: ["*.ts"],
-      rules: { "no-dupe-class-members": "off" }
+      rules: {
+        "no-dupe-class-members": "off",
+        "no-redeclare": "off"
+      }
+    },
+    {
+      files: ["*.vue"],
+      rules: { "no-redeclare": "off" }
     }
-  ]
+  ],
+  parserOptions: { ecmaVersion: "latest" }
 };
