@@ -45,6 +45,5 @@
     "src/**/*",
     "src/**/*.json",
     "src/**/*.vue"
-  ],
-  "exclude": ["node_modules"]
+  ]
 }

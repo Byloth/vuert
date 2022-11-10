@@ -14,6 +14,7 @@
     import { onMounted, onUnmounted, shallowRef } from "vue";
     import type { PropType } from "vue";
 
+    import { UnattainableException } from "../exceptions";
     import { useVuert } from "../functions";
     import { Alert, Context } from "../models";
     import { delay, update } from "../utils";
@@ -67,13 +68,13 @@
         const ctx = new Context(options, {
             resolve: async (result: MaybePromise<R>) =>
             {
-                await close();
+                await close(ctx);
 
                 resolve(result);
             },
             reject: async (error: Error) =>
             {
-                await close();
+                await close(ctx);
 
                 reject(error);
             }
@@ -110,9 +111,12 @@
         emit("onOpened", ctx.alert);
         ctx.opened();
     };
-    const close = async (): Promise<void> =>
+    const close = async <R>(ctx: Context<R>): Promise<void> =>
     {
-        const ctx = contexts[0];
+        if (ctx.alert.id !== contexts[0].alert.id)
+        {
+            throw new UnattainableException();
+        }
 
         let leaveDuration: number;
         if (props.duration instanceof Object)
