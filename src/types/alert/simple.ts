@@ -1,4 +1,4 @@
-import { CoreAlert, BlockingMixin, DismissibleMixin } from "./core";
+import type { CoreAlert, BlockingMixin, DismissibleMixin } from "./core";
 
 export interface SimpleAlert<R = void> extends CoreAlert<R>
 {

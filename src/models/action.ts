@@ -1,5 +1,5 @@
-import { MaybePromise } from "../types";
-import { IAction, ActionOptions } from "../types/action";
+import type { MaybePromise } from "../types";
+import type { IAction, ActionOptions } from "../types/action";
 
 export default class Action<R = void> implements IAction<R>
 {

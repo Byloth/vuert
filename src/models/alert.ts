@@ -1,8 +1,9 @@
-import { Component } from "vue";
+import type { Component } from "vue";
 
 import { ValueException } from "../exceptions";
-import { Props } from "../types/core";
-import { IAlert, AlertOptions } from "../types/alert";
+
+import type { Props } from "../types/core";
+import type { IAlert, AlertOptions } from "../types/alert";
 
 import Action from "./action";
 

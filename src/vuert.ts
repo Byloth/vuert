@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AlertOptions, AlertSubscriber } from "./types/alert";
-import { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
-import { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
 import { RuntimeException } from "./exceptions";
+
+import type { AlertOptions, AlertSubscriber } from "./types/alert";
+import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
+import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
 
 export interface VuertOptions
 {

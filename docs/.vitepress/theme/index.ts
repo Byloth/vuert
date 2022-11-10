@@ -1,7 +1,7 @@
-import { EnhanceAppContext, Theme } from "vitepress";
-import DefaultTheme from "vitepress/theme";
+import type { EnhanceAppContext, Theme } from "vitepress";
 
-import { createVuert } from "@vuert/index";
+import DefaultTheme from "vitepress/theme";
+import { createVuert } from "@vuert/functions";
 
 import VuertLayout from "./VuertLayout.vue";
 
@@ -10,11 +10,11 @@ const VuertTheme: Theme = {
 
     Layout: VuertLayout,
 
-    enhanceApp: (cxt: EnhanceAppContext): void =>
+    enhanceApp: (ctx: EnhanceAppContext): void =>
     {
         const vuert = createVuert({ });
 
-        cxt.app.use(vuert);
+        ctx.app.use(vuert);
     }
 };
 

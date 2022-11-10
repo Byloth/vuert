@@ -1,8 +1,11 @@
-import { inject, App, Plugin } from "vue";
+import { inject } from "vue";
+import type { App, Plugin } from "vue";
 
 import { InjectionKeys } from "./core";
 import { InstanceException } from "./exceptions";
-import Vuert, { VuertOptions } from "./vuert";
+
+import Vuert from "./vuert";
+import type { VuertOptions } from "./vuert";
 
 export const createVuert = (options?: Partial<VuertOptions>): Plugin =>
 {
@@ -16,7 +19,6 @@ export const createVuert = (options?: Partial<VuertOptions>): Plugin =>
         }
     };
 };
-
 export const useVuert = (): Vuert =>
 {
     const $vuert = inject(InjectionKeys.$vuert);

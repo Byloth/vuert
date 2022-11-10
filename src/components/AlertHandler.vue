@@ -3,22 +3,23 @@
         <slot v-if="context"
               :alert="context.alert"
               :is-open="context.isOpen.value"
-              :resolve="context.resolve"
-              :reject="context.reject"></slot>
+              :resolve="context.resolver"
+              :reject="context.rejecter"></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    import { onMounted, onUnmounted, PropType, shallowRef } from "vue";
+    import { onMounted, onUnmounted, shallowRef } from "vue";
+    import type { PropType } from "vue";
 
-    import { useVuert } from "..";
-    import { UnattainableException } from "../exceptions";
+    import { useVuert } from "../functions";
     import { Alert, Context } from "../models";
-    import { PromiseClosures } from "../types";
-    import { AlertOptions } from "../types/alert";
     import { delay, update } from "../utils";
+
+    import type { MaybePromise, PromiseClosures } from "../types";
+    import type { AlertOptions } from "../types/alert";
 
     const vuert = useVuert();
     const props = defineProps({
@@ -63,16 +64,32 @@
 
     const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>) =>
     {
-        contexts.push(new Context(options, { close, resolve, reject }));
+        const ctx = new Context(options, {
+            resolve: async (result: MaybePromise<R>) =>
+            {
+                await close();
 
+                resolve(result);
+            },
+            reject: async (error: Error) =>
+            {
+                await close();
+
+                reject(error);
+            }
+        });
+
+        contexts.push(ctx);
         if (contexts.length === 1)
         {
-            open(contexts[0]);
+            open();
         }
     };
 
-    const open = async <R>(ctx: Context<R>): Promise<void> =>
+    const open = async (): Promise<void> =>
     {
+        const ctx = contexts[0];
+
         let enterDuration: number;
         if (props.duration instanceof Object)
         {
@@ -93,8 +110,10 @@
         emit("onOpened", ctx.alert);
         ctx.opened();
     };
-    const close = async <R>(ctx: Context<R>): Promise<void> =>
+    const close = async (): Promise<void> =>
     {
+        const ctx = contexts[0];
+
         let leaveDuration: number;
         if (props.duration instanceof Object)
         {
@@ -103,11 +122,6 @@
         else
         {
             leaveDuration = Number(props.duration);
-        }
-
-        if (context.value?.alert.id !== ctx.alert.id)
-        {
-            throw new UnattainableException();
         }
 
         emit("onClosing", ctx.alert);
@@ -121,7 +135,7 @@
 
         if (contexts.length > 0)
         {
-            open(contexts[0]);
+            open();
         }
     };
 

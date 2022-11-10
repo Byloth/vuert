@@ -1,5 +1,5 @@
-import { SimpleAlert } from "./simple";
-import { CustomAlert } from "./custom";
+import type { SimpleAlert } from "./simple";
+import type { CustomAlert } from "./custom";
 
 export type { IAlert } from "./core";
 

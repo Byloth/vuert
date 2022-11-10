@@ -1,4 +1,4 @@
-import { MaybePromise } from "../types";
+import type { MaybePromise } from "../types";
 
 export type ActionCallback<T> = () => MaybePromise<T>;
 

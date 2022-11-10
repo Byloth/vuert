@@ -1,17 +1,14 @@
-import { computed, ref, ComputedRef, Ref } from "vue";
+import { computed, ref } from "vue";
+import type { ComputedRef, Ref } from "vue";
 
 import { RuntimeException } from "../exceptions";
-import { MaybePromise, PromiseClosures } from "../types";
-import { ActionCallback } from "../types/action";
-import { AlertOptions } from "../types/alert";
+
+import type { MaybePromise, PromiseClosures } from "../types";
+import type { ActionCallback } from "../types/action";
+import type { AlertOptions } from "../types/alert";
 
 import Action from "./action";
 import Alert from "./alert";
-
-export interface ContextClosures<R = void> extends PromiseClosures<R>
-{
-    close: (ctx: Context<R>) => Promise<void>;
-}
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | MaybePromise<R | undefined>;
 
@@ -24,11 +21,13 @@ export default class Context<R = void>
     public readonly alert: Alert<R>;
     public readonly isOpen: ComputedRef<boolean>;
 
-    public readonly resolve: (result?: R) => void;
-    public readonly reject: (error: Error) => void;
+    public readonly resolver: (result?: R) => void;
+    public readonly rejecter: (error: Error) => void;
 
-    public constructor(options: AlertOptions<R>, { close, resolve, reject }: ContextClosures<R>)
+    public constructor(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>)
     {
+        this.alert = new Alert<R>(options);
+
         const _close = () =>
         {
             if (!this._isOpen.value)
@@ -44,13 +43,9 @@ export default class Context<R = void>
             }
 
             this._isOpen.value = false;
-
-            close(this);
         };
 
-        this.alert = new Alert<R>(options);
-
-        this.resolve = (result?: ContextResult<R>): void =>
+        this.resolver = (result?: ContextResult<R>): void =>
         {
             _close();
 
@@ -67,7 +62,7 @@ export default class Context<R = void>
                 resolve(result as R);
             }
         };
-        this.reject = (error: Error): void =>
+        this.rejecter = (error: Error): void =>
         {
             _close();
 
@@ -91,7 +86,7 @@ export default class Context<R = void>
     {
         if (this.alert.timeout)
         {
-            this._timeoutId = setTimeout(this.resolve, this.alert.timeout);
+            this._timeoutId = setTimeout(this.resolver, this.alert.timeout);
         }
     }
 }
