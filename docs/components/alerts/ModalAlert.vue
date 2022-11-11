@@ -62,14 +62,14 @@
     {
         background-color: var(--vp-c-bg);
         border: 1px solid var(--vp-c-divider-light);
-        border-radius: 1em;
+        border-radius: 1rem;
         box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.5);
 
         & > .modal-header,
         & > .modal-body,
         & > .modal-footer
         {
-            padding: 0.75em 1em;
+            padding: 0.75rem 1rem;
             width: 100%;
         }
 
@@ -85,14 +85,14 @@
 
                 & > .fa-solid
                 {
-                    margin-right: 0.5em;
+                    margin-right: 0.5rem;
                 }
             }
             & > .modal-close
             {
                 background: none;
                 border: none;
-                font-size: 1em;
+                font-size: 1rem;
                 opacity: 0.5;
                 transition: opacity 200ms ease-in-out;
 
@@ -106,7 +106,7 @@
         & > .modal-body > .modal-message
         {
             font-family: var(--vp-font-family-base);
-            font-size: 0.875em;
+            font-size: 0.875rem;
             margin: 0px;
         }
 
@@ -118,7 +118,7 @@
 
             & > .button
             {
-                margin-left: 0.5em;
+                margin-left: 0.5rem;
             }
         }
     }

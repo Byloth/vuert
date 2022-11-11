@@ -34,13 +34,13 @@
         background-color: rgba(var(--vp-c-bg), 0.7);
         border: 1px solid var(--vp-c-divider-light);
         border-radius: 37px;
-        bottom: 1.5em;
+        bottom: 1.5rem;
         box-shadow: 2.5px 2.5px 5px rgba(0, 0, 0, 0.5);
-        font-size: 0.875em;
+        font-size: 0.875rem;
         max-width: 300px;
-        padding: 0.75em 1em;
+        padding: 0.75rem 1rem;
         position: fixed;
-        right: 2em;
+        right: 2rem;
         transition: background-color 250ms ease,
                     border-color 250ms ease,
                     color 250ms ease,
@@ -55,7 +55,7 @@
             border: 1px solid #000000;
             border-radius: 50%;
             height: 50px;
-            margin-right: 0.75em;
+            margin-right: 0.75rem;
             min-width: 50px;
             width: 50px;
         }
@@ -63,7 +63,7 @@
         @media (min-width: 960px)
         {
             bottom: initial;
-            top: calc(var(--vp-nav-height) + 1.5em);
+            top: calc(var(--vp-nav-height) + 1.5rem);
         }
     }
 </style>
