@@ -58,6 +58,5 @@ layout: home
         font-weight: 500;
         line-height: 24px;
         padding-top: 8px;
-        transition: color 250ms ease;
     }
 </style>

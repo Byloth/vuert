@@ -41,11 +41,7 @@
         padding: 0.75em 1em;
         position: fixed;
         right: 2em;
-        transition: background-color 250ms ease,
-                    border-color 250ms ease,
-                    color 250ms ease,
-                    opacity 250ms ease,
-                    transform 250ms ease;
+        transition: opacity 250ms ease, transform 250ms ease;
 
         z-index: 21;
 

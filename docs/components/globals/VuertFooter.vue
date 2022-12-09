@@ -29,7 +29,6 @@
         padding: 32px 24px;
         position: fixed;
         right: 0px;
-        transition: background-color 250ms ease, border-color 250ms ease;
         z-index: -1;
 
         & > .container
@@ -45,13 +44,12 @@
                 font-size: 14px;
                 font-weight: 500;
                 line-height: 24px;
-                transition: color 250ms ease;
 
                 & > .link
                 {
                     color: var(--vuert-strong-link-color);
                     opacity: 0.875;
-                    transition: color 250ms ease, opacity 250ms ease;
+                    transition: opacity 250ms ease;
 
                     &:hover
                     {
