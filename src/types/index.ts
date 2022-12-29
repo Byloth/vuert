@@ -1,6 +1,6 @@
-export type MaybePromise<T> = T | PromiseLike<T>;
+import type { Awaitable } from "vitepress";
 
-export type PromiseResolver<T = void> = (result: MaybePromise<T>) => void;
+export type PromiseResolver<T = void> = (result: Awaitable<T>) => void;
 export type PromiseRejecter = (error: Error) => void;
 
 export type PromiseClosures<T = void> = { resolve: PromiseResolver<T>, reject: PromiseRejecter };

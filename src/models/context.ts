@@ -1,16 +1,17 @@
 import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
+import type { Awaitable } from "vitepress";
 
 import { RuntimeException } from "../exceptions";
 
-import type { MaybePromise, PromiseClosures } from "../types";
+import type { PromiseClosures } from "../types";
 import type { ActionCallback } from "../types/action";
 import type { AlertOptions } from "../types/alert";
 
 import Action from "./action";
 import Alert from "./alert";
 
-export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | MaybePromise<R | undefined>;
+export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Awaitable<R | undefined>;
 
 export default class Context<R = void>
 {

@@ -1,4 +1,5 @@
-import type { MaybePromise } from "../types";
+import type { Awaitable } from "vitepress";
+
 import type { IAction, ActionOptions } from "../types/action";
 
 export default class Action<R = void> implements IAction<R>
@@ -9,7 +10,7 @@ export default class Action<R = void> implements IAction<R>
     public readonly icon?: string | undefined;
     public readonly label: string;
 
-    public readonly callback: () => MaybePromise<R | undefined>;
+    public readonly callback: () => Awaitable<R | undefined>;
 
     public constructor(options: ActionOptions<R>)
     {
