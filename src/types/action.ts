@@ -1,6 +1,6 @@
-import type { MaybePromise } from "../types";
+import type { Awaitable } from "vitepress";
 
-export type ActionCallback<T> = () => MaybePromise<T>;
+export type ActionCallback<T> = () => Awaitable<T>;
 
 export interface IAction<R>
 {

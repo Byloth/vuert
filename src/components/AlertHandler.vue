@@ -13,13 +13,14 @@
 
     import { onMounted, onUnmounted, shallowRef } from "vue";
     import type { PropType } from "vue";
+    import type { Awaitable } from "vitepress";
 
     import { UnattainableException } from "../exceptions";
     import { useVuert } from "../functions";
     import { Alert, Context } from "../models";
     import { delay, update } from "../utils";
 
-    import type { MaybePromise, PromiseClosures } from "../types";
+    import type { PromiseClosures } from "../types";
     import type { AlertOptions } from "../types/alert";
 
     const vuert = useVuert();
@@ -66,7 +67,7 @@
     const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>) =>
     {
         const ctx = new Context(options, {
-            resolve: async (result: MaybePromise<R>) =>
+            resolve: async (result: Awaitable<R>) =>
             {
                 await close(ctx);
 

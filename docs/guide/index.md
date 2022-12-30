@@ -1,1 +1,5 @@
-# Guide page
+---
+next: your-first-alert.md
+---
+
+# Guide
