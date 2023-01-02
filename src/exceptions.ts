@@ -17,21 +17,21 @@ export class UnattainableException extends Exception
 
 export class InstanceException extends Exception
 {
-    public constructor(message?: string, cause?: unknown, name = "InstanceException")
+    public constructor(message: string, cause?: unknown, name = "InstanceException")
     {
         super(message, cause, name);
     }
 }
 export class RuntimeException extends Exception
 {
-    public constructor(message?: string, cause?: unknown, name = "RuntimeException")
+    public constructor(message: string, cause?: unknown, name = "RuntimeException")
     {
         super(message, cause, name);
     }
 }
 export class ValueException extends Exception
 {
-    public constructor(message?: string, cause?: unknown, name = "ValueException")
+    public constructor(message: string, cause?: unknown, name = "ValueException")
     {
         super(message, cause, name);
     }
