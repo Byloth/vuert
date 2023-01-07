@@ -46,11 +46,23 @@
 
 ### Emit the alert
 
-```ts
-/**
- * If you're using Option APIs...
- */
+::: code-group
 
+```ts [Composition APIs]
+import { useVuert } from '@byloth/vuert';
+
+// [...]
+
+const vuert = useVuert();
+
+const emitAlert = () => vuert.emit({
+    type: 'info',
+    message: "This is a themed Vuert alert!",
+    timeout: 2500
+});
+```
+
+```ts [Option APIs]
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -69,23 +81,7 @@ export default defineComponent({
 });
 ```
 
-```ts
-/**
- * If you're using Composition APIs...
- */
-
-import { useVuert } from '@byloth/vuert';
-
-// [...]
-
-const vuert = useVuert();
-
-const emitAlert = () => vuert.emit({
-    type: 'info',
-    message: "This is a themed Vuert alert!",
-    timeout: 2500
-});
-```
+:::
 
 <VuertButton @click="emitAlert()">
     Emit now!

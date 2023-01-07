@@ -86,11 +86,33 @@
 
 ### Emit the alert
 
-```ts
-/**
- * If you're using Option APIs...
- */
+::: code-group
 
+```ts [Composition APIs]
+import { useVuert } from '@byloth/vuert';
+
+// [...]
+
+const vuert = useVuert();
+
+const emitAlert = () => vuert.emit({
+    type: 'question',
+    message: "Did you know this Vuert alert can be used by the user to answer a question?",
+    actions: [
+        {
+            label: "Yeah! 😎",
+            callback: () => alert("You said that you already knew it! Good job! 😏")
+        },
+        {
+            label: "Nope! 🤯",
+            callback: () => alert("You said that you didn't know it... Now you know! 😉")
+        }
+    ],
+    dismissable: true
+});
+```
+
+```ts [Option APIs]
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -119,33 +141,7 @@ export default defineComponent({
 });
 ```
 
-```ts
-/**
- * If you're using Composition APIs...
- */
-
-import { useVuert } from '@byloth/vuert';
-
-// [...]
-
-const vuert = useVuert();
-
-const emitAlert = () => vuert.emit({
-    type: 'question',
-    message: "Did you know this Vuert alert can be used by the user to answer a question?",
-    actions: [
-        {
-            label: "Yeah! 😎",
-            callback: () => alert("You said that you already knew it! Good job! 😏")
-        },
-        {
-            label: "Nope! 🤯",
-            callback: () => alert("You said that you didn't know it... Now you know! 😉")
-        }
-    ],
-    dismissable: true
-});
-```
+:::
 
 <VuertButton @click="emitAlert()">
     Emit now!
@@ -155,11 +151,41 @@ const emitAlert = () => vuert.emit({
 
 ### Emit the alert
 
-```ts
-/**
- * If you're using Option APIs...
- */
+::: code-group
 
+```ts [Composition APIs]
+import { useVuert } from '@byloth/vuert';
+
+// [...]
+
+const vuert = useVuert();
+
+const emitAlert = async () => {
+    const result: boolean | undefined = await vuert.emit({
+        type: 'question',
+        message: "Did you know this Vuert alert can be used by the user to answer a question?",
+        actions: [
+            {
+                label: "Yeah! 😎",
+                callback: () => true
+            },
+            {
+                label: "Nope! 🤯",
+                callback: () => false
+            }
+        ],
+        dismissable: true
+    });
+
+    if (result === true) {
+        alert("You said that you already knew it! Good job! 😏");
+    } else if (result === false) {
+        alert("You said that you didn't know it... Now you know! 😉");
+    }
+};
+```
+
+```ts [Option APIs]
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -194,38 +220,4 @@ export default defineComponent({
 });
 ```
 
-```ts
-/**
- * If you're using Composition APIs...
- */
-
-import { useVuert } from '@byloth/vuert';
-
-// [...]
-
-const vuert = useVuert();
-
-const emitAlert = async () => {
-    const result: boolean | undefined = await vuert.emit({
-        type: 'question',
-        message: "Did you know this Vuert alert can be used by the user to answer a question?",
-        actions: [
-            {
-                label: "Yeah! 😎",
-                callback: () => true
-            },
-            {
-                label: "Nope! 🤯",
-                callback: () => false
-            }
-        ],
-        dismissable: true
-    });
-
-    if (result === true) {
-        alert("You said that you already knew it! Good job! 😏");
-    } else if (result === false) {
-        alert("You said that you didn't know it... Now you know! 😉");
-    }
-};
-```
+:::

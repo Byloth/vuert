@@ -62,11 +62,23 @@
 
 ### Emit the alert
 
-```ts
-/**
- * If you're using Option APIs...
- */
+::: code-group
 
+```ts [Composition APIs]
+import { useVuert } from '@byloth/vuert';
+
+// [...]
+
+const vuert = useVuert();
+
+const emitAlert = () => vuert.emit({
+    type: 'info',
+    message: "This is a dismissable Vuert alert!",
+    dismissable: true
+});
+```
+
+```ts [Option APIs]
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -85,23 +97,7 @@ export default defineComponent({
 });
 ```
 
-```ts
-/**
- * If you're using Composition APIs...
- */
-
-import { useVuert } from '@byloth/vuert';
-
-// [...]
-
-const vuert = useVuert();
-
-const emitAlert = () => vuert.emit({
-    type: 'info',
-    message: "This is a dismissable Vuert alert!",
-    dismissable: true
-});
-```
+:::
 
 <VuertButton @click="emitAlert()">
     Emit now!
