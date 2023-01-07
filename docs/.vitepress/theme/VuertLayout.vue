@@ -29,14 +29,15 @@
     import { onMounted } from "vue";
     import DefaultTheme from "vitepress/theme";
 
-    import { useVuert, AlertHandler } from "@vuert/index";
-    import type { AlertOptions } from "@vuert/types/alert";
+    import { useVuert } from "@vuert/functions.js";
+    import AlertHandler from "@vuert/components/AlertHandler.vue";
+    import type { AlertOptions } from "@vuert/types/alert/index.js";
 
     import VuertFooter from "@docs/components/globals/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
     import ToastAlert from "@docs/components/alerts/ToastAlert.vue";
 
-    import { random } from "@docs/utils";
+    import { random } from "@docs/utils.js";
 
     const { Layout } = DefaultTheme;
 

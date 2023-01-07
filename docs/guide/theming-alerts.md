@@ -4,9 +4,9 @@ next: dismissable-alerts.md
 ---
 
 <script lang="ts" setup>
-    import { useVuert } from "@vuert/functions";
+    import { useVuert } from "@vuert/functions.js";
 
-    import VuertButton from "./components/ui/VuertButton.vue";
+    import VuertButton from "../components/ui/VuertButton.vue";
 
     const vuert = useVuert();
 
@@ -24,6 +24,10 @@ next: dismissable-alerts.md
 ### Alert definition
 
 ```vue
+<script lang="ts" setup>
+    import { AlertHandler } from '@byloth/vuert';
+</script>
+
 <template>
     <AlertHandler v-slot="{ alert, isOpen }">
         <div v-if="isOpen"

@@ -1,11 +1,11 @@
 import { inject } from "vue";
 import type { App, Plugin } from "vue";
 
-import { InjectionKeys } from "./core";
-import { InstanceException } from "./exceptions";
+import { InjectionKeys } from "./core/index.js";
+import { RuntimeException } from "./exceptions.js";
 
-import Vuert from "./vuert";
-import type { VuertOptions } from "./vuert";
+import Vuert from "./vuert.js";
+import type { VuertOptions } from "./vuert.js";
 
 export const createVuert = (options?: Partial<VuertOptions>): Plugin =>
 {
@@ -24,7 +24,7 @@ export const useVuert = (): Vuert =>
     const $vuert = inject(InjectionKeys.$vuert);
     if (!$vuert)
     {
-        throw new InstanceException(
+        throw new RuntimeException(
             "`useVuert` was called with no active instance. " +
             "Did you forget to install `Vuert` plugin in your App?"
         );

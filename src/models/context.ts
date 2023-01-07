@@ -2,14 +2,14 @@ import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
 import type { Awaitable } from "vitepress";
 
-import { RuntimeException } from "../exceptions";
+import { RuntimeException } from "../exceptions.js";
 
-import type { PromiseClosures } from "../types";
-import type { ActionCallback } from "../types/action";
-import type { AlertOptions } from "../types/alert";
+import type { PromiseClosures } from "../types/index.js";
+import type { ActionCallback } from "../types/action.js";
+import type { AlertOptions } from "../types/alert/index.js";
 
-import Action from "./action";
-import Alert from "./alert";
+import Action from "./action.js";
+import Alert from "./alert.js";
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Awaitable<R | undefined>;
 

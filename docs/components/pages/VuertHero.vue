@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { useVuert } from "@vuert/index";
+    import { useVuert } from "@vuert/functions.js";
 
     import VuertButton from "../ui/VuertButton.vue";
 
@@ -83,7 +83,6 @@
                 font-size: 18px;
                 font-weight: 500;
                 padding-top: 8px;
-                transition: color 250ms ease;
                 white-space: pre-wrap;
             }
 

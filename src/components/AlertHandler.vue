@@ -15,13 +15,13 @@
     import type { PropType } from "vue";
     import type { Awaitable } from "vitepress";
 
-    import { UnattainableException } from "../exceptions";
-    import { useVuert } from "../functions";
-    import { Alert, Context } from "../models";
-    import { delay, update } from "../utils";
+    import { UnattainableException } from "../exceptions.js";
+    import { useVuert } from "../functions.js";
+    import { Alert, Context } from "../models/index.js";
+    import { delay, update } from "../utils.js";
 
-    import type { PromiseClosures } from "../types";
-    import type { AlertOptions } from "../types/alert";
+    import type { PromiseClosures } from "../types/index.js";
+    import type { AlertOptions } from "../types/alert/index.js";
 
     const vuert = useVuert();
     const props = defineProps({

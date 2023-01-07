@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { RuntimeException } from "./exceptions";
+import { RuntimeException } from "./exceptions.js";
 
-import type { AlertOptions, AlertSubscriber } from "./types/alert";
-import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
-import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
+import type { AlertOptions, AlertSubscriber } from "./types/alert/index.js";
+import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";
+import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom.js";
 
 export interface VuertOptions
 {
@@ -13,6 +13,8 @@ export interface VuertOptions
 
 export default class Vuert
 {
+    public static readonly VERSION: string = "1.0.0-rc.1";
+
     public static get DEFAULT_OPTS(): VuertOptions
     {
         return { duration: 200 };

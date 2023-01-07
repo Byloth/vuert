@@ -4,9 +4,9 @@ next: actions-with-result.md
 ---
 
 <script lang="ts" setup>
-    import { useVuert } from "@vuert/functions";
+    import { useVuert } from "@vuert/functions.js";
 
-    import VuertButton from "./components/ui/VuertButton.vue";
+    import VuertButton from "../components/ui/VuertButton.vue";
 
     const vuert = useVuert();
 
@@ -34,6 +34,10 @@ next: actions-with-result.md
 ### Alert definition
 
 ```vue
+<script lang="ts" setup>
+    import { AlertHandler } from '@byloth/vuert';
+</script>
+
 <template>
     <AlertHandler v-slot="{ alert, isOpen, resolve }">
         <div v-if="isOpen"

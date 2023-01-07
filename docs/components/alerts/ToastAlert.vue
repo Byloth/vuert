@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts" setup>
-    import Alert from "@vuert/models/alert";
+    import Alert from "@vuert/models/alert.js";
 
     import Actions from "@docs/data/actions.json";
     import People from "@docs/data/people.json";
 
-    import { pickOne } from "@docs/utils";
+    import { pickOne } from "@docs/utils.js";
 
     defineProps({
         alert: {
@@ -40,12 +40,8 @@
         max-width: 300px;
         padding: 0.75rem 1rem;
         position: fixed;
-        right: 2rem;
-        transition: background-color 250ms ease,
-                    border-color 250ms ease,
-                    color 250ms ease,
-                    opacity 250ms ease,
-                    transform 250ms ease;
+        right: 2em;
+        transition: opacity 250ms ease, transform 250ms ease;
 
         z-index: 21;
 

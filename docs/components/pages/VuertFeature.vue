@@ -30,7 +30,6 @@
             border-radius: 12px;
             height: 100%;
             padding: 24px;
-            transition: background-color 250ms ease, border-color 250ms ease;
 
             & > .icon
             {
@@ -43,7 +42,6 @@
                 justify-content: center;
                 margin-bottom: 20px;
                 width: 48px;
-                transition: background-color 250ms ease;
             }
         }
     }
