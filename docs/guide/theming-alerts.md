@@ -1,8 +1,3 @@
----
-prev: your-first-alert.md
-next: dismissable-alerts.md
----
-
 <script lang="ts" setup>
     import { useVuert } from "@vuert/functions.js";
 
@@ -17,7 +12,7 @@ next: dismissable-alerts.md
     });
 </script>
 
-# Guide
+# Getting started
 
 ## Theming alerts
 

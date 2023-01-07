@@ -1,8 +1,3 @@
----
-prev: index.md
-next: theming-alerts.md
----
-
 <script lang="ts" setup>
     import { useVuert } from "@vuert/functions.js";
 
@@ -16,7 +11,7 @@ next: theming-alerts.md
     });
 </script>
 
-# Guide
+# Getting started
 
 ## Your first alert
 

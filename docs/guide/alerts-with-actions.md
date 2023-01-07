@@ -1,8 +1,3 @@
----
-prev: dismissable-alerts.md
-next: actions-with-result.md
----
-
 <script lang="ts" setup>
     import { useVuert } from "@vuert/functions.js";
 
@@ -27,7 +22,7 @@ next: actions-with-result.md
     });
 </script>
 
-# Guide
+# Getting started
 
 ## Alerts with actions
 

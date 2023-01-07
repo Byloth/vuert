@@ -1,5 +1,1 @@
----
-next: your-first-alert.md
----
-
-# Guide
+# Getting started

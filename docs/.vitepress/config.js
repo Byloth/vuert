@@ -20,11 +20,13 @@ export default defineConfig({
       }
     ],
     sidebar: [{
-      text: "Introduction",
+      text: "Getting started",
       collapsible: true,
       items: [
-        { text: "What is Vuert.js?", link: "/guide/what-is-vuertjs" },
-        { text: "Getting started", link: "/guide/getting-started" }
+        { text: "Your first alert", link: "/guide/your-first-alert" },
+        { text: "Theming alerts", link: "/guide/theming-alerts" },
+        { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },
+        { text: "Alerts with actions", link: "/guide/alerts-with-actions" },
       ]
     }],
     socialLinks: [{ icon: "github", link: REPO_HOME }]
