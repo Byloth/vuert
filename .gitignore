@@ -20,6 +20,7 @@ Desktop.ini
 /tsconfig.tsbuildinfo
 
 /dist/
+/docs/.vitepress/cache/
 /docs/.vitepress/dist/
 
 /*.tgz

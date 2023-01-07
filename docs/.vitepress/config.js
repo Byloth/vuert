@@ -26,7 +26,7 @@ export default defineConfig({
         { text: "Your first alert", link: "/guide/your-first-alert" },
         { text: "Theming alerts", link: "/guide/theming-alerts" },
         { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },
-        { text: "Alerts with actions", link: "/guide/alerts-with-actions" },
+        { text: "Alerts with actions", link: "/guide/alerts-with-actions" }
       ]
     }],
     socialLinks: [{ icon: "github", link: REPO_HOME }]
