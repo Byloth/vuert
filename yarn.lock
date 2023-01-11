@@ -149,10 +149,10 @@
   resolved "https://registry.yarnpkg.com/@byloth/eslint-config/-/eslint-config-2.4.1.tgz#2fc5b7e001ac2c0e583f8ab4b151453b37042f75"
   integrity sha512-UIVq/i0Hu0ozFk41SpamX242nTfKh95AU0T0sJ5VVnocnmlFDBVPGZAqwxlHgxl5CsUbJ3iL/1tO7klDJxZEVw==
 
-"@byloth/exceptions@^2.0.0-rc.4":
-  version "2.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/@byloth/exceptions/-/exceptions-2.0.0-rc.4.tgz#68496e16811babfdca252f9eede987e3b9c76d12"
-  integrity sha512-KeeDqOjF524tr6EdlsktK/evTF76VcUax/icQSkYeH+RC4xDJEpSxOhfjwc57ve/AUTRedJA5EvJU9I0WELnQg==
+"@byloth/exceptions@^2.0.0-rc.5":
+  version "2.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@byloth/exceptions/-/exceptions-2.0.0-rc.5.tgz#74b8f1da0271ce11be9f3e2b77c136d518ed30da"
+  integrity sha512-z6YL9NNQXi8Zx9Pu/aJ10l/5G4k3/fwD47oYO54dlu0o9MEJGZvCYB263RW3EfXKoRe1KL7EsDGCumhb+5Ppkw==
 
 "@docsearch/css@3.3.2", "@docsearch/css@^3.3.1":
   version "3.3.2"

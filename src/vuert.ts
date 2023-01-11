@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { RuntimeException } from "./exceptions.js";
+import { RuntimeException } from "@byloth/exceptions";
 
 import type { AlertOptions, AlertSubscriber } from "./types/alert/index.js";
 import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";

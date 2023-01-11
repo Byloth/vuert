@@ -1,6 +1,6 @@
 import type { Component } from "vue";
 
-import { ValueException } from "../exceptions.js";
+import { ValueException } from "@byloth/exceptions";
 
 import type { Props } from "../types/core.js";
 import type { IAlert, AlertOptions } from "../types/alert/index.js";

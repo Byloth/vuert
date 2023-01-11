@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
 
-import { RuntimeException } from "../exceptions.js";
+import { RuntimeException } from "@byloth/exceptions";
 
 import type { Awaitable, PromiseClosures } from "../types/index.js";
 import type { ActionCallback } from "../types/action.js";

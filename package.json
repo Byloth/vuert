@@ -59,7 +59,7 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
-    "@byloth/exceptions": "^2.0.0-rc.4",
+    "@byloth/exceptions": "^2.0.0-rc.5",
     "vue": "^3.2.45"
   },
   "devDependencies": {

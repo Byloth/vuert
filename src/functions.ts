@@ -1,8 +1,9 @@
 import { inject } from "vue";
 import type { App, Plugin } from "vue";
 
+import { RuntimeException } from "@byloth/exceptions";
+
 import { InjectionKeys } from "./core/index.js";
-import { RuntimeException } from "./exceptions.js";
 
 import Vuert from "./vuert.js";
 import type { VuertOptions } from "./vuert.js";
