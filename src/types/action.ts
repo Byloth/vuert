@@ -1,4 +1,4 @@
-import type { Awaitable } from "vitepress";
+import type { Awaitable } from "./index.js";
 
 export type ActionCallback<T> = () => Awaitable<T>;
 

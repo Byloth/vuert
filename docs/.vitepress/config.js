@@ -15,7 +15,7 @@ export default defineConfig({
       { text: "Guide", link: "/guide/" },
       { text: "Configs", link: "/configs/" },
       {
-        text: "1.0.0-rc.1",
+        text: "1.0.0-rc.2",
         items: [{ text: "Releases", link: `${REPO_HOME}/releases` }]
       }
     ],

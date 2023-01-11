@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -60,14 +60,14 @@
   },
   "dependencies": {
     "@byloth/exceptions": "^2.0.0-rc.4",
-    "@fortawesome/fontawesome-free": "^6.2.1",
     "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@byloth/eslint-config-typescript": "^2.4.0",
-    "@byloth/eslint-config-vue": "^2.4.0",
-    "@typescript-eslint/eslint-plugin": "^5.48.0",
-    "@typescript-eslint/parser": "^5.48.0",
+    "@byloth/eslint-config-typescript": "^2.4.1",
+    "@byloth/eslint-config-vue": "^2.4.1",
+    "@fortawesome/fontawesome-free": "^6.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "eslint": "^8.31.0",
     "eslint-plugin-vue": "^9.8.0",
@@ -76,6 +76,6 @@
     "vite": "^4.0.4",
     "vitepress": "^1.0.0-alpha.35",
     "vue-eslint-parser": "^9.1.0",
-    "vue-tsc": "^1.0.22"
+    "vue-tsc": "^1.0.24"
   }
 }

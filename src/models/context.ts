@@ -1,10 +1,9 @@
 import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
-import type { Awaitable } from "vitepress";
 
 import { RuntimeException } from "../exceptions.js";
 
-import type { PromiseClosures } from "../types/index.js";
+import type { Awaitable, PromiseClosures } from "../types/index.js";
 import type { ActionCallback } from "../types/action.js";
 import type { AlertOptions } from "../types/alert/index.js";
 
