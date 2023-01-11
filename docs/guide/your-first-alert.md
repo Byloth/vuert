@@ -1,5 +1,5 @@
-<script lang="ts" setup>
-    import { useVuert } from "@vuert/functions.js";
+<script setup>
+    import { useVuert } from "@vuert/functions";
 
     import VuertButton from "../components/ui/VuertButton.vue";
 
