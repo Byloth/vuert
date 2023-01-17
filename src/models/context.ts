@@ -24,7 +24,7 @@ export default class Context<R = void>
     public readonly resolver: (result?: ContextResult<R>) => void;
     public readonly rejecter: (error: Error) => void;
 
-    public constructor(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>)
+    public constructor(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R, Error>)
     {
         this.alert = new Alert<R>(options);
 

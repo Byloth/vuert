@@ -63,7 +63,7 @@
     const contexts: Context<any>[] = [];
     const context = shallowRef<Context<any>>();
 
-    const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R>) =>
+    const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R, Error>) =>
     {
         const ctx = new Context(options, {
             resolve: async (result: Awaitable<R>) =>
