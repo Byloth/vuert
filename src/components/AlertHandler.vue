@@ -48,16 +48,16 @@
             }
         },
         filter: {
-            default: (options: AlertOptions<unknown>) => true,
+            default: () => true,
             type: Function as PropType<(options: AlertOptions<unknown>) => boolean>
         }
     });
 
     const emit = defineEmits({
-        onOpening: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        onOpened: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        onClosing: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        onClosed: <R>(alert: Alert<R>) => alert instanceof Alert<R>
+        opening: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        opened: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        closing: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
+        closed: <R>(alert: Alert<R>) => alert instanceof Alert<R>
     });
 
     const contexts: Context<any>[] = [];
@@ -104,11 +104,11 @@
         context.value = ctx;
 
         ctx.opening();
-        emit("onOpening", ctx.alert);
+        emit("opening", ctx.alert);
 
         await delay(enterDuration);
 
-        emit("onOpened", ctx.alert);
+        emit("opened", ctx.alert);
         ctx.opened();
     };
     const close = async <R>(ctx: Context<R>): Promise<void> =>
@@ -128,9 +128,9 @@
             leaveDuration = Number(props.duration);
         }
 
-        emit("onClosing", ctx.alert);
+        emit("closing", ctx.alert);
         await delay(leaveDuration);
-        emit("onClosed", ctx.alert);
+        emit("closed", ctx.alert);
 
         contexts.shift();
         context.value = undefined;
