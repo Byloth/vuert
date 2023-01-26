@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-    import Alert from "@vuert/models/alert.js";
+    import Alert from "@src/models/alert.js";
 
     import Actions from "@docs/data/actions.json";
     import People from "@docs/data/people.json";

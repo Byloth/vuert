@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { useVuert } from "@vuert/functions.js";
+    import { useVuert } from "@src/functions.js";
 
     import VuertButton from "../ui/VuertButton.vue";
 

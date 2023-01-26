@@ -35,7 +35,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        "@vuert": resolve(__dirname, "../../src"),
+        "@src": resolve(__dirname, "../../src"),
         "@docs": resolve(__dirname, "..")
       }
     }

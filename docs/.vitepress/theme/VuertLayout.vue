@@ -29,9 +29,9 @@
     import { onMounted } from "vue";
     import DefaultTheme from "vitepress/theme";
 
-    import { useVuert } from "@vuert/functions.js";
-    import AlertHandler from "@vuert/components/AlertHandler.vue";
-    import type { AlertOptions } from "@vuert/types/alert/index.js";
+    import { useVuert } from "@src/functions.js";
+    import AlertHandler from "@src/components/AlertHandler.vue";
+    import type { AlertOptions } from "@src/types/alert/index.js";
 
     import VuertFooter from "@docs/components/globals/VuertFooter.vue";
     import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
