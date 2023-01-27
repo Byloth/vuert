@@ -3,7 +3,7 @@ import type { App, Plugin } from "vue";
 
 import { RuntimeException } from "@byloth/exceptions";
 
-import { InjectionKeys } from "./core/index.js";
+import { InjectionKeys } from "./core.js";
 
 import Vuert from "./vuert.js";
 import type { VuertOptions } from "./vuert.js";

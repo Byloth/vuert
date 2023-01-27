@@ -90,15 +90,6 @@
         margin-bottom: 112px;
     }
 
-    .VPNav
-    {
-        box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.25);
-
-        & > .VPNavBar > .VPNavBarTitle
-        {
-            border-bottom: none;
-        }
-    }
     .VPContent
     {
         background-color: var(--vp-c-bg);
