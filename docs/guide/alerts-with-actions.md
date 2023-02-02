@@ -29,7 +29,7 @@
 ### Alert definition
 
 ```vue
-<script lang="ts" setup>
+<script setup>
     import { AlertHandler } from '@byloth/vuert';
 </script>
 

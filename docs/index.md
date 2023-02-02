@@ -2,7 +2,7 @@
 layout: home
 ---
 
-<script lang="ts" setup>
+<script setup>
     import VuertHero from "./components/pages/VuertHero.vue";
     import VuertFeatures from "./components/pages/VuertFeatures.vue";
     import VuertFeature from "./components/pages/VuertFeature.vue";
