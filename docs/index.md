@@ -3,9 +3,9 @@ layout: home
 ---
 
 <script setup>
-    import VuertHero from "@theme/components/pages/VuertHero.vue";
-    import VuertFeatures from "@theme/components/pages/VuertFeatures.vue";
-    import VuertFeature from "@theme/components/pages/VuertFeature.vue";
+    import VuertHero from "@theme/components/pages/home/VuertHero.vue";
+    import VuertFeatures from "@theme/components/pages/home/VuertFeatures.vue";
+    import VuertFeature from "@theme/components/pages/home/VuertFeature.vue";
 </script>
 
 <VuertHero />

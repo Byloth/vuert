@@ -14,7 +14,9 @@
                                  @click="emitAlert">
                         Surprise me!
                     </VuertButton>
-                    <VuertButton size="medium">
+                    <VuertButton size="medium"
+                                 href="/guide/your-first-alert.html"
+                                 title="Getting started">
                         Get started
                     </VuertButton>
                 </div>
@@ -26,7 +28,7 @@
 <script lang="ts" setup>
     import { useVuert } from "@src/functions.js";
 
-    import VuertButton from "../ui/VuertButton.vue";
+    import VuertButton from "../../ui/VuertButton.vue";
 
     const vuert = useVuert();
 

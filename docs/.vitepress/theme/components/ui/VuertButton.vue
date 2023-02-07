@@ -1,13 +1,29 @@
 <template>
-    <button class="vuert-button" :class="classes">
+    <Component :is="tag"
+               class="vuert-button"
+               :class="classes"
+               :href="url"
+               :target="isExternal ? '_blank' : undefined"
+               :rel="isExternal ? 'nofollow noopener noreferrer' : undefined">
         <slot></slot>
-    </button>
+    </Component>
 </template>
 
 <script lang="ts" setup>
     import { computed } from "vue";
 
+    import { normalizeLink } from "@vitepress/theme/support/utils.js";
+    import { EXTERNAL_URL_RE } from "@vitepress/theme/../shared.js";
+
     const props = defineProps({
+        is: {
+            default: "",
+            type: String
+        },
+        href: {
+            default: "",
+            type: String
+        },
         size: {
             default: "medium",
             type: String
@@ -19,6 +35,28 @@
     });
 
     const classes = computed((): string[] => [props.theme, props.size]);
+    const tag = computed((): string =>
+    {
+        if (props.is)
+        {
+            return props.is;
+        }
+
+        return props.href ? "a" : "button";
+    });
+
+    const url = computed((): string | undefined =>
+    {
+        if (!props.href) { return undefined; }
+
+        return normalizeLink(props.href);
+    });
+    const isExternal = computed((): boolean | undefined =>
+    {
+        if (!props.href) { return undefined; }
+
+        return EXTERNAL_URL_RE.test(props.href);
+    });
 </script>
 
 <style lang="scss" scoped>
