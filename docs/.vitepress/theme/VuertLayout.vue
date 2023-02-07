@@ -64,20 +64,25 @@
 
         }, delay);
     };
-    const setBodyMargin = (isSidebarOpen: boolean) =>
-    {
-        if (isSidebarOpen)
-        {
-            document.body.style.marginBottom = "";
-        }
-        else
-        {
-            document.body.style.marginBottom = "112px";
-        }
-    };
 
     onMounted(emitToast);
-    watch(hasSidebar, setBodyMargin, { immediate: true });
+
+    if (!import.meta.env.SSR)
+    {
+        const setBodyMargin = (isSidebarOpen: boolean) =>
+        {
+            if (isSidebarOpen)
+            {
+                document.body.style.marginBottom = "";
+            }
+            else
+            {
+                document.body.style.marginBottom = "112px";
+            }
+        };
+
+        watch(hasSidebar, setBodyMargin, { immediate: true });
+    }
 </script>
 
 <style lang="scss">
