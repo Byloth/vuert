@@ -14,19 +14,19 @@ jobs:
     steps:
       - name: Source code clone
         uses: actions/checkout@v3
-      - name: Node.js 16 (LTS) setup
+      - name: Node.js 18 (LTS) setup
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Dependencies installation
         run: yarn ci
       - name: Coding standard check
         run: yarn lint:prod
-      # - name: Types integrity check
-      #   run: yarn check:types
+      - name: Types integrity check
+        run: yarn check:types
       - name: Source code build
-        run: yarn build
+        run: yarn build:docs
       - name: Artifact upload
         uses: actions/upload-artifact@v3
         with:
@@ -49,7 +49,7 @@ jobs:
           name: byloth-vuert-docs
 
       - name: GitHub Pages setup
-        uses: actions/configure-pages@v1
+        uses: actions/configure-pages@v3
       - name: Artifact upload
         uses: actions/upload-pages-artifact@v1
         with:

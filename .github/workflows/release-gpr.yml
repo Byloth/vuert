@@ -1,7 +1,7 @@
 name: GPR release
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   artifact-build:

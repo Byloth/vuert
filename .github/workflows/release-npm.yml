@@ -1,7 +1,7 @@
 name: NPM release
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   artifact-build:
