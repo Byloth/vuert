@@ -17,50 +17,37 @@ layout: home
         <h4 class="subtitle">
             Stop struggling in vain!
         </h4>
-        <!--
         <p class="details">
-            Done like you would... Designed to be as developer-friendly as possible.<br />
-            Go straight to the point!
+            Done like you would...<br />
+            Designed to be as friendly as possible.<br />
+            <strong>Go straight to the point!</strong>
         </p>
-        -->
     </VuertFeature>
-    <VuertFeature icon="🧟">
+    <VuertFeature icon="🎨">
         <h2 class="title">
             Completely Headless
         </h2>
         <h4 class="subtitle">
             It's just pure logic!
         </h4>
-        <!--
         <p class="details">
-            Vuert comes with no style... Actually, it comes with no renderable elements!<br />
-            This allows you to define your own components and to style them to match exactly your desired theme.<br />
-            Unleash your imagination!
+            Vuert comes with no style...<br />
+            Style it and match exactly your theme.<br />
+            <strong>Unleash your imagination!</strong>
         </p>
-        -->
     </VuertFeature>
-    <VuertFeature icon="🧞">
+    <VuertFeature icon="🪄">
         <h2 class="title">
             Simply Managed
         </h2>
         <h4 class="subtitle">
             It's disaster proof!
         </h4>
-        <!--
         <p class="details">
-            Say your app enters an infinite loop emitting gazillions of alerts...<br />
-            Your users won't be overwhelmed with popups and notifications!<br />
-            Everything will continue working just fine... Even if your app is imploding, under the hood.<br />
-            <br />
-            <i>
-                Someone said "Debouncing" or "Throttling"?<br />
-                There will be in future releases!
-            </i><br />
-            <br />
-            Don't worry about what happens... Just stay focused on what you do best.<br />
-            Slee... <i>Ahem...</i> Develop soundly!
+            Everything will working just fine...<br />
+            Even if your app is imploding.<br />
+            <strong>Stay focused on what matters!</strong>
         </p>
-        -->
     </VuertFeature>
     <VuertFeature icon="💎">
         <h2 class="title">
@@ -69,12 +56,11 @@ layout: home
         <h4 class="subtitle">
             100% written in TypeScript!
         </h4>
-        <!--
         <p class="details">
-            You know what it's need as an input... You know what you get as an output.<br />
-            As simple as that... You can't go wrong!
+            You know what it's need as an input...<br />
+            You know what you get as an output.<br />
+            <strong>You can't go wrong!</strong>
         </p>
-        -->
     </VuertFeature>
 </VuertFeatures>
 
@@ -88,6 +74,7 @@ layout: home
     .subtitle
     {
         color: var(--vp-c-text-2);
+        flex-grow: 1;
         font-size: 14px;
         font-weight: 500;
         line-height: 24px;
@@ -95,6 +82,13 @@ layout: home
     }
     .details
     {
-
+        font-size: 12px;
+        padding-top: 32px;
+        
+        & > strong
+        {
+            display: inline-block;
+            margin-top: 8px;
+        }
     }
 </style>

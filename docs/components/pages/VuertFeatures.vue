@@ -38,6 +38,7 @@
 
         & ::v-deep(.vuert-feature)
         {
+            padding: 8px;
             width: 100%;
         }
     }

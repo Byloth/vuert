@@ -26,8 +26,9 @@
 </template>
 
 <script lang="ts" setup>
-    import { onMounted } from "vue";
+    import { onMounted, watch } from "vue";
     import DefaultTheme from "vitepress/theme";
+    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
 
     import { useVuert } from "@src/functions.js";
     import AlertHandler from "@src/components/AlertHandler.vue";
@@ -40,6 +41,7 @@
     import { random } from "@docs/utils.js";
 
     const { Layout } = DefaultTheme;
+    const { hasSidebar } = useSidebar();
 
     const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
     const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
@@ -62,8 +64,20 @@
 
         }, delay);
     };
+    const setBodyMargin = (isSidebarOpen: boolean) =>
+    {
+        if (isSidebarOpen)
+        {
+            document.body.style.marginBottom = "";
+        }
+        else
+        {
+            document.body.style.marginBottom = "112px";
+        }
+    };
 
     onMounted(emitToast);
+    watch(hasSidebar, setBodyMargin, { immediate: true });
 </script>
 
 <style lang="scss">
@@ -87,7 +101,6 @@
     {
         border-bottom: 1px solid var(--vp-c-divider-light);
         box-shadow: 0px 2.5px 10px 0px rgba(0, 0, 0, 0.5);
-        margin-bottom: 112px;
     }
 
     .VPContent

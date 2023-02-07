@@ -25,7 +25,8 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
-      "@docs/*": ["docs/*"]
+      "@docs/*": ["docs/*"],
+      "@vitepress/theme/*": ["node_modules/vitepress/dist/client/theme-default/*"]
     },
     "types": [
       "vite/client",

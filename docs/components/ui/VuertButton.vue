@@ -26,10 +26,15 @@
     {
         border: 1px solid transparent;
         display: inline-block;
-        font-weight: 500;
+        font-weight: 600;
         text-align: center;
         transition: color 0.25s, border-color 0.25s, background-color 0.25s;
         white-space: nowrap;
+
+        &:active
+        {
+            transition: color 0.1s, border-color 0.1s, background-color 0.1s;
+        }
 
         &.alt
         {
@@ -67,6 +72,25 @@
                 background-color: var(--vp-button-brand-active-bg);
                 border-color: var(--vp-button-brand-active-border);
                 color: var(--vp-button-brand-active-text);
+            }
+        }
+        &.sponsor
+        {
+            background-color: var(--vp-button-sponsor-bg);
+            border-color: var(--vp-button-sponsor-border);
+            color: var(--vp-button-sponsor-text);
+
+            &:hover
+            {
+                background-color: var(--vp-button-sponsor-hover-bg);
+                border-color: var(--vp-button-sponsor-hover-border);
+                color: var(--vp-button-sponsor-hover-text);
+            }
+            &:active
+            {
+                background-color: var(--vp-button-sponsor-active-bg);
+                border-color: var(--vp-button-sponsor-active-border);
+                color: var(--vp-button-sponsor-active-text);
             }
         }
 

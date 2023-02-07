@@ -1,5 +1,5 @@
 <template>
-    <footer class="vuert-footer">
+    <footer class="vuert-footer" :hidden="hasSidebar">
         <div class="container">
             <p class="license">
                 Released under the
@@ -10,7 +10,7 @@
             <p class="copyright">
                 Copyright © 2021-{{ new Date().getFullYear() }}
                 <a class="link"
-                   href="https://www.byloth.net/"
+                   href="https://www.byloth.dev/"
                    target="_blank">Matteo Bilotta</a>.
             </p>
         </div>
@@ -18,6 +18,9 @@
 </template>
 
 <script lang="ts" setup>
+    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
+
+    const { hasSidebar } = useSidebar();
 </script>
 
 <style lang="scss" scoped>
@@ -30,6 +33,11 @@
         position: fixed;
         right: 0px;
         z-index: -1;
+
+        &[hidden]
+        {
+            display: none;
+        }
 
         & > .container
         {
