@@ -13,22 +13,24 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/" },
-      { text: "Configs", link: "/configs/" },
+      { text: "Configs", link: "/config/" },
       {
         text: "1.0.0-rc.3",
         items: [{ text: "Releases", link: `${REPO_HOME}/releases` }]
       }
     ],
-    sidebar: [{
-      text: "Getting started",
-      collapsible: true,
-      items: [
-        { text: "Your first alert", link: "/guide/your-first-alert" },
-        { text: "Theming alerts", link: "/guide/theming-alerts" },
-        { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },
-        { text: "Alerts with actions", link: "/guide/alerts-with-actions" }
-      ]
-    }],
+    sidebar: {
+      "/guide/": [{
+        text: "Getting started",
+        collapsible: true,
+        items: [
+          { text: "Your first alert", link: "/guide/your-first-alert" },
+          { text: "Theming alerts", link: "/guide/theming-alerts" },
+          { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },
+          { text: "Alerts with actions", link: "/guide/alerts-with-actions" }
+        ]
+      }]
+    },
     socialLinks: [{ icon: "github", link: REPO_HOME }]
   },
 
