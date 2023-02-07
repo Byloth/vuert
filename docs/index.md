@@ -3,9 +3,9 @@ layout: home
 ---
 
 <script setup>
-    import VuertHero from "./components/pages/VuertHero.vue";
-    import VuertFeatures from "./components/pages/VuertFeatures.vue";
-    import VuertFeature from "./components/pages/VuertFeature.vue";
+    import VuertHero from "@theme/components/pages/VuertHero.vue";
+    import VuertFeatures from "@theme/components/pages/VuertFeatures.vue";
+    import VuertFeature from "@theme/components/pages/VuertFeature.vue";
 </script>
 
 <VuertHero />
@@ -20,7 +20,9 @@ layout: home
         <p class="details">
             Done like you would...<br />
             Designed to be as friendly as possible.<br />
-            <strong>Go straight to the point!</strong>
+            <strong class="details__loud-out">
+                Go straight to the point!
+            </strong>
         </p>
     </VuertFeature>
     <VuertFeature icon="🎨">
@@ -33,7 +35,9 @@ layout: home
         <p class="details">
             Vuert comes with no style...<br />
             Style it and match exactly your theme.<br />
-            <strong>Unleash your imagination!</strong>
+            <strong class="details__loud-out">
+                Unleash your imagination!
+            </strong>
         </p>
     </VuertFeature>
     <VuertFeature icon="🪄">
@@ -46,7 +50,9 @@ layout: home
         <p class="details">
             Everything will working just fine...<br />
             Even if your app is imploding.<br />
-            <strong>Stay focused on what matters!</strong>
+            <strong class="details__loud-out">
+                Stay focused on what matters!
+            </strong>
         </p>
     </VuertFeature>
     <VuertFeature icon="💎">
@@ -59,7 +65,9 @@ layout: home
         <p class="details">
             You know what it's need as an input...<br />
             You know what you get as an output.<br />
-            <strong>You can't go wrong!</strong>
+            <strong class="details__loud-out">
+                You can't go wrong!
+            </strong>
         </p>
     </VuertFeature>
 </VuertFeatures>
@@ -84,11 +92,10 @@ layout: home
     {
         font-size: 12px;
         padding-top: 32px;
-        
-        & > strong
-        {
-            display: inline-block;
-            margin-top: 8px;
-        }
+    }
+    .details__loud-out
+    {
+        display: inline-block;
+        margin-top: 8px;
     }
 </style>

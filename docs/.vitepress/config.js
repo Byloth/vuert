@@ -37,6 +37,8 @@ export default defineConfig({
       alias: {
         "@src": resolve(__dirname, "../../src"),
         "@docs": resolve(__dirname, ".."),
+        "@theme": resolve(__dirname, "."),
+
         "@vitepress/theme": resolve(__dirname, "../../node_modules/vitepress/dist/client/theme-default")
       }
     }

@@ -1,7 +1,7 @@
 <script setup>
     import { useVuert } from "@src/functions";
 
-    import VuertButton from "../components/ui/VuertButton.vue";
+    import VuertButton from "@theme/components/ui/VuertButton.vue";
 
     const vuert = useVuert();
 

@@ -28,17 +28,18 @@
 <script lang="ts" setup>
     import { onMounted, watch } from "vue";
     import DefaultTheme from "vitepress/theme";
+
     import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
 
     import { useVuert } from "@src/functions.js";
     import AlertHandler from "@src/components/AlertHandler.vue";
     import type { AlertOptions } from "@src/types/alert/index.js";
 
-    import VuertFooter from "@docs/components/globals/VuertFooter.vue";
-    import ModalAlert from "@docs/components/alerts/ModalAlert.vue";
-    import ToastAlert from "@docs/components/alerts/ToastAlert.vue";
+    import VuertFooter from "../components/globals/VuertFooter.vue";
+    import ModalAlert from "../components/alerts/ModalAlert.vue";
+    import ToastAlert from "../components/alerts/ToastAlert.vue";
 
-    import { random } from "@docs/utils.js";
+    import { random } from "../utils.js";
 
     const { Layout } = DefaultTheme;
     const { hasSidebar } = useSidebar();

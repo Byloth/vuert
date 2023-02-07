@@ -26,6 +26,8 @@
     "paths": {
       "@src/*": ["src/*"],
       "@docs/*": ["docs/*"],
+      "@theme/*": ["docs/.vitepress/theme/*"],
+
       "@vitepress/theme/*": ["node_modules/vitepress/dist/client/theme-default/*"]
     },
     "types": [

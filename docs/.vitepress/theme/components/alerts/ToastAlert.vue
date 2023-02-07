@@ -13,7 +13,7 @@
     import Actions from "@docs/data/actions.json";
     import People from "@docs/data/people.json";
 
-    import { pickOne } from "@docs/utils.js";
+    import { pickOne } from "../../utils.js";
 
     defineProps({
         alert: {
