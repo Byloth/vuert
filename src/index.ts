@@ -14,3 +14,11 @@ export type { CustomAlert, BlockingCustomAlert, DismissibleCustomAlert } from ".
 export default Vuert;
 
 export { AlertHandler };
+
+declare module "vue"
+{
+    interface ComponentCustomProperties
+    {
+        $vuert: Vuert;
+    }
+}
