@@ -6,11 +6,11 @@ on:
 jobs:
   artifact-build:
     name: Artifact
-    uses: ./.github/workflows/build-core-template.yml
+    uses: ./.github/workflows/template-build-core.yml
 
-  npm-release:
+  publish-npm:
     name: NPM
     needs: artifact-build
-    uses: ./.github/workflows/release-template.yml
-    with:
-      auth-token: ${{ secrets.NPM_TOKEN }}
+    uses: ./.github/workflows/template-publish-core.yml
+    secrets:
+      AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

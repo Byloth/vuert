@@ -13,7 +13,7 @@ export interface VuertOptions
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.0.0-rc.3";
+    public static readonly VERSION: string = "1.0.0";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
@@ -39,6 +39,7 @@ export default class Vuert
     public emit<R = void>(alert: DismissibleAlert<R>): Promise<R | void>;
     public emit<R = void>(alert: BlockingCustomAlert<R>): Promise<R>;
     public emit<R = void>(alert: DismissibleCustomAlert<R>): Promise<R | void>;
+    public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>;
     public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>
     {
         const subscribers = this._subscribers.slice();

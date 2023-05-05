@@ -14,7 +14,8 @@
     import { onMounted, onUnmounted, shallowRef } from "vue";
     import type { PropType } from "vue";
 
-    import { UnattainableException } from "../exceptions.js";
+    import { FatalErrorException } from "@byloth/exceptions";
+
     import { useVuert } from "../functions.js";
     import { Alert, Context } from "../models/index.js";
     import { delay, update } from "../utils.js";
@@ -115,7 +116,7 @@
     {
         if (ctx.alert.id !== contexts[0].alert.id)
         {
-            throw new UnattainableException();
+            throw new FatalErrorException();
         }
 
         let leaveDuration: number;

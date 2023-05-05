@@ -1,16 +1,19 @@
-import { Exception } from "@byloth/exceptions";
+import { Exception, HandledException } from "@byloth/exceptions";
 
-export class UnattainableException extends Exception
+import type { AlertOptions } from "./index.js";
+
+export class VuertAlertInterrupt<R = void> extends HandledException
 {
-    public constructor(message?: string, cause?: unknown, name = "UnattainableException")
+    protected _options: AlertOptions<R>;
+    public get options(): AlertOptions<R>
     {
-        if (message === undefined)
-        {
-            message = "Something unexpected and unknown has gone terribly wrong! " +
-                      "Check your implementation and, if the problem persist," +
-                      " report this crash on GitHub as soon as possible.";
-        }
+        return { ...this._options };
+    }
 
-        super(message, cause, name);
+    public constructor(options: AlertOptions<R>, cause: Exception, name = "VuertAlertInterrupt")
+    {
+        super(cause, name);
+
+        this._options = options;
     }
 }

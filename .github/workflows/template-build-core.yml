@@ -1,4 +1,4 @@
-name: "<build:core template>"
+name: "<template:build:core>"
 on:
   workflow_call:
 
@@ -18,14 +18,14 @@ jobs:
         run: yarn ci
       - name: Coding standard check
         run: yarn lint:prod
-      # - name: Types integrity check
-      #   run: yarn check:types
+      - name: Types integrity check
+        run: yarn check:types
       - name: Source code build
         run: yarn build:core
       - name: Artifact creation
         run: |
           PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
-          PACKAGE_NAME="byloth-vuert-v${PACKAGE_VERSION}.tgz"
+          PACKAGE_NAME="byloth-vuert-core-v${PACKAGE_VERSION}.tgz"
           yarn pack
           tar -xzvf "${PACKAGE_NAME}" -C "."
 

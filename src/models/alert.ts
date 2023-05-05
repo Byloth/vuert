@@ -27,12 +27,12 @@ export default class Alert<R = void> implements IAlert<R>
 
     public readonly timeout: number;
 
-    public constructor(options: AlertOptions<R>)
+    public constructor(options: AlertOptions<R>, cause?: unknown)
     {
-        this.id = (options.id !== undefined) ? options.id : Symbol();
+        this.id = options.id ?? Symbol();
 
-        this.type = (options.type !== undefined) ? options.type : "info";
-        this.priority = (options.priority !== undefined) ? options.priority : "normal";
+        this.type = options.type ?? "info";
+        this.priority = options.priority ?? "normal";
 
         this.icon = options.icon;
         this.title = options.title;
@@ -48,8 +48,7 @@ export default class Alert<R = void> implements IAlert<R>
         this.component = options.component;
         this.props = options.props;
 
-        this.actions = (options.actions !== undefined) ?
-            options.actions.map((a) => new Action(a)) : [];
+        this.actions = options.actions?.map((a) => new Action(a)) ?? [];
 
         this.dismissible = (options.dismissible || false);
 

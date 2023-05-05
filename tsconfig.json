@@ -18,9 +18,8 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
-    "preserveValueImports": true,
+    "verbatimModuleSyntax": true,
     "experimentalDecorators": true,
-    "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {

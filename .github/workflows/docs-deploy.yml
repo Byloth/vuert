@@ -23,8 +23,8 @@ jobs:
         run: yarn ci
       - name: Coding standard check
         run: yarn lint:prod
-      # - name: Types integrity check
-      #   run: yarn check:types
+      - name: Types integrity check
+        run: yarn check:types
       - name: Source code build
         run: yarn build:docs
       - name: Artifact upload
@@ -57,7 +57,7 @@ jobs:
 
       - id: deployment
         name: GitHub Pages deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
 
     environment:
       name: github-pages
