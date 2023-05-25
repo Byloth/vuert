@@ -23,7 +23,8 @@
     import type { Awaitable, PromiseClosures } from "../types/index.js";
     import type { AlertOptions } from "../types/alert/index.js";
 
-    const vuert = useVuert();
+    const $vuert = useVuert();
+
     const props = defineProps({
         is: {
             default: "div",
@@ -147,7 +148,7 @@
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = vuert.subscribe(<R>(options: AlertOptions<R>) =>
+        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>) =>
         {
             if (props.filter(options))
             {
