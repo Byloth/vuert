@@ -25,7 +25,7 @@ jobs:
       - name: Artifact creation
         run: |
           PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
-          PACKAGE_NAME="byloth-vuert-core-v${PACKAGE_VERSION}.tgz"
+          PACKAGE_NAME="byloth-vuert-v${PACKAGE_VERSION}.tgz"
           yarn pack
           tar -xzvf "${PACKAGE_NAME}" -C "."
 
