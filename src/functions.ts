@@ -1,22 +1,57 @@
 import { inject } from "vue";
-import type { App, Plugin } from "vue";
+import type { App, ComponentPublicInstance, Plugin } from "vue";
 
 import { RuntimeException } from "@byloth/exceptions";
 
 import { InjectionKeys } from "./core.js";
+import { handle } from "./helpers.js";
 
 import Vuert from "./vuert.js";
 import type { VuertOptions } from "./vuert.js";
+import type { AlertOptions } from "./types/alert/index.js";
 
-export const createVuert = (options?: Partial<VuertOptions>): Plugin =>
+interface EnabledErrorsHandling
+{
+    enableErrorsHandling: true;
+    defaultAlertOptions: AlertOptions;
+}
+interface DisabledErrorsHandling
+{
+    enableErrorsHandling?: false;
+    defaultAlertOptions?: never;
+}
+
+type ErrorsHandling = EnabledErrorsHandling | DisabledErrorsHandling;
+
+export type PluginOptions = Partial<VuertOptions> & ErrorsHandling;
+export const createVuert = (options?: PluginOptions): Plugin =>
 {
     return {
-        install: (app: App): void =>
+        install: ({ config, provide }: App): void =>
         {
             const $vuert = new Vuert(options);
 
-            app.config.globalProperties.$vuert = $vuert;
-            app.provide(InjectionKeys.$vuert, $vuert);
+            config.globalProperties.$vuert = $vuert;
+            provide(InjectionKeys.$vuert, $vuert);
+
+            if (options?.enableErrorsHandling)
+            {
+                config.errorHandler = (error: unknown, instance: ComponentPublicInstance | null, info: string) =>
+                {
+                    handle($vuert, error, (exc) =>
+                    {
+                        // eslint-disable-next-line no-console
+                        console.error(exc);
+
+                        $vuert.emit(options.defaultAlertOptions);
+                    });
+                };
+
+                window.addEventListener("unhandledrejection", ({ reason }: PromiseRejectionEvent) =>
+                {
+                    handle($vuert, reason, () => $vuert.emit(options.defaultAlertOptions));
+                });
+            }
         }
     };
 };

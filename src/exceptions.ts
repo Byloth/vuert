@@ -2,7 +2,7 @@ import { Exception, HandledException } from "@byloth/exceptions";
 
 import type { AlertOptions } from "./index.js";
 
-export class VuertAlertInterrupt<R = void> extends HandledException
+export class AlertInterrupt<R = void> extends HandledException
 {
     protected _options: AlertOptions<R>;
     public get options(): AlertOptions<R>
@@ -10,9 +10,14 @@ export class VuertAlertInterrupt<R = void> extends HandledException
         return { ...this._options };
     }
 
-    public constructor(options: AlertOptions<R>, cause: Exception, name = "VuertAlertInterrupt")
+    public constructor(cause: Exception, options: AlertOptions<R>, message?: string, name = "AlertInterrupt")
     {
-        super(cause, name);
+        if (message === undefined)
+        {
+            message = "The original exception has already been handled while an alert was emitted.";
+        }
+
+        super(cause, message, name);
 
         this._options = options;
     }

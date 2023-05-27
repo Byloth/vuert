@@ -32,5 +32,5 @@ export interface CoreAlert<R = void> extends OmittedAlert
     actions?: ActionOptions<R>[];
 }
 
-export type BlockingMixin = { dismissible?: false; timeout?: undefined };
+export type BlockingMixin = { dismissible?: false; timeout?: never };
 export type DismissibleMixin = { dismissible: true; } | { timeout: number };

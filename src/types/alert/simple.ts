@@ -4,8 +4,8 @@ export interface SimpleAlert<R = void> extends CoreAlert<R>
 {
     message: string;
 
-    component?: undefined;
-    props?: undefined;
+    component?: never;
+    props?: never;
 }
 
 export type BlockingAlert<R = void> = SimpleAlert<R> & BlockingMixin;

@@ -5,7 +5,7 @@ import type { CoreAlert, BlockingMixin, DismissibleMixin } from "./core.js";
 
 export interface CustomAlert<R = void> extends CoreAlert<R>
 {
-    message?: undefined;
+    message?: never;
 
     component: Component;
     props?: Props;
