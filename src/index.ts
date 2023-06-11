@@ -1,9 +1,7 @@
 import AlertHandler from "./components/AlertHandler.vue";
 import Vuert from "./vuert.js";
 
-export { AlertInterrupt } from "./exceptions.js";
 export { createVuert, useVuert } from "./functions.js";
-export { handle } from "./helpers.js";
 export { Action, Alert, Context } from "./models/index.js";
 
 export type { VuertOptions } from "./vuert.js";

@@ -56,10 +56,10 @@
     });
 
     const emit = defineEmits({
-        opening: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        opened: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        closing: <R>(alert: Alert<R>) => alert instanceof Alert<R>,
-        closed: <R>(alert: Alert<R>) => alert instanceof Alert<R>
+        opening: <R>(alert: Alert<R>) => (alert instanceof Alert),
+        opened: <R>(alert: Alert<R>) => (alert instanceof Alert),
+        closing: <R>(alert: Alert<R>) => (alert instanceof Alert),
+        closed: <R>(alert: Alert<R>) => (alert instanceof Alert)
     });
 
     const contexts: Context<any>[] = [];

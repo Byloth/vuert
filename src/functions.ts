@@ -1,10 +1,9 @@
-import { inject } from "vue";
+import { inject, getCurrentScope } from "vue";
 import type { App, ComponentPublicInstance, Plugin } from "vue";
 
-import { RuntimeException } from "@byloth/exceptions";
+import { handle, RuntimeException } from "@byloth/exceptions";
 
 import { InjectionKeys } from "./core.js";
-import { handle } from "./helpers.js";
 
 import Vuert from "./vuert.js";
 import type { VuertOptions } from "./vuert.js";
@@ -23,6 +22,19 @@ interface DisabledErrorsHandling
 
 type ErrorsHandling = EnabledErrorsHandling | DisabledErrorsHandling;
 
+let _activeVuert: Vuert | undefined = undefined;
+
+const _setActiveVuert = (vuert: Vuert): void => { _activeVuert = vuert; };
+const _getActiveVuert = (): Vuert | undefined =>
+{
+    if (getCurrentScope())
+    {
+        return inject(InjectionKeys.$vuert);
+    }
+
+    return _activeVuert;
+};
+
 export type PluginOptions = Partial<VuertOptions> & ErrorsHandling;
 export const createVuert = (options?: PluginOptions): Plugin =>
 {
@@ -31,6 +43,8 @@ export const createVuert = (options?: PluginOptions): Plugin =>
         {
             const $vuert = new Vuert(options);
 
+            _setActiveVuert($vuert);
+
             config.globalProperties.$vuert = $vuert;
             provide(InjectionKeys.$vuert, $vuert);
 
@@ -38,7 +52,7 @@ export const createVuert = (options?: PluginOptions): Plugin =>
             {
                 config.errorHandler = (error: unknown, instance: ComponentPublicInstance | null, info: string) =>
                 {
-                    handle($vuert, error, (exc) =>
+                    handle(error, (exc) =>
                     {
                         // eslint-disable-next-line no-console
                         console.error(exc);
@@ -49,7 +63,7 @@ export const createVuert = (options?: PluginOptions): Plugin =>
 
                 window.addEventListener("unhandledrejection", ({ reason }: PromiseRejectionEvent) =>
                 {
-                    handle($vuert, reason, () => $vuert.emit(options.defaultAlertOptions));
+                    handle(reason, () => $vuert.emit(options.defaultAlertOptions));
                 });
             }
         }
@@ -57,11 +71,11 @@ export const createVuert = (options?: PluginOptions): Plugin =>
 };
 export const useVuert = (): Vuert =>
 {
-    const $vuert = inject(InjectionKeys.$vuert);
+    const $vuert = _getActiveVuert();
     if (!$vuert)
     {
         throw new RuntimeException(
-            "`useVuert` was called with no active instance. " +
+            "`useVuert()` was called but there was not active Vuert. " +
             "Did you forget to install `Vuert` plugin in your App?"
         );
     }

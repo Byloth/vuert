@@ -13,7 +13,7 @@ export interface VuertOptions
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.0.1";
+    public static readonly VERSION: string = "1.0.2";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
