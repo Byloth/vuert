@@ -50,20 +50,24 @@ export const createVuert = (options?: PluginOptions): Plugin =>
 
             if (options?.enableErrorsHandling)
             {
-                config.errorHandler = (error: unknown, instance: ComponentPublicInstance | null, info: string) =>
+                const _handler = (exc: unknown) =>
                 {
-                    handle(error, (exc) =>
-                    {
-                        // eslint-disable-next-line no-console
-                        console.error(exc);
+                    // eslint-disable-next-line no-console
+                    console.error(exc);
 
-                        $vuert.emit(options.defaultAlertOptions);
-                    });
+                    $vuert.emit(options.defaultAlertOptions);
                 };
 
-                window.addEventListener("unhandledrejection", ({ reason }: PromiseRejectionEvent) =>
+                config.errorHandler = (error: unknown, instance: ComponentPublicInstance | null, info: string) =>
                 {
-                    handle(reason, () => $vuert.emit(options.defaultAlertOptions));
+                    handle(error, _handler);
+                };
+
+                window.addEventListener("unhandledrejection", (evt: PromiseRejectionEvent) =>
+                {
+                    evt.preventDefault();
+
+                    handle(evt.reason, _handler);
                 });
             }
         }
