@@ -1,26 +1,12 @@
 import { inject, getCurrentScope } from "vue";
-import type { App, ComponentPublicInstance, Plugin } from "vue";
+import type { App, Plugin } from "vue";
 
-import { handle, RuntimeException } from "@byloth/exceptions";
+import { RuntimeException } from "@byloth/exceptions";
 
 import { InjectionKeys } from "./core.js";
 
 import Vuert from "./vuert.js";
 import type { VuertOptions } from "./vuert.js";
-import type { AlertOptions } from "./types/alert/index.js";
-
-interface EnabledErrorsHandling
-{
-    enableErrorsHandling: true;
-    defaultAlertOptions: AlertOptions;
-}
-interface DisabledErrorsHandling
-{
-    enableErrorsHandling?: false;
-    defaultAlertOptions?: never;
-}
-
-type ErrorsHandling = EnabledErrorsHandling | DisabledErrorsHandling;
 
 let _activeVuert: Vuert | undefined = undefined;
 
@@ -35,7 +21,7 @@ const _getActiveVuert = (): Vuert | undefined =>
     return _activeVuert;
 };
 
-export type PluginOptions = Partial<VuertOptions> & ErrorsHandling;
+export type PluginOptions = Partial<VuertOptions>;
 export const createVuert = (options?: PluginOptions): Plugin =>
 {
     return {
@@ -47,29 +33,6 @@ export const createVuert = (options?: PluginOptions): Plugin =>
 
             config.globalProperties.$vuert = $vuert;
             provide(InjectionKeys.$vuert, $vuert);
-
-            if (options?.enableErrorsHandling)
-            {
-                const _handler = (exc: unknown) =>
-                {
-                    // eslint-disable-next-line no-console
-                    console.error(exc);
-
-                    $vuert.emit(options.defaultAlertOptions);
-                };
-
-                config.errorHandler = (error: unknown, instance: ComponentPublicInstance | null, info: string) =>
-                {
-                    handle(error, _handler);
-                };
-
-                window.addEventListener("unhandledrejection", (evt: PromiseRejectionEvent) =>
-                {
-                    evt.preventDefault();
-
-                    handle(evt.reason, _handler);
-                });
-            }
         }
     };
 };
