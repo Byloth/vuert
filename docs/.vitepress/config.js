@@ -22,8 +22,9 @@ export default defineConfig({
     sidebar: {
       "/guide/": [{
         text: "Getting started",
-        collapsible: true,
+        collapsed: false,
         items: [
+          { text: "Introduction", link: "/guide/introduction" },
           { text: "Your first alert", link: "/guide/your-first-alert" },
           { text: "Theming alerts", link: "/guide/theming-alerts" },
           { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },

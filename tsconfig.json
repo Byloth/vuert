@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "composite": true,
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Bundler",
     "lib": [
       "ESNext",
       "DOM",
-      "ScriptHost",
+      "DOM.Iterable",
       "WebWorker"
     ],
     "strict": true,
@@ -20,6 +19,8 @@
     "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
