@@ -5,8 +5,17 @@ module.exports = {
     "@byloth/eslint-config-typescript",
     "@byloth/eslint-config-vue"
   ],
-  overrides: [{
-    files: ["*.ts"],
-    rules: { "no-dupe-class-members": "off" }
-  }]
+  overrides: [
+    {
+      files: ["*.d.ts"],
+      rules: {
+        "max-len": "off",
+        "@typescript-eslint/ban-types": "off"
+      }
+    },
+    {
+      files: ["*.ts"],
+      rules: { "no-dupe-class-members": "off" }
+    }
+  ]
 };

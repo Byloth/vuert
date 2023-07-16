@@ -11,7 +11,7 @@
     ],
     "strict": true,
     "jsx": "preserve",
-    "noEmit": true,
+    "declaration": true,
     "noImplicitThis": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,6 +23,7 @@
     "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "outDir": "types",
     "paths": {
       "@src/*": ["src/*"],
       "@docs/*": ["docs/*"],

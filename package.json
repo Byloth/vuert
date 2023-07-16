@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -52,8 +52,9 @@
     "build": "yarn build:core && yarn build:docs",
     "build:core": "vite build",
     "build:docs": "vitepress build docs",
+    "build:types": "vue-tsc --emitDeclarationOnly",
     "preview": "vitepress serve docs",
-    "check:types": "vue-tsc",
+    "check:types": "vue-tsc --noEmit",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
     "lint:prod": "export NODE_ENV=\"production\" && yarn lint",
     "ci": "yarn install --frozen-lockfile"
