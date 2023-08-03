@@ -3,12 +3,12 @@ import type { ComputedRef, Ref } from "vue";
 
 import { RuntimeException } from "@byloth/exceptions";
 
-import type { Awaitable, PromiseClosures } from "../types/index.js";
-import type { ActionCallback } from "../types/action.js";
-import type { AlertOptions } from "../types/alert/index.js";
+import type { Awaitable, PromiseClosures } from "../types";
+import type { ActionCallback } from "../types/action";
+import type { AlertOptions } from "../types/alert";
 
-import Action from "./action.js";
-import Alert from "./alert.js";
+import Action from "./action";
+import Alert from "./alert";
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Awaitable<R | undefined>;
 

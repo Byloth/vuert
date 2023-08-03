@@ -3,10 +3,10 @@ import type { App, Plugin } from "vue";
 
 import { RuntimeException } from "@byloth/exceptions";
 
-import { InjectionKeys } from "./core.js";
+import { InjectionKeys } from "./core";
 
-import Vuert from "./vuert.js";
-import type { VuertOptions } from "./vuert.js";
+import Vuert from "./vuert";
+import type { VuertOptions } from "./vuert";
 
 let _activeVuert: Vuert | undefined = undefined;
 

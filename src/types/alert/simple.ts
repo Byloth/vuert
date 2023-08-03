@@ -1,4 +1,4 @@
-import type { CoreAlert, BlockingMixin, DismissibleMixin } from "./core.js";
+import type { CoreAlert, BlockingMixin, DismissibleMixin } from "./core";
 
 export interface SimpleAlert<R = void> extends CoreAlert<R>
 {

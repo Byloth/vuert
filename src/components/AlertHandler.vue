@@ -12,27 +12,28 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     import { onMounted, onUnmounted, shallowRef } from "vue";
-    import type { PropType } from "vue";
+    import type { Component, PropType } from "vue";
 
     import { FatalErrorException } from "@byloth/exceptions";
 
-    import { useVuert } from "../functions.js";
-    import { Alert, Context } from "../models/index.js";
-    import { delay, update } from "../utils.js";
+    import { useVuert } from "../functions";
+    import { Alert, Context } from "../models";
+    import { delay, update } from "../utils";
 
-    import type { Awaitable, PromiseClosures } from "../types/index.js";
-    import type { AlertOptions } from "../types/alert/index.js";
+    import type { VuertOptions } from "../vuert";
+    import type { Awaitable, PromiseClosures } from "../types";
+    import type { AlertOptions } from "../types/alert";
 
     const $vuert = useVuert();
 
     const props = defineProps({
         is: {
             default: "div",
-            type: [String, Object]
+            type: [String, Object] as PropType<string | Component>
         },
         duration: {
             default: () => useVuert().options.duration,
-            type: [Number, String, Object],
+            type: [Number, Object] as PropType<VuertOptions["duration"]>,
 
             validator: (value: unknown): boolean =>
             {

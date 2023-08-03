@@ -31,15 +31,15 @@
 
     import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
 
-    import { useVuert } from "@src/functions.js";
+    import { useVuert } from "@src/functions";
     import AlertHandler from "@src/components/AlertHandler.vue";
-    import type { AlertOptions } from "@src/types/alert/index.js";
+    import type { AlertOptions } from "@src/types/alert";
 
     import VuertFooter from "../components/globals/VuertFooter.vue";
     import ModalAlert from "../components/alerts/ModalAlert.vue";
     import ToastAlert from "../components/alerts/ToastAlert.vue";
 
-    import { random } from "../utils.js";
+    import { random } from "../utils";
 
     const { Layout } = DefaultTheme;
     const { hasSidebar } = useSidebar();

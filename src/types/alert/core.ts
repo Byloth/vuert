@@ -1,7 +1,7 @@
 import type { Component } from "vue";
 
-import type { Props } from "../core.js";
-import type { IAction, ActionOptions } from "../action.js";
+import type { Props } from "../core";
+import type { IAction, ActionOptions } from "../action";
 
 export interface IAlert<R = void>
 {

@@ -1,4 +1,4 @@
-import type { Awaitable } from "./index.js";
+import type { Awaitable } from ".";
 
 export type ActionCallback<T> = () => Awaitable<T>;
 

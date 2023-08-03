@@ -1,16 +1,16 @@
 import AlertHandler from "./components/AlertHandler.vue";
-import Vuert from "./vuert.js";
+import Vuert from "./vuert";
 
-export { createVuert, useVuert } from "./functions.js";
-export { Action, Alert, Context } from "./models/index.js";
+export { createVuert, useVuert } from "./functions";
+export { Action, Alert, Context } from "./models";
 
-export type { VuertOptions } from "./vuert.js";
+export type { VuertOptions } from "./vuert";
 
-export type { IAction, ActionCallback, ActionOptions } from "./types/action.js";
-export type { IAlert, AlertOptions, AlertSubscriber } from "./types/alert/index.js";
-export type { SimpleAlert, BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";
-export type { CustomAlert, BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom.js";
-export type { PluginOptions } from "./functions.js";
+export type { IAction, ActionCallback, ActionOptions } from "./types/action";
+export type { IAlert, AlertOptions, AlertSubscriber } from "./types/alert";
+export type { SimpleAlert, BlockingAlert, DismissibleAlert } from "./types/alert/simple";
+export type { CustomAlert, BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
+export type { PluginOptions } from "./functions";
 
 export default Vuert;
 

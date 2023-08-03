@@ -1,4 +1,4 @@
-import type { IAction, ActionCallback, ActionOptions } from "../types/action.js";
+import type { IAction, ActionCallback, ActionOptions } from "../types/action";
 
 export default class Action<R = void> implements IAction<R>
 {

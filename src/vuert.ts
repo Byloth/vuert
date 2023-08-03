@@ -2,13 +2,13 @@
 
 import { RuntimeException } from "@byloth/exceptions";
 
-import type { AlertOptions, AlertSubscriber } from "./types/alert/index.js";
-import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";
-import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom.js";
+import type { AlertOptions, AlertSubscriber } from "./types/alert";
+import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
+import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
 
 export interface VuertOptions
 {
-    duration: number | string | { enter: number | string; leave: number | string; };
+    duration: number | { enter: number; leave: number; };
 }
 
 export default class Vuert

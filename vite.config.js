@@ -19,7 +19,8 @@ export default defineConfig({
         },
         sourcemap: true
       }
-    }
+    },
+    sourcemap: true
   },
   plugins: [Vue()],
   resolve: {

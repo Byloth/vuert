@@ -1,17 +1,20 @@
-import type { PropType } from "vue";
-import { Alert } from "../models/index.js";
-import type { AlertOptions } from "../types/alert/index.js";
+import type { Component, PropType } from "vue";
+import { Alert } from "../models";
+import type { AlertOptions } from "../types/alert";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     is: {
         default: string;
-        type: (StringConstructor | ObjectConstructor)[];
+        type: PropType<string | Component>;
     };
     duration: {
-        default: () => string | number | {
-            enter: string | number;
-            leave: string | number;
+        default: () => number | {
+            enter: number;
+            leave: number;
         };
-        type: (StringConstructor | ObjectConstructor | NumberConstructor)[];
+        type: PropType<number | {
+            enter: number;
+            leave: number;
+        }>;
         validator: (value: unknown) => boolean;
     };
     filter: {
@@ -26,14 +29,17 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
 }, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     is: {
         default: string;
-        type: (StringConstructor | ObjectConstructor)[];
+        type: PropType<string | Component>;
     };
     duration: {
-        default: () => string | number | {
-            enter: string | number;
-            leave: string | number;
+        default: () => number | {
+            enter: number;
+            leave: number;
         };
-        type: (StringConstructor | ObjectConstructor | NumberConstructor)[];
+        type: PropType<number | {
+            enter: number;
+            leave: number;
+        }>;
         validator: (value: unknown) => boolean;
     };
     filter: {
@@ -47,8 +53,11 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     onClosed?: ((alert: Alert<unknown>) => any) | undefined;
 }, {
     filter: (options: AlertOptions<unknown>) => boolean;
-    is: string | Record<string, any>;
-    duration: string | number | Record<string, any>;
+    is: string | Component;
+    duration: number | {
+        enter: number;
+        leave: number;
+    };
 }, {}>, {
     default?(_: {
         alert: Alert<any>;

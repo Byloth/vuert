@@ -2,10 +2,10 @@ import type { Component } from "vue";
 
 import { ValueException } from "@byloth/exceptions";
 
-import type { Props } from "../types/core.js";
-import type { IAlert, AlertOptions } from "../types/alert/index.js";
+import type { Props } from "../types/core";
+import type { IAlert, AlertOptions } from "../types/alert";
 
-import Action from "./action.js";
+import Action from "./action";
 
 export default class Alert<R = void> implements IAlert<R>
 {

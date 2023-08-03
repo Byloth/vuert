@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts" setup>
-    import Alert from "@src/models/alert.js";
+    import Alert from "@src/models/alert";
 
     import Actions from "@docs/data/actions.json";
     import People from "@docs/data/people.json";
 
-    import { pickOne } from "../../utils.js";
+    import { pickOne } from "../../utils";
 
     defineProps({
         alert: {
