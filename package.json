@@ -13,7 +13,7 @@
     "TypeScript",
     "Library"
   ],
-  "homepage": "https://github.com/Byloth/vuert#readme",
+  "homepage": "https://byloth.github.io/vuert/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Byloth/vuert.git"
@@ -23,7 +23,7 @@
   },
   "author": {
     "name": "Matteo Bilotta",
-    "email": "me@byloth.net",
+    "email": "me@byloth.dev",
     "url": "https://www.byloth.dev/"
   },
   "license": "Apache-2.0",
@@ -60,23 +60,23 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
-    "@byloth/exceptions": "^2.0.3",
+    "@byloth/exceptions": "^2.1.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@byloth/eslint-config-typescript": "^2.6.2",
-    "@byloth/eslint-config-vue": "^2.6.2",
-    "@fortawesome/fontawesome-free": "^6.4.0",
-    "@typescript-eslint/eslint-plugin": "^6.2.1",
-    "@typescript-eslint/parser": "^6.2.1",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "eslint": "^8.46.0",
-    "eslint-plugin-vue": "^9.16.1",
-    "sass": "^1.64.2",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.8",
-    "vitepress": "^1.0.0-beta.7",
+    "@byloth/eslint-config-typescript": "^2.6.5",
+    "@byloth/eslint-config-vue": "^2.6.5",
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "@vitejs/plugin-vue": "^4.3.4",
+    "eslint": "^8.50.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "sass": "^1.68.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.9",
+    "vitepress": "^1.0.0-rc.20",
     "vue-eslint-parser": "^9.3.1",
-    "vue-tsc": "^1.8.8"
+    "vue-tsc": "^1.8.15"
   }
 }

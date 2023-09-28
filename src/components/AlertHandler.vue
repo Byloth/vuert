@@ -149,7 +149,7 @@
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>) =>
+        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>): Promise<R> | void =>
         {
             if (props.filter(options))
             {

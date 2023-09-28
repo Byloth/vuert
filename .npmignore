@@ -16,7 +16,17 @@ Desktop.ini
 
 # Generated & compiled files
 #
+/types/
+
 /*.tgz
+
+/tsconfig.tsbuildinfo
+/yarn-error.log
+
+# Environmental files
+#
+.env
+.gitkeep
 
 # Files with sensitive data
 #

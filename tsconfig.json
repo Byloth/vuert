@@ -13,6 +13,7 @@
     "jsx": "preserve",
     "declaration": true,
     "noImplicitThis": true,
+    "noImplicitReturns": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "isolatedModules": true,
