@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.1.1",
+  "version": "1.2.0-rc.1",
   "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -60,6 +60,7 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
+    "@byloth/core": "^1.1.0",
     "@byloth/exceptions": "^2.1.0",
     "vue": "^3.3.4"
   },
@@ -67,9 +68,9 @@
     "@byloth/eslint-config-typescript": "^2.6.5",
     "@byloth/eslint-config-vue": "^2.6.5",
     "@fortawesome/fontawesome-free": "^6.4.2",
-    "@typescript-eslint/eslint-plugin": "^6.7.3",
-    "@typescript-eslint/parser": "^6.7.3",
-    "@vitejs/plugin-vue": "^4.3.4",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "@vitejs/plugin-vue": "^4.4.0",
     "eslint": "^8.50.0",
     "eslint-plugin-vue": "^9.17.0",
     "sass": "^1.68.0",

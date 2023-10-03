@@ -10,10 +10,11 @@ export default defineConfig({
       name: "Vuert"
     },
     rollupOptions: {
-      external: ["@byloth/exceptions", "vue"],
+      external: ["@byloth/core", "@byloth/exceptions", "vue"],
       output: {
         exports: "named",
         globals: {
+          "@byloth/core": "Core",
           "@byloth/exceptions": "Exceptions",
           "vue": "Vue"
         },

@@ -1,6 +1,6 @@
-import type { Awaitable } from ".";
+import type { MaybePromise } from "@byloth/core";
 
-export type ActionCallback<T> = () => Awaitable<T>;
+export type ActionCallback<T> = () => MaybePromise<T>;
 
 export interface IAction<R>
 {

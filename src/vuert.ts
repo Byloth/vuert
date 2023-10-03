@@ -2,25 +2,29 @@
 
 import { RuntimeException } from "@byloth/exceptions";
 
-import type { AlertOptions, AlertSubscriber } from "./types/alert";
-import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple";
-import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom";
+import type { Context } from "./models/index.js";
+
+import type { Duration } from "./types/index.js";
+import type { AlertOptions } from "./types/alert/index.js";
+import type { BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";
+import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom.js";
 
 export interface VuertOptions
 {
-    duration: number | { enter: number; leave: number; };
+    duration: number | Duration;
 }
+export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> | void;
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.1.1";
+    public static readonly VERSION: string = "1.2.0-rc.1";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
         return { duration: 200 };
     }
 
-    protected _subscribers: AlertSubscriber<any>[];
+    protected _subscribers: VuertSubscriber<any>[];
 
     protected _options: VuertOptions;
     public get options(): VuertOptions
@@ -35,31 +39,36 @@ export default class Vuert
         this._options = { ...Vuert.DEFAULT_OPTS, ...options };
     }
 
-    public emit<R = void>(alert: BlockingAlert<R>): Promise<R>;
-    public emit<R = void>(alert: DismissibleAlert<R>): Promise<R | void>;
-    public emit<R = void>(alert: BlockingCustomAlert<R>): Promise<R>;
-    public emit<R = void>(alert: DismissibleCustomAlert<R>): Promise<R | void>;
-    public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>;
-    public emit<R = void>(alert: AlertOptions<R>): Promise<R | void>
+    public emit<R = void>(alert: BlockingAlert<R>): Context<R>;
+    public emit<R = void>(alert: DismissibleAlert<R>): Context<R | void>;
+    public emit<R = void>(alert: BlockingCustomAlert<R>): Context<R>;
+    public emit<R = void>(alert: DismissibleCustomAlert<R>): Context<R | void>;
+    public emit<R = void>(alert: AlertOptions<R>): Context<R | void>;
+    public emit<R = void>(alert: AlertOptions<R>): Context<R | void>
     {
         const subscribers = this._subscribers.slice();
-        const promises = subscribers.map((subscriber) => subscriber(alert));
-        const results = promises.filter((element) => !!(element)) as Promise<any>[];
+        const contexts = subscribers.map((subscriber) => subscriber(alert));
+        const results = contexts.filter((context) => !!(context)) as Context<any>[];
 
         if (!results.length)
         {
             throw new RuntimeException("Unable to handle the emitted alert properly. " +
                                        "There wasn't found any supported subscribers.");
         }
+        if (results.length > 1)
+        {
+            throw new RuntimeException("Unable to handle the emitted alert properly. " +
+                                       "There were found too many supported subscribers.");
+        }
 
-        return Promise.any(results);
+        return results[0];
     }
 
-    public subscribe<R>(subscriber: AlertSubscriber<R>): () => AlertSubscriber<R>
+    public subscribe<R>(subscriber: VuertSubscriber<R>): () => VuertSubscriber<R>
     {
         this._subscribers.push(subscriber);
 
-        return (): AlertSubscriber<R> =>
+        return (): VuertSubscriber<R> =>
         {
             const index = this._subscribers.indexOf(subscriber);
 

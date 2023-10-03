@@ -1,20 +1,15 @@
 import type { Component, PropType } from "vue";
-import { Alert } from "../models";
-import type { AlertOptions } from "../types/alert";
+import { Alert } from "../models/index.js";
+import type { Duration } from "../types/index.js";
+import type { AlertOptions } from "../types/alert/index.js";
 declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     is: {
         default: string;
         type: PropType<string | Component>;
     };
     duration: {
-        default: () => number | {
-            enter: number;
-            leave: number;
-        };
-        type: PropType<number | {
-            enter: number;
-            leave: number;
-        }>;
+        default: () => number | Duration;
+        type: PropType<number | Duration>;
         validator: (value: unknown) => boolean;
     };
     filter: {
@@ -22,24 +17,18 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: PropType<(options: AlertOptions<unknown>) => boolean>;
     };
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
-    opening: (alert: Alert<unknown>) => boolean;
-    opened: (alert: Alert<unknown>) => boolean;
-    closing: (alert: Alert<unknown>) => boolean;
-    closed: (alert: Alert<unknown>) => boolean;
+    opening: (alert: Alert<unknown>) => void;
+    opened: (alert: Alert<unknown>) => void;
+    closing: (alert: Alert<unknown>) => void;
+    closed: (alert: Alert<unknown>) => void;
 }, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     is: {
         default: string;
         type: PropType<string | Component>;
     };
     duration: {
-        default: () => number | {
-            enter: number;
-            leave: number;
-        };
-        type: PropType<number | {
-            enter: number;
-            leave: number;
-        }>;
+        default: () => number | Duration;
+        type: PropType<number | Duration>;
         validator: (value: unknown) => boolean;
     };
     filter: {
@@ -54,16 +43,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
 }, {
     filter: (options: AlertOptions<unknown>) => boolean;
     is: string | Component;
-    duration: number | {
-        enter: number;
-        leave: number;
-    };
+    duration: number | Duration;
 }, {}>, {
     default?(_: {
         alert: Alert<any>;
         isOpen: boolean;
-        resolve: (result?: any) => void;
-        reject: (error: Error) => void;
+        resolve: import("@byloth/core").PromiseResolver<any>;
+        reject: import("@byloth/core").PromiseRejecter<unknown>;
     }): any;
 }>;
 export default _default;

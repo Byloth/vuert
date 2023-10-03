@@ -41,7 +41,7 @@
 <script lang="ts" setup>
     import type { PropType } from "vue";
 
-    import Alert from "@src/models/alert";
+    import Alert from "@src/models/alert.js";
 
     import VuertButton from "../ui/VuertButton.vue";
 

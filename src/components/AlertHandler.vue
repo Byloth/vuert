@@ -3,26 +3,22 @@
         <slot v-if="context"
               :alert="context.alert"
               :is-open="context.isOpen.value"
-              :resolve="context.resolver"
-              :reject="context.rejecter"></slot>
+              :resolve="context.resolve"
+              :reject="context.reject"></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    import { onMounted, onUnmounted, shallowRef } from "vue";
+    import { nextTick, onMounted, onUnmounted, shallowRef } from "vue";
     import type { Component, PropType } from "vue";
 
-    import { FatalErrorException } from "@byloth/exceptions";
+    import { useVuert } from "../functions.js";
+    import { Alert, Context } from "../models/index.js";
 
-    import { useVuert } from "../functions";
-    import { Alert, Context } from "../models";
-    import { delay, update } from "../utils";
-
-    import type { VuertOptions } from "../vuert";
-    import type { Awaitable, PromiseClosures } from "../types";
-    import type { AlertOptions } from "../types/alert";
+    import type { Duration } from "../types/index.js";
+    import type { AlertOptions } from "../types/alert/index.js";
 
     const $vuert = useVuert();
 
@@ -33,7 +29,7 @@
         },
         duration: {
             default: () => useVuert().options.duration,
-            type: [Number, Object] as PropType<VuertOptions["duration"]>,
+            type: [Number, Object] as PropType<number | Duration>,
 
             validator: (value: unknown): boolean =>
             {
@@ -66,94 +62,56 @@
     const contexts: Context<any>[] = [];
     const context = shallowRef<Context<any>>();
 
-    const register = <R>(options: AlertOptions<R>, { resolve, reject }: PromiseClosures<R, Error>) =>
+    const tickUpdate = (): Promise<void> => new Promise((resolve) => nextTick(resolve));
+
+    const open = async (): Promise<void> =>
     {
-        const ctx = new Context(options, {
-            resolve: async (result: Awaitable<R>) =>
-            {
-                await close(ctx);
+        const ctx = contexts[0];
 
-                resolve(result);
-            },
-            reject: async (error: Error) =>
-            {
-                await close(ctx);
+        ctx.onOpening(() => emit("opening", ctx.alert));
+        ctx.onOpened(() => emit("opened", ctx.alert));
+        ctx.onClosing(() => emit("closing", ctx.alert));
+        ctx.onClosed(async () =>
+        {
+            emit("closed", ctx.alert);
 
-                reject(error);
+            contexts.shift();
+            context.value = undefined;
+
+            await tickUpdate();
+
+            if (contexts.length > 0)
+            {
+                open();
             }
         });
+
+        context.value = ctx;
+
+        await ctx.open();
+    };
+
+    const register = <R>(options: AlertOptions<R>): Context<R> =>
+    {
+        const ctx = new Context(options, props.duration);
 
         contexts.push(ctx);
         if (contexts.length === 1)
         {
             open();
         }
-    };
 
-    const open = async (): Promise<void> =>
-    {
-        const ctx = contexts[0];
-
-        let enterDuration: number;
-        if (props.duration instanceof Object)
-        {
-            enterDuration = Number(props.duration["enter"]);
-        }
-        else
-        {
-            enterDuration = Number(props.duration);
-        }
-
-        context.value = ctx;
-
-        ctx.opening();
-        emit("opening", ctx.alert);
-
-        await delay(enterDuration);
-
-        emit("opened", ctx.alert);
-        ctx.opened();
-    };
-    const close = async <R>(ctx: Context<R>): Promise<void> =>
-    {
-        if (ctx.alert.id !== contexts[0].alert.id)
-        {
-            throw new FatalErrorException();
-        }
-
-        let leaveDuration: number;
-        if (props.duration instanceof Object)
-        {
-            leaveDuration = Number(props.duration["leave"]);
-        }
-        else
-        {
-            leaveDuration = Number(props.duration);
-        }
-
-        emit("closing", ctx.alert);
-        await delay(leaveDuration);
-        emit("closed", ctx.alert);
-
-        contexts.shift();
-        context.value = undefined;
-
-        await update();
-
-        if (contexts.length > 0)
-        {
-            open();
-        }
+        return ctx;
     };
 
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>): Promise<R> | void =>
+        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>): Context<R> | void =>
         {
             if (props.filter(options))
             {
-                return new Promise<R>((resolve, reject) => register(options, { resolve, reject }));
+                return register(options);
             }
         });
     });

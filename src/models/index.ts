@@ -1,5 +1,5 @@
-import Action from "./action";
-import Alert from "./alert";
-import Context from "./context";
+import Action from "./action.js";
+import Alert from "./alert.js";
+import Context from "./context.js";
 
 export { Action, Alert, Context };
