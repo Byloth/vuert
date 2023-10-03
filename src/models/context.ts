@@ -79,10 +79,8 @@ export default class Context<T = void, E = unknown> extends DeferredPromise<Cont
             this._closedSubscribers.call();
         };
 
-        const _resolve: PromiseResolver<T> = super._resolve;
-        const _reject: PromiseRejecter<E> = super._reject;
-
-        super._resolve = async (result?: MaybePromise<ContextResult<T>>): Promise<void> =>
+        const _resolve: PromiseResolver<T> = this._resolve;
+        this._resolve = async (result?: MaybePromise<ContextResult<T>>): Promise<void> =>
         {
             _close();
 
@@ -99,7 +97,9 @@ export default class Context<T = void, E = unknown> extends DeferredPromise<Cont
                 _resolve(result as T);
             }
         };
-        super._reject = (reason: E): void =>
+
+        const _reject: PromiseRejecter<E> = this._reject;
+        this._reject = (reason: E): void =>
         {
             _close();
             _reject(reason);
