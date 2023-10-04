@@ -2,7 +2,7 @@ import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
 
 import { delay, DeferredPromise, Subscribers } from "@byloth/core";
-import type { FulfilledHandler, MaybePromise, PromiseRejecter, PromiseResolver, RejectedHandler } from "@byloth/core";
+import type { MaybePromise } from "@byloth/core";
 
 import type { Duration } from "../types/index.js";
 import type { ActionCallback } from "../types/action.js";
@@ -13,7 +13,7 @@ import Alert from "./alert.js";
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | MaybePromise<R | undefined>;
 
-export default class Context<T = void, E = unknown> extends DeferredPromise<ContextResult<T>, E>
+export default class Context<T = void> extends DeferredPromise<T>
 {
     protected _duration: Duration;
     protected _timeoutId?: number;
@@ -30,7 +30,52 @@ export default class Context<T = void, E = unknown> extends DeferredPromise<Cont
 
     public constructor(options: AlertOptions<T>, duration: number | Duration)
     {
-        super();
+        const _close = async (): Promise<void> =>
+        {
+            if (!this._isOpen.value)
+            {
+                throw new Error("Unable to close the alert. It has already been closed or not even opened yet.");
+            }
+
+            this._isOpen.value = false;
+
+            if (this._timeoutId !== undefined)
+            {
+                clearTimeout(this._timeoutId);
+
+                this._timeoutId = undefined;
+            }
+
+            this._closingSubscribers.call();
+            await delay(this._duration.leave);
+            this._closedSubscribers.call();
+        };
+
+        const _onFulfilled = (result?: MaybePromise<ContextResult<T>>): T =>
+        {
+            _close();
+
+            if (result instanceof Action)
+            {
+                return result.callback() as T;
+            }
+            else if (result instanceof Function)
+            {
+                return result() as T;
+            }
+            else
+            {
+                return result as T;
+            }
+        };
+        const _onRejected = (reason: unknown): never =>
+        {
+            _close();
+
+            throw reason;
+        };
+
+        super(_onFulfilled, _onRejected);
 
         if (typeof duration === "object")
         {
@@ -57,53 +102,6 @@ export default class Context<T = void, E = unknown> extends DeferredPromise<Cont
 
         this._isOpen = ref(false);
         this.isOpen = computed((): boolean => this._isOpen.value);
-
-        const _close = async (): Promise<void> =>
-        {
-            if (!this._isOpen.value)
-            {
-                throw new Error("Unable to close the alert. It has already been closed or not even opened yet.");
-            }
-
-            this._isOpen.value = false;
-
-            if (this._timeoutId !== undefined)
-            {
-                clearTimeout(this._timeoutId);
-
-                this._timeoutId = undefined;
-            }
-
-            this._closingSubscribers.call();
-            await delay(this._duration.leave);
-            this._closedSubscribers.call();
-        };
-
-        const _resolve: PromiseResolver<T> = this._resolve;
-        this._resolve = async (result?: MaybePromise<ContextResult<T>>): Promise<void> =>
-        {
-            _close();
-
-            if (result instanceof Action)
-            {
-                _resolve(result.callback() as T);
-            }
-            else if (result instanceof Function)
-            {
-                _resolve(result() as T);
-            }
-            else
-            {
-                _resolve(result as T);
-            }
-        };
-
-        const _reject: PromiseRejecter<E> = this._reject;
-        this._reject = (reason: E): void =>
-        {
-            _close();
-            _reject(reason);
-        };
     }
 
     public async open(): Promise<void>
@@ -140,25 +138,5 @@ export default class Context<T = void, E = unknown> extends DeferredPromise<Cont
     public onClosed(subscriber: () => void): void
     {
         this._closedSubscribers.add(subscriber);
-    }
-
-    public then<F = T, R = E>(onFulfilled?: FulfilledHandler<T, F> | null, onRejected?: RejectedHandler<E, R>)
-        : Context<F, R>
-    {
-        super.then(onFulfilled as undefined, onRejected);
-
-        return (this as unknown) as Context<F, R>;
-    }
-    public catch<R = E>(onRejected?: RejectedHandler<E, R>): Context<T, R>
-    {
-        super.catch(onRejected);
-
-        return (this as unknown) as Context<T, R>;
-    }
-    public finally(onFinally?: (() => void) | null): Context<T, E>
-    {
-        super.finally(onFinally);
-
-        return this;
     }
 }
