@@ -17,8 +17,7 @@ export default defineConfig({
           "@byloth/core": "Core",
           "@byloth/exceptions": "Exceptions",
           "vue": "Vue"
-        },
-        sourcemap: true
+        }
       }
     },
     sourcemap: true
