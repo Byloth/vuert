@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "lib": [
       "ESNext",
       "DOM",
@@ -12,6 +12,7 @@
     "strict": true,
     "jsx": "preserve",
     "declaration": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,

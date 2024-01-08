@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.2.0-rc.4",
+  "version": "1.2.0",
   "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -60,24 +60,24 @@
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
-    "@byloth/core": "^1.1.5",
-    "@byloth/exceptions": "^2.1.0",
-    "vue": "^3.3.4"
+    "@byloth/core": "^1.2.0",
+    "@byloth/exceptions": "^2.2.0",
+    "vue": "^3.4.5"
   },
   "devDependencies": {
-    "@byloth/eslint-config-typescript": "^2.6.5",
-    "@byloth/eslint-config-vue": "^2.6.5",
-    "@fortawesome/fontawesome-free": "^6.4.2",
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "eslint": "^8.50.0",
-    "eslint-plugin-vue": "^9.17.0",
-    "sass": "^1.68.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.10",
-    "vitepress": "^1.0.0-rc.20",
-    "vue-eslint-parser": "^9.3.1",
-    "vue-tsc": "^1.8.15"
+    "@byloth/eslint-config-typescript": "^2.6.8",
+    "@byloth/eslint-config-vue": "^2.6.8",
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "@typescript-eslint/parser": "^6.18.0",
+    "@vitejs/plugin-vue": "^5.0.2",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.19.2",
+    "sass": "^1.69.7",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vitepress": "^1.0.0-rc.36",
+    "vue-eslint-parser": "^9.3.2",
+    "vue-tsc": "^1.8.27"
   }
 }
