@@ -1,83 +1,9 @@
 {
-  "name": "@byloth/vuert",
-  "version": "1.2.0",
-  "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
-  "keywords": [
-    "Alert",
-    "Dialog",
-    "Modal",
-    "Notification",
-    "Popup",
-    "Vue.js",
-    "JavaScript",
-    "TypeScript",
-    "Library"
+  "name": "@vuert/root",
+  "version": "1.2.1",
+  "packageManager": "yarn@4.1.0",
+  "workspaces": [
+    "packages/*"
   ],
-  "homepage": "https://byloth.github.io/vuert/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Byloth/vuert.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Byloth/vuert/issues"
-  },
-  "author": {
-    "name": "Matteo Bilotta",
-    "email": "me@byloth.dev",
-    "url": "https://www.byloth.dev/"
-  },
-  "license": "Apache-2.0",
-  "type": "module",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "main": "./dist/vuert.umd.cjs",
-  "module": "./dist/vuert.js",
-  "exports": {
-    ".": {
-      "import": {
-        "default": "./dist/vuert.js",
-        "types": "./src/index.ts"
-      },
-      "require": {
-        "default": "./dist/vuert.umd.cjs",
-        "types": "./src/index.ts"
-      }
-    }
-  },
-  "types": "./src/index.ts",
-  "scripts": {
-    "dev": "vitepress dev docs",
-    "build": "yarn build:core && yarn build:docs",
-    "build:core": "vite build",
-    "build:docs": "vitepress build docs",
-    "build:types": "vue-tsc --emitDeclarationOnly",
-    "preview": "vitepress serve docs",
-    "check:types": "vue-tsc --noEmit",
-    "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "export NODE_ENV=\"production\" && yarn lint",
-    "ci": "yarn install --frozen-lockfile"
-  },
-  "dependencies": {
-    "@byloth/core": "^1.2.0",
-    "@byloth/exceptions": "^2.2.0",
-    "vue": "^3.4.5"
-  },
-  "devDependencies": {
-    "@byloth/eslint-config-typescript": "^2.6.8",
-    "@byloth/eslint-config-vue": "^2.6.8",
-    "@fortawesome/fontawesome-free": "^6.5.1",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
-    "@vitejs/plugin-vue": "^5.0.2",
-    "eslint": "^8.56.0",
-    "eslint-plugin-vue": "^9.19.2",
-    "sass": "^1.69.7",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vitepress": "^1.0.0-rc.36",
-    "vue-eslint-parser": "^9.3.2",
-    "vue-tsc": "^1.8.27"
-  }
+  "private": true
 }

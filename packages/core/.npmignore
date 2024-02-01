@@ -1,0 +1,24 @@
+# Files created by OS
+#
+.DS_Store
+Desktop.ini
+
+# Generated & compiled files
+#
+/types/
+
+/*.tgz
+
+# Environmental files
+#
+.env
+.gitkeep
+
+# Config files
+#
+/.editorconfig
+/.eslintrc.js
+
+/tsconfig/
+/tsconfig.json
+/vite.config.ts

@@ -14,12 +14,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Yarn installation
+        run: yarn set version stable
       - name: Dependencies installation
         run: yarn ci
       - name: Coding standard check
         run: yarn lint:prod
-      # - name: Types integrity check
-      #   run: yarn check:types
+      - name: Types integrity check
+        run: yarn check:types
       - name: Source code build
         run: yarn build:core
       - name: Artifact creation

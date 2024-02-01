@@ -12,27 +12,12 @@ Desktop.ini
 
 # Downloadable & installable modules & components
 #
+/.yarn/
 /node_modules/
-/docs/node_modules/
-
-# Generated & compiled files
-#
-/tsconfig.tsbuildinfo
-
-/dist/
-/docs/.vitepress/cache/
-/docs/.vitepress/dist/
-/types/
-
-/*.tgz
 
 # Environmental files
 #
 .env
-
-# Log files
-#
-/yarn-error.log
 
 # Not ignored
 #

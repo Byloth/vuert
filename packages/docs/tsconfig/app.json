@@ -1,0 +1,28 @@
+{
+  "extends": "./_base.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable",
+      "WebWorker"
+    ],
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "paths": { "@/*": ["./src/*"] },
+    "types": [
+      "vite/client",
+      "vitepress/client"
+    ]
+  },
+  "include": [
+    "../.vitepress/**/*",
+    "../.vitepress/**/*.json",
+    "../.vitepress/**/*.vue",
+
+    "../src/**/*",
+    "../src/**/*.json",
+    "../src/**/*.vue"
+  ]
+}

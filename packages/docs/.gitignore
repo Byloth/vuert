@@ -1,0 +1,6 @@
+# Generated & compiled files
+#
+/cache/
+/dist/
+
+*.tsbuildinfo

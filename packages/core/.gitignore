@@ -1,0 +1,11 @@
+# Downloadable & installable modules & components
+#
+/.yarn/
+/node_modules/
+
+# Generated & compiled files
+#
+/dist/
+/types/
+
+/*.tgz
