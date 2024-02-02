@@ -49,7 +49,7 @@ export default defineConfig({
       alias: {
         "@": resolve("../src"),
 
-        "@vitepress/theme": resolve("../../node_modules/vitepress/dist/client/theme-default")
+        "@vitepress/theme": resolve("../../../node_modules/vitepress/dist/client/theme-default")
       }
     }
   }

@@ -10,7 +10,10 @@
     ],
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "paths": { "@/*": ["./src/*"] },
+    "paths": {
+      "@/*": ["./src/*"],
+      "@vitepress/theme/*": ["../../node_modules/vitepress/dist/client/theme-default/*"]
+    },
     "types": [
       "vite/client",
       "vitepress/client"

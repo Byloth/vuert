@@ -52,7 +52,7 @@
     "build:types": "vue-tsc --build --emitDeclarationOnly --force",
     "check:types": "vue-tsc --noEmit",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "export NODE_ENV=\"production\" && yarn lint",
+    "lint:prod": "NODE_ENV=\"production\" yarn lint",
     "ci": "yarn install --immutable"
   },
   "dependencies": {

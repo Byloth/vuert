@@ -5,5 +5,20 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "yarn build:core && yarn build:docs",
+    "build:core": "cd packages/core && yarn build",
+    "build:docs": "cd packages/docs && yarn build",
+    "check:types": "yarn check:types:core && yarn check:types:docs",
+    "check:types:core": "cd packages/core && yarn check:types",
+    "check:types:docs": "cd packages/docs && yarn check:types",
+    "lint:prod": "yarn lint:prod:core && yarn lint:prod:docs",
+    "lint:prod:core": "cd packages/core && yarn lint:prod",
+    "lint:prod:docs": "cd packages/docs && yarn lint:prod",
+    "ci": "yarn install --immutable"
+  },
+  "devDependencies": {
+    "lerna": "^8.0.2"
+  },
   "private": true
 }
