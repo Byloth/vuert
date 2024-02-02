@@ -1,21 +1,22 @@
 {
   "name": "@vuert/root",
-  "version": "1.2.1",
+  "version": "1.2.1-rc.1",
   "packageManager": "yarn@4.1.0",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "build": "yarn build:core && yarn build:docs",
+    "build": "yarn build:core && yarn build:nuxt",
     "build:core": "cd packages/core && yarn build",
-    "build:docs": "cd packages/docs && yarn build",
-    "check:types": "yarn check:types:core && yarn check:types:docs",
+    "build:nuxt": "cd packages/nuxt && yarn build",
+    "check:types": "yarn check:types:core && yarn check:types:nuxt",
     "check:types:core": "cd packages/core && yarn check:types",
-    "check:types:docs": "cd packages/docs && yarn check:types",
-    "lint:prod": "yarn lint:prod:core && yarn lint:prod:docs",
+    "check:types:nuxt": "cd packages/nuxt && yarn check:types",
+    "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
-    "lint:prod:docs": "cd packages/docs && yarn lint:prod",
-    "ci": "yarn install --immutable"
+    "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
+    "ci": "yarn install --immutable",
+    "publish": "lerna publish from-package --no-public"
   },
   "devDependencies": {
     "lerna": "^8.0.2"

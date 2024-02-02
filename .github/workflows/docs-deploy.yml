@@ -22,18 +22,22 @@ jobs:
       - name: Yarn installation
         run: yarn set version stable
       - name: Dependencies installation
+        working-directory: packages/docs
         run: yarn ci
       - name: Coding standard check
+        working-directory: packages/docs
         run: yarn lint:prod
       - name: Types integrity check
+        working-directory: packages/docs
         run: yarn check:types
       - name: Source code build
-        run: yarn build:docs
+        working-directory: packages/docs
+        run: yarn build
       - name: Artifact upload
         uses: actions/upload-artifact@v4
         with:
           name: byloth-vuert-docs
-          path: docs/.vitepress/dist
+          path: packages/docs/dist
 
   docs-deploy:
     name: GitHub Pages deploy
