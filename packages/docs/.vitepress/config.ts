@@ -14,6 +14,10 @@ export default defineConfig({
 
   base: "/vuert/",
 
+  srcDir: "./pages",
+  cacheDir: "./cache",
+  outDir: "./dist",
+
   lastUpdated: true,
   themeConfig: {
     nav: [

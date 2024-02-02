@@ -46,10 +46,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@byloth/core@npm:^1.3.0-rc.1":
-  version: 1.3.0-rc.1
-  resolution: "@byloth/core@npm:1.3.0-rc.1"
-  checksum: 10c0/21e1a0eca2efbcae8626f769c5ee4987d916fbe2c9b67cc235ba5ac90cb3ad9fc88b2c0eb4f6ab97430b83abd0cd36aeaea3c90149066db74702e423c18b128a
+"@byloth/core@npm:^1.3.0-rc.2":
+  version: 1.3.0-rc.2
+  resolution: "@byloth/core@npm:1.3.0-rc.2"
+  checksum: 10c0/ce100ca602a7de65a7fc9164c800a91f532690fc93e8e1a38572fe740a158f83f8abfee3633e3ec570d9d34f663163e61cc9eb95a41bc70a6a72b30cdd244621
   languageName: node
   linkType: hard
 
@@ -97,7 +97,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@byloth/vuert@workspace:."
   dependencies:
-    "@byloth/core": "npm:^1.3.0-rc.1"
+    "@byloth/core": "npm:^1.3.0-rc.2"
     "@byloth/eslint-config-typescript": "npm:^2.6.8"
     "@byloth/eslint-config-vue": "npm:^2.6.8"
     "@byloth/exceptions": "npm:^2.2.2"

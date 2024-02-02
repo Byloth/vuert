@@ -2,7 +2,7 @@ import { computed, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
 
 import { delay, DeferredPromise, Subscribers } from "@byloth/core";
-import type { MaybePromise } from "@byloth/core";
+import type { MaybePromise, Timeout } from "@byloth/core";
 
 import type { Duration } from "../types/index.js";
 import type { ActionCallback } from "../types/action.js";
@@ -16,7 +16,7 @@ export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Maybe
 export default class Context<T = void> extends DeferredPromise<T>
 {
     protected _duration: Duration;
-    protected _timeoutId?: number;
+    protected _timeoutId?: Timeout;
 
     protected _openingSubscribers: Subscribers;
     protected _openedSubscribers: Subscribers;
