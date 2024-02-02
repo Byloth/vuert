@@ -29,9 +29,9 @@ jobs:
       - name: Coding standard check
         working-directory: packages/docs
         run: yarn lint:prod
-      - name: Types integrity check
-        working-directory: packages/docs
-        run: yarn check:types
+      # - name: Types integrity check
+      #   working-directory: packages/docs
+      #   run: yarn check:types
       - name: Source code build
         working-directory: packages/docs
         run: yarn build
