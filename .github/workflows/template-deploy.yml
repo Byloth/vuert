@@ -38,12 +38,17 @@ jobs:
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pre-release package publish
-        run: yarn publish --pre-dist-tag next --registry ${{ inputs.registry-url }}
+        run: |
+          yarn publish --registry ${{ inputs.registry-url }}
+                       --otp ${{ secrets.AUTH_TOKEN }}
+                       --pre-dist-tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
 
       - if: ${{ github.event.release.prerelease == false }}
-        name: Latest package publish --registry ${{ inputs.registry-url }}
-        run: yarn publish
+        name: Latest package publish
+        run: |
+          yarn publish --registry ${{ inputs.registry-url }}
+                       --otp ${{ secrets.AUTH_TOKEN }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
