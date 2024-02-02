@@ -24,7 +24,6 @@ jobs:
       - name: Yarn installation
         run: yarn set version stable
       - name: Dependencies installation
-        working-directory: packages/docs
         run: yarn install --immutable
       - name: Coding standard check
         working-directory: packages/docs
