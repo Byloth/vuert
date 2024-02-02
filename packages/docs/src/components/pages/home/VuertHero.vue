@@ -6,7 +6,7 @@
                     <span>Vuert.js</span>
                 </h1>
                 <p class="subtitle">
-                    <span>The headless alerts, notifications &amp; popups library for Vue.js craftsmen.</span>
+                    <span>The headless alerts, notifications &amp; popups library for Vue.js & Nuxt.js craftsmen.</span>
                 </p>
                 <div class="actions">
                     <VuertButton size="medium"
