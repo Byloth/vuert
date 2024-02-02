@@ -8,8 +8,7 @@
     "preview": "vitepress serve",
     "check:types": "vue-tsc --build --force",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "NODE_ENV=\"production\" yarn lint",
-    "ci": "yarn install --immutable"
+    "lint:prod": "NODE_ENV=\"production\" yarn lint"
   },
   "dependencies": {
     "@byloth/vuert": "workspace:^",

@@ -28,7 +28,7 @@ jobs:
       - name: Yarn installation
         run: yarn set version stable
       - name: Dependencies installation
-        run: yarn ci
+        run: yarn install --immutable
       - name: Coding standard check
         run: yarn lint:prod
       - name: Types integrity check
