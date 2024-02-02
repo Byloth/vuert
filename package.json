@@ -15,7 +15,7 @@
     "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
     "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
-    "publish": "lerna publish from-package"
+    "publish": "lerna publish from-package --yes"
   },
   "devDependencies": {
     "lerna": "^8.0.2"

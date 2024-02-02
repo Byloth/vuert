@@ -25,13 +25,15 @@ jobs:
         run: yarn set version stable
       - name: Dependencies installation
         run: yarn install --immutable
+      - name: Core source code build
+        run: yarn build:core
       - name: Coding standard check
         working-directory: packages/docs
         run: yarn lint:prod
       # - name: Types integrity check
       #   working-directory: packages/docs
       #   run: yarn check:types
-      - name: Source code build
+      - name: Docs source code build
         working-directory: packages/docs
         run: yarn build
       - name: Artifact upload
