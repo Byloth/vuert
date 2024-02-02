@@ -4,14 +4,9 @@ on:
     types: [published]
 
 jobs:
-  artifact-build:
-    name: Artifact
-    uses: ./.github/workflows/template-build.yml
-
-  publish-gpr:
+  deploy-gpr:
     name: GPR
-    needs: artifact-build
-    uses: ./.github/workflows/template-publish.yml
+    uses: ./.github/workflows/template-deploy.yml
     with:
       registry-url: https://npm.pkg.github.com/
 

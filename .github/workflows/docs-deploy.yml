@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 20
 
+      - name: Corepack activation
+        run: corepack enable
       - name: Yarn installation
         run: yarn set version stable
       - name: Dependencies installation

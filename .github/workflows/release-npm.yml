@@ -4,13 +4,8 @@ on:
     types: [published]
 
 jobs:
-  artifact-build:
-    name: Artifact
-    uses: ./.github/workflows/template-build.yml
-
-  publish-npm:
+  deploy-npm:
     name: NPM
-    needs: artifact-build
-    uses: ./.github/workflows/template-publish.yml
+    uses: ./.github/workflows/template-deploy.yml
     secrets:
       AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
