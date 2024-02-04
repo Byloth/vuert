@@ -37,7 +37,9 @@ jobs:
       - name: Source code build
         run: yarn build
       - name: NPM authentication setup
-        run: echo "//${{ inputs.registry-url }}/:_authToken=${{ secrets.AUTH_TOKEN }}" > .npmrc
+        run: |
+          echo "registry=https://${{ inputs.registry-url }}/" >> .npmrc
+          echo "'//${{ inputs.registry-url }}/:_authToken'=${{ secrets.AUTH_TOKEN }}" >> .npmrc
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pre-release package publish
