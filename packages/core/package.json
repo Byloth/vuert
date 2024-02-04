@@ -48,7 +48,8 @@
     "build:types": "vue-tsc --build --emitDeclarationOnly --force",
     "check:types": "vue-tsc --noEmit",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "NODE_ENV=\"production\" yarn lint"
+    "lint:prod": "NODE_ENV=\"production\" yarn lint",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
     "@byloth/core": "^1.3.0-rc.2",

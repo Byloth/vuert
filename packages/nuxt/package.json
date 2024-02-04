@@ -47,7 +47,8 @@
     "build": "nuxt-module-build build",
     "check:types": "nuxi typecheck",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "NODE_ENV=\"production\" yarn lint"
+    "lint:prod": "NODE_ENV=\"production\" yarn lint",
+    "publish": "npm publish --access public"
   },
   "dependencies": {
     "@byloth/vuert": "workspace:^",
