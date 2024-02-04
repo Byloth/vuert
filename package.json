@@ -1,6 +1,6 @@
 {
   "name": "@vuert/root",
-  "version": "1.2.1-rc.1",
+  "version": "1.2.1-rc.4",
   "packageManager": "yarn@4.1.0",
   "workspaces": [
     "packages/*"
@@ -15,9 +15,9 @@
     "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
     "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
-    "publish": "yarn publish:core \"${@}\" && yarn publish:nuxt \"${@}\"",
-    "publish:core": "cd packages/core && yarn publish",
-    "publish:nuxt": "cd packages/nuxt && yarn publish"
+    "deploy": "yarn deploy:core \"${@}\" && yarn deploy:nuxt \"${@}\"",
+    "deploy:core": "cd packages/core && yarn deploy",
+    "deploy:nuxt": "cd packages/nuxt && yarn deploy"
   },
   "private": true
 }

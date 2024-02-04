@@ -39,12 +39,12 @@ jobs:
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pre-release package publish
-        run: yarn publish --tag next
+        run: yarn deploy --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
 
       - if: ${{ github.event.release.prerelease == false }}
         name: Latest package publish
-        run: yarn publish
+        run: yarn deploy
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
