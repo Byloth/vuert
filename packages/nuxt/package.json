@@ -1,6 +1,6 @@
 {
   "name": "@byloth/nuxt-vuert-module",
-  "version": "1.2.1-rc.4",
+  "version": "1.2.1-rc.1",
   "description": "The headless alerts, notifications & popups module for Nuxt.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -47,8 +47,7 @@
     "build": "nuxt-module-build build",
     "check:types": "nuxi typecheck",
     "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore .",
-    "lint:prod": "NODE_ENV=\"production\" yarn lint",
-    "deploy": "npm publish --access public"
+    "lint:prod": "NODE_ENV=\"production\" yarn lint"
   },
   "dependencies": {
     "@byloth/vuert": "workspace:^",

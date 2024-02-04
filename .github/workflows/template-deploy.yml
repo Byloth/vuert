@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       registry-url:
-        default: https://registry.npmjs.org
+        default: registry.npmjs.org
         required: false
         type: string
 
@@ -36,15 +36,13 @@ jobs:
         run: yarn check:types
       - name: Source code build
         run: yarn build
+      - name: NPM authentication setup
+        run: echo "//${{ inputs.registry-url }}/:_authToken=${{ secrets.AUTH_TOKEN }}" > .npmrc
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pre-release package publish
-        run: yarn deploy --tag next
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        run: lerna publish from-package --yes --pre-dist-tag next
 
       - if: ${{ github.event.release.prerelease == false }}
         name: Latest package publish
-        run: yarn deploy
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        run: lerna publish from-package --yes

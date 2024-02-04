@@ -8,7 +8,7 @@ jobs:
     name: GPR
     uses: ./.github/workflows/template-deploy.yml
     with:
-      registry-url: https://npm.pkg.github.com/
+      registry-url: npm.pkg.github.com
 
     secrets:
       AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
