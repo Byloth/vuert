@@ -15,10 +15,9 @@
     "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
     "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
-    "publish": "yarn publish:core && yarn publish:nuxt",
-    "publish:pre": "yarn publish:core --tag next && yarn publish:nuxt --tag next",
-    "publish:core": "cd packages/core && yarn publish",
-    "publish:nuxt": "cd packages/nuxt && yarn publish"
+    "publish": "NODE_AUTH_TOKEN=\"${NODE_AUTH_TOKEN}\" yarn publish:core \"${@}\" && NODE_AUTH_TOKEN=\"${NODE_AUTH_TOKEN}\" yarn publish:nuxt \"${@}\"",
+    "publish:core": "cd packages/core && NODE_AUTH_TOKEN=\"${NODE_AUTH_TOKEN}\" yarn publish",
+    "publish:nuxt": "cd packages/nuxt && NODE_AUTH_TOKEN=\"${NODE_AUTH_TOKEN}\" yarn publish"
   },
   "private": true
 }

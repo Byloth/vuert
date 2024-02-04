@@ -38,7 +38,7 @@ jobs:
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pre-release package publish
-        run: yarn publish:pre
+        run: yarn publish --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
 
