@@ -22,20 +22,17 @@ const _getActiveVuert = (): Vuert | undefined =>
 };
 
 export type PluginOptions = Partial<VuertOptions>;
-export const createVuert = (options?: PluginOptions): Plugin =>
-{
-    return {
-        install: ({ config, provide }: App): void =>
-        {
-            const $vuert = new Vuert(options);
+export const createVuert = (options?: PluginOptions): Plugin => ({
+    install: ({ config, provide }: App): void =>
+    {
+        const $vuert = new Vuert(options);
 
-            _setActiveVuert($vuert);
+        _setActiveVuert($vuert);
 
-            config.globalProperties.$vuert = $vuert;
-            provide(InjectionKeys.$vuert, $vuert);
-        }
-    };
-};
+        config.globalProperties.$vuert = $vuert;
+        provide(InjectionKeys.$vuert, $vuert);
+    }
+});
 export const useVuert = (): Vuert =>
 {
     const $vuert = _getActiveVuert();
