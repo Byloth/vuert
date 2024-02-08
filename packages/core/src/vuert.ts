@@ -19,7 +19,7 @@ export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> |
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.2.2-rc.1";
+    public static readonly VERSION: string = "1.2.2-rc.2";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
@@ -31,7 +31,7 @@ export default class Vuert
     }
 
     protected _subscribers: VuertSubscriber<any>[];
-    protected _throttlers: Map<AlertOptions<unknown>, number>;
+    protected _throttlers: Map<symbol, number>;
 
     protected _options: VuertOptions;
     public get options(): VuertOptions
@@ -52,12 +52,14 @@ export default class Vuert
         {
             this._throttle = <R>(alert: AlertOptions<R>): boolean =>
             {
+                if (!(alert.id)) { return false; }
+
                 const now = Date.now();
-                const last = this._throttlers.get(alert) ?? 0;
+                const last = this._throttlers.get(alert.id) ?? 0;
 
                 if ((now - last) > this._options.throttleDuration)
                 {
-                    this._throttlers.set(alert, now);
+                    this._throttlers.set(alert.id, now);
 
                     return false;
                 }
