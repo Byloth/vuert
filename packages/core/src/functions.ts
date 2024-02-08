@@ -39,7 +39,7 @@ export const createVuert = (options?: PluginOptions): Plugin =>
 export const useVuert = (): Vuert =>
 {
     const $vuert = _getActiveVuert();
-    if (!$vuert)
+    if (!($vuert))
     {
         throw new RuntimeException(
             "`useVuert()` was called but there was not active Vuert. " +

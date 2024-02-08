@@ -15,6 +15,14 @@ export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Maybe
 
 export default class Context<T = void> extends DeferredPromise<T>
 {
+    public static Resolved<R>(options: AlertOptions<R>): Context<R | void>
+    {
+        const context = new Context<R | void>(options, 0);
+        context.resolve();
+
+        return context;
+    }
+
     protected _duration: Duration;
     protected _timeoutId?: Timeout;
 
@@ -32,7 +40,7 @@ export default class Context<T = void> extends DeferredPromise<T>
     {
         const _close = async (): Promise<void> =>
         {
-            if (!this._isOpen.value)
+            if (!(this._isOpen.value))
             {
                 throw new Error("Unable to close the alert. It has already been closed or not even opened yet.");
             }

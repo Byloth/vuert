@@ -47,13 +47,13 @@
 
     const url = computed((): string | undefined =>
     {
-        if (!props.href) { return undefined; }
+        if (!(props.href)) { return undefined; }
 
         return normalizeLink(props.href);
     });
     const isExternal = computed((): boolean | undefined =>
     {
-        if (!props.href) { return undefined; }
+        if (!(props.href)) { return undefined; }
 
         return EXTERNAL_URL_RE.test(props.href);
     });

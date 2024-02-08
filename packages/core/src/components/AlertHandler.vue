@@ -28,7 +28,7 @@
             type: [String, Object] as PropType<string | Component>
         },
         duration: {
-            default: () => useVuert().options.duration,
+            default: () => useVuert().options.transitionDuration,
             type: [Number, Object] as PropType<number | Duration>,
 
             validator: (value: unknown): boolean =>

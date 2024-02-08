@@ -66,7 +66,7 @@
 
     onMounted(emitToast);
 
-    if (!import.meta.env.SSR)
+    if (!(import.meta.env.SSR))
     {
         const setBodyMargin = (isSidebarOpen: boolean) =>
         {
