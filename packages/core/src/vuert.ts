@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { RuntimeException } from "@byloth/exceptions";
 
+import { AlertThrottledException } from "./exceptions";
 import { Context } from "./models/index.js";
 
 import type { Duration } from "./types/index.js";
@@ -12,24 +11,25 @@ import type { BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/
 export interface VuertOptions
 {
     useThrottling: boolean;
-    throttleDuration: number;
+    throttlingDuration: number;
     transitionDuration: number | Duration;
 }
 export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> | void;
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.2.2-rc.2";
+    public static readonly VERSION: string = "1.2.2-rc.3";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
         return {
             useThrottling: true,
-            throttleDuration: 1000,
+            throttlingDuration: 100,
             transitionDuration: 200
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected _subscribers: VuertSubscriber<any>[];
     protected _throttlers: Map<symbol, number>;
 
@@ -57,7 +57,7 @@ export default class Vuert
                 const now = Date.now();
                 const last = this._throttlers.get(alert.id) ?? 0;
 
-                if ((now - last) > this._options.throttleDuration)
+                if ((now - last) > this._options.throttlingDuration)
                 {
                     this._throttlers.set(alert.id, now);
 
@@ -80,10 +80,12 @@ export default class Vuert
     public emit<R = void>(alert: AlertOptions<R>): Context<R | void>;
     public emit<R = void>(alert: AlertOptions<R>): Context<R | void>
     {
-        if (this._throttle(alert)) { return Context.Resolved(alert); }
+        if (this._throttle(alert)) { throw new AlertThrottledException(alert); }
 
         const subscribers = this._subscribers.slice();
         const contexts = subscribers.map((subscriber) => subscriber(alert));
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const results = contexts.filter((context) => !!(context)) as Context<any>[];
 
         if (!(results.length))

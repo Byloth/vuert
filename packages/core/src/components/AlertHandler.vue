@@ -9,8 +9,6 @@
 </template>
 
 <script lang="ts" setup>
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-
     import { nextTick, onMounted, onUnmounted, shallowRef } from "vue";
     import type { Component, PropType } from "vue";
 
@@ -20,14 +18,19 @@
     import type { Duration } from "../types/index.js";
     import type { AlertOptions } from "../types/alert/index.js";
 
-    const $vuert = useVuert();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    type AnyContext = Context<any>;
 
     const props = defineProps({
         is: {
             default: "div",
             type: [String, Object] as PropType<string | Component>
         },
-        duration: {
+        filter: {
+            default: () => true,
+            type: Function as PropType<(options: AlertOptions<unknown>) => boolean>
+        },
+        transitionDuration: {
             default: () => useVuert().options.transitionDuration,
             type: [Number, Object] as PropType<number | Duration>,
 
@@ -45,10 +48,6 @@
 
                 return isFinite(Number(value));
             }
-        },
-        filter: {
-            default: () => true,
-            type: Function as PropType<(options: AlertOptions<unknown>) => boolean>
         }
     });
 
@@ -59,10 +58,8 @@
         closed: <R>(alert: Alert<R>) => (alert instanceof Alert)
     });
 
-    const contexts: Context<any>[] = [];
-    const context = shallowRef<Context<any>>();
-
-    const tickUpdate = (): Promise<void> => new Promise((resolve) => nextTick(resolve));
+    const contexts: AnyContext[] = [];
+    const context = shallowRef<AnyContext>();
 
     const open = async (): Promise<void> =>
     {
@@ -78,12 +75,9 @@
             contexts.shift();
             context.value = undefined;
 
-            await tickUpdate();
+            await nextTick();
 
-            if (contexts.length > 0)
-            {
-                open();
-            }
+            if (contexts.length > 0) { open(); }
         });
 
         context.value = ctx;
@@ -93,13 +87,10 @@
 
     const register = <R>(options: AlertOptions<R>): Context<R> =>
     {
-        const ctx = new Context(options, props.duration);
+        const ctx = new Context(options, props.transitionDuration);
 
         contexts.push(ctx);
-        if (contexts.length === 1)
-        {
-            open();
-        }
+        if (contexts.length === 1) { open(); }
 
         return ctx;
     };
@@ -107,12 +98,9 @@
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = $vuert.subscribe(<R>(options: AlertOptions<R>): Context<R> | void =>
+        _unsubscribe = useVuert().subscribe(<R>(options: AlertOptions<R>): Context<R> | void =>
         {
-            if (props.filter(options))
-            {
-                return register(options);
-            }
+            if (props.filter(options)) { return register(options); }
         });
     });
     onUnmounted(() => _unsubscribe());

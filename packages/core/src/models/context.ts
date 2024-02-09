@@ -15,14 +15,6 @@ export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | Maybe
 
 export default class Context<T = void> extends DeferredPromise<T>
 {
-    public static Resolved<R>(options: AlertOptions<R>): Context<R | void>
-    {
-        const context = new Context<R | void>(options, 0);
-        context.resolve();
-
-        return context;
-    }
-
     protected _duration: Duration;
     protected _timeoutId?: Timeout;
 

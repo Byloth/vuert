@@ -7,14 +7,14 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: string;
         type: PropType<string | Component>;
     };
-    duration: {
-        default: () => number | Duration;
-        type: PropType<number | Duration>;
-        validator: (value: unknown) => boolean;
-    };
     filter: {
         default: () => boolean;
         type: PropType<(options: AlertOptions<unknown>) => boolean>;
+    };
+    transitionDuration: {
+        default: () => number | Duration;
+        type: PropType<number | Duration>;
+        validator: (value: unknown) => boolean;
     };
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     opening: (alert: Alert<unknown>) => void;
@@ -26,14 +26,14 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: string;
         type: PropType<string | Component>;
     };
-    duration: {
-        default: () => number | Duration;
-        type: PropType<number | Duration>;
-        validator: (value: unknown) => boolean;
-    };
     filter: {
         default: () => boolean;
         type: PropType<(options: AlertOptions<unknown>) => boolean>;
+    };
+    transitionDuration: {
+        default: () => number | Duration;
+        type: PropType<number | Duration>;
+        validator: (value: unknown) => boolean;
     };
 }>> & {
     onOpening?: ((alert: Alert<unknown>) => any) | undefined;
@@ -42,7 +42,7 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     onClosed?: ((alert: Alert<unknown>) => any) | undefined;
 }, {
     filter: (options: AlertOptions<unknown>) => boolean;
-    duration: number | Duration;
+    transitionDuration: number | Duration;
     is: string | Component;
 }, {}>, {
     default?(_: {
