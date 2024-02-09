@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.2.2-rc.3",
+  "version": "1.2.2-rc.4",
   "description": "The headless alerts, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
