@@ -1,13 +1,10 @@
-import type { Component } from "vue";
-
 import { ValueException } from "@byloth/exceptions";
 
-import type { Props } from "../types/core.js";
 import type { IAlert, AlertOptions } from "../types/alert/index.js";
 
 import Action from "./action.js";
 
-export default class Alert<R = void> implements IAlert<R>
+export default class Alert<R = void, P extends Record<string, unknown> = never> implements IAlert<R, P>
 {
     public readonly id: symbol;
 
@@ -18,16 +15,14 @@ export default class Alert<R = void> implements IAlert<R>
     public readonly title?: string;
 
     public readonly message?: string;
-
-    public readonly component?: Component;
-    public readonly props?: Props;
+    public readonly payload?: P;
 
     public readonly actions: Action<R>[];
-    public readonly dismissible: boolean;
 
+    public readonly dismissible: boolean;
     public readonly timeout: number;
 
-    public constructor(options: AlertOptions<R>, cause?: unknown)
+    public constructor(options: AlertOptions<R, P>)
     {
         this.id = options.id ?? Symbol();
 
@@ -44,9 +39,7 @@ export default class Alert<R = void> implements IAlert<R>
         }
 
         this.message = options.message;
-
-        this.component = options.component;
-        this.props = options.props;
+        this.payload = options.payload;
 
         this.actions = options.actions?.map((a) => new Action(a)) ?? [];
 

@@ -1,11 +1,11 @@
 import { computed, ref } from "vue";
-import type { ComputedRef, Ref } from "vue";
+import type { Component, ComputedRef, Ref } from "vue";
 
 import { delay, DeferredPromise, Subscribers } from "@byloth/core";
 import type { MaybePromise, Timeout } from "@byloth/core";
 
 import type { Duration } from "../types/index.js";
-import type { ActionCallback } from "../types/action.js";
+import type { ActionCallback } from "../types/action/index.js";
 import type { AlertOptions } from "../types/alert/index.js";
 
 import Action from "./action.js";
@@ -13,7 +13,7 @@ import Alert from "./alert.js";
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | MaybePromise<R | undefined>;
 
-export default class Context<T = void> extends DeferredPromise<T>
+export default class Context<T = void, P extends Record<string, unknown> = never> extends DeferredPromise<T>
 {
     protected _duration: Duration;
     protected _timeoutId?: Timeout;
@@ -25,10 +25,11 @@ export default class Context<T = void> extends DeferredPromise<T>
 
     protected readonly _isOpen: Ref<boolean>;
 
-    public readonly alert: Alert<T>;
+    public readonly alert: Alert<T, P>;
     public readonly isOpen: ComputedRef<boolean>;
+    public readonly component?: Component;
 
-    public constructor(options: AlertOptions<T>, duration: number | Duration)
+    public constructor(options: AlertOptions<T, P>, duration: number | Duration)
     {
         const _close = async (): Promise<void> =>
         {
@@ -98,10 +99,12 @@ export default class Context<T = void> extends DeferredPromise<T>
         this._closingSubscribers = new Subscribers();
         this._closedSubscribers = new Subscribers();
 
-        this.alert = new Alert<T>(options);
+        this.alert = new Alert<T, P>(options as AlertOptions<T>);
 
         this._isOpen = ref(false);
         this.isOpen = computed((): boolean => this._isOpen.value);
+
+        this.component = options.component;
     }
 
     public async open(): Promise<void>

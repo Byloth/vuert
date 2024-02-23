@@ -2,7 +2,7 @@ import type { MaybePromise } from "@byloth/core";
 
 export type ActionCallback<T> = () => MaybePromise<T>;
 
-export interface IAction<R>
+export interface IAction<R = void>
 {
     id: symbol;
     type: "primary" | "secondary" | "alternative";
@@ -13,11 +13,10 @@ export interface IAction<R>
 }
 
 type PartialAction<R> = Partial<IAction<R>>;
-type OmittedAction = Omit<PartialAction<never>, "callback">;
+type OmittedProperty = "callback";
+type OmittedAction = Omit<PartialAction<never>, OmittedProperty>;
 
-export interface ActionOptions<R = void> extends OmittedAction
+export interface CoreAction extends OmittedAction
 {
     label: string;
-
-    callback?: ActionCallback<R>;
 }

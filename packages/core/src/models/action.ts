@@ -1,4 +1,4 @@
-import type { IAction, ActionCallback, ActionOptions } from "../types/action.js";
+import type { IAction, ActionCallback, ActionOptions } from "../types/action/index.js";
 
 export default class Action<R = void> implements IAction<R>
 {
@@ -18,6 +18,6 @@ export default class Action<R = void> implements IAction<R>
         this.icon = options.icon;
         this.label = options.label;
 
-        this.callback = options.callback ?? (() => undefined);
+        this.callback = options.callback ?? (() => options.value);
     }
 }

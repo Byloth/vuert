@@ -7,7 +7,10 @@ export { Action, Alert, Context } from "./models/index.js";
 
 export type { VuertOptions, VuertSubscriber } from "./vuert.js";
 
-export type { IAction, ActionCallback, ActionOptions } from "./types/action.js";
+export type { IAction, ActionCallback, ActionOptions } from "./types/action/index.js";
+export type { CallbackAction } from "./types/action/callback.js";
+export type { ValueAction } from "./types/action/value.js";
+
 export type { IAlert, AlertOptions } from "./types/alert/index.js";
 export type { SimpleAlert, BlockingAlert, DismissibleAlert } from "./types/alert/simple.js";
 export type { CustomAlert, BlockingCustomAlert, DismissibleCustomAlert } from "./types/alert/custom.js";

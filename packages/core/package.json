@@ -33,16 +33,18 @@
     "dist",
     "src"
   ],
-  "main": "./dist/vuert.umd.cjs",
-  "module": "./dist/vuert.js",
+  "main": "dist/vuert.umd.cjs",
+  "module": "dist/vuert.cjs.js",
+  "unpkg": "dist/vuert.global.js",
+  "jsdelivr": "dist/vuert.global.js",
   "exports": {
     ".": {
-      "import": "./dist/vuert.js",
-      "require": "./dist/vuert.umd.cjs",
+      "import": "./dist/vuert.esm.js",
+      "require": "./dist/vuert.cjs.js",
       "types": "./src/index.ts"
     }
   },
-  "types": "./src/index.ts",
+  "types": "src/index.ts",
   "scripts": {
     "build": "vite build",
     "build:types": "vue-tsc --build --emitDeclarationOnly --force",

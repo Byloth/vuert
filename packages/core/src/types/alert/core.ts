@@ -1,9 +1,6 @@
-import type { Component } from "vue";
+import type { IAction, ActionOptions } from "../action/index.js";
 
-import type { Props } from "../core.js";
-import type { IAction, ActionOptions } from "../action.js";
-
-export interface IAlert<R = void>
+export interface IAlert<R = void, P extends Record<string, unknown> = never>
 {
     id: symbol;
 
@@ -14,9 +11,7 @@ export interface IAlert<R = void>
     title?: string;
 
     message?: string;
-
-    component?: Component;
-    props?: Props;
+    payload?: P;
 
     actions: IAction<R>[];
 
@@ -24,10 +19,10 @@ export interface IAlert<R = void>
     timeout: number;
 }
 
-type PartialAlert<R> = Partial<IAlert<R>>;
-type OmittedProperty = "message" | "component" | "props" | "actions";
-type OmittedAlert = Omit<PartialAlert<never>, OmittedProperty>;
-export interface CoreAlert<R = void> extends OmittedAlert
+type PartialAlert<R, P extends Record<string, unknown>> = Partial<IAlert<R, P>>;
+type OmittedProperty = "message" | "actions";
+type OmittedAlert<P extends Record<string, unknown>> = Omit<PartialAlert<never, P>, OmittedProperty>;
+export interface CoreAlert<R = void, P extends Record<string, unknown> = never> extends OmittedAlert<P>
 {
     actions?: ActionOptions<R>[];
 }

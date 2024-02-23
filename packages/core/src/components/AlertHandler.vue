@@ -2,6 +2,7 @@
     <Component :is="is">
         <slot v-if="context"
               :alert="context.alert"
+              :custom-component="context.component"
               :is-open="context.isOpen.value"
               :resolve="context.resolve"
               :reject="context.reject"></slot>
