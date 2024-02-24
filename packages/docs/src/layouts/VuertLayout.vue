@@ -1,5 +1,5 @@
 <template>
-    <AlertHandler v-slot="{ alert, isOpen, resolve }"
+    <AlertHandler v-slot="{ alert, customComponent, isOpen, resolve }"
                   class="modal-handler"
                   :filter="modalFilter">
         <Transition appear
@@ -7,18 +7,19 @@
                     mode="in-out">
             <ModalAlert v-if="isOpen"
                         :alert="alert"
-                        :close="resolve" />
+                        :close="resolve"
+                        :custom-component="customComponent" />
         </Transition>
     </AlertHandler>
-    <AlertHandler v-slot="{ alert, isOpen }"
+    <AlertHandler v-slot="{ alert, customComponent, isOpen }"
                   class="toast-handler"
                   :filter="toastFilter">
         <Transition appear
                     name="toast"
                     mode="in-out">
-            <Component :is="alert.component"
+            <Component :is="customComponent"
                        v-if="isOpen"
-                       v-bind="alert.props" />
+                       v-bind="alert.payload" />
         </Transition>
     </AlertHandler>
     <DefaultTheme.Layout />
@@ -133,7 +134,7 @@
         position: fixed;
         right: 0;
         top: 0;
-        z-index: 22;
+        z-index: 31;
     }
 
     .modal-enter-active,

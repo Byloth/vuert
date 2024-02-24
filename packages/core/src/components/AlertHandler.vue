@@ -4,13 +4,14 @@
               :alert="context.alert"
               :custom-component="context.component"
               :is-open="context.isOpen.value"
+              :queue="queue"
               :resolve="context.resolve"
               :reject="context.reject"></slot>
     </Component>
 </template>
 
 <script lang="ts" setup>
-    import { nextTick, onMounted, onUnmounted, shallowRef } from "vue";
+    import { nextTick, onMounted, onUnmounted, ref, shallowRef } from "vue";
     import type { Component, PropType } from "vue";
 
     import { useVuert } from "../functions.js";
@@ -20,7 +21,7 @@
     import type { AlertOptions } from "../types/alert/index.js";
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    type AnyContext = Context<any>;
+    type AnyContext = Context<any, any>;
 
     const props = defineProps({
         is: {
@@ -53,13 +54,15 @@
     });
 
     const emit = defineEmits({
-        opening: <R>(alert: Alert<R>) => (alert instanceof Alert),
-        opened: <R>(alert: Alert<R>) => (alert instanceof Alert),
-        closing: <R>(alert: Alert<R>) => (alert instanceof Alert),
-        closed: <R>(alert: Alert<R>) => (alert instanceof Alert)
+        opening: <R, P extends Record<string, unknown>>(alert: Alert<R, P>) => (alert instanceof Alert),
+        opened: <R, P extends Record<string, unknown>>(alert: Alert<R, P>) => (alert instanceof Alert),
+        closing: <R, P extends Record<string, unknown>>(alert: Alert<R, P>) => (alert instanceof Alert),
+        closed: <R, P extends Record<string, unknown>>(alert: Alert<R, P>) => (alert instanceof Alert)
     });
 
     const contexts: AnyContext[] = [];
+
+    const queue = ref<number>(0);
     const context = shallowRef<AnyContext>();
 
     const open = async (): Promise<void> =>
@@ -76,6 +79,8 @@
             contexts.shift();
             context.value = undefined;
 
+            queue.value -= 1;
+
             await nextTick();
 
             if (contexts.length > 0) { open(); }
@@ -86,12 +91,14 @@
         await ctx.open();
     };
 
-    const register = <R>(options: AlertOptions<R>): Context<R> =>
+    const register = <R, P extends Record<string, unknown>>(options: AlertOptions<R, P>): Context<R, P> =>
     {
-        const ctx = new Context(options, props.transitionDuration);
+        const ctx = new Context<R, P>(options, props.transitionDuration);
 
         contexts.push(ctx);
         if (contexts.length === 1) { open(); }
+
+        queue.value += 1;
 
         return ctx;
     };

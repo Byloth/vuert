@@ -15,10 +15,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <pre v-if="alert.message" class="modal-message">{{ alert.message }}</pre>
-                <template v-else>
-                    <component :is="alert.component" v-bind="alert.props" />
+                <template v-if="customComponent">
+                    <component :is="customComponent" v-bind="alert.payload" />
                 </template>
+                <pre v-else class="modal-message">{{ alert.message }}</pre>
             </div>
             <div v-if="alert.actions" class="flex modal-footer">
                 <VuertButton v-for="action in alert.actions"
@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-    import type { PropType } from "vue";
+    import type { Component, PropType } from "vue";
 
     import { Alert } from "@byloth/vuert";
 
@@ -53,6 +53,10 @@
         close: {
             required: true,
             type: Function as PropType<(result?: unknown) => void>
+        },
+        customComponent: {
+            default: undefined,
+            type: Object as PropType<Component>
         }
     });
 </script>

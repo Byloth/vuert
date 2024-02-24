@@ -17,10 +17,10 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         validator: (value: unknown) => boolean;
     };
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
-    opening: (alert: Alert<unknown>) => void;
-    opened: (alert: Alert<unknown>) => void;
-    closing: (alert: Alert<unknown>) => void;
-    closed: (alert: Alert<unknown>) => void;
+    opening: (alert: Alert<unknown, Record<string, unknown>>) => void;
+    opened: (alert: Alert<unknown, Record<string, unknown>>) => void;
+    closing: (alert: Alert<unknown, Record<string, unknown>>) => void;
+    closed: (alert: Alert<unknown, Record<string, unknown>>) => void;
 }, string, import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
     is: {
         default: string;
@@ -36,18 +36,20 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         validator: (value: unknown) => boolean;
     };
 }>> & {
-    onOpening?: ((alert: Alert<unknown>) => any) | undefined;
-    onOpened?: ((alert: Alert<unknown>) => any) | undefined;
-    onClosing?: ((alert: Alert<unknown>) => any) | undefined;
-    onClosed?: ((alert: Alert<unknown>) => any) | undefined;
+    onOpening?: ((alert: Alert<unknown, Record<string, unknown>>) => any) | undefined;
+    onOpened?: ((alert: Alert<unknown, Record<string, unknown>>) => any) | undefined;
+    onClosing?: ((alert: Alert<unknown, Record<string, unknown>>) => any) | undefined;
+    onClosed?: ((alert: Alert<unknown, Record<string, unknown>>) => any) | undefined;
 }, {
     filter: (options: AlertOptions<unknown>) => boolean;
     transitionDuration: number | Duration;
     is: string | Component;
 }, {}>, {
     default?(_: {
-        alert: Alert<any>;
+        alert: Alert<any, any>;
+        customComponent: Component | undefined;
         isOpen: boolean;
+        queue: number;
         resolve: import("@byloth/core").PromiseResolver<any>;
         reject: import("@byloth/core").PromiseRejecter<unknown>;
     }): any;
