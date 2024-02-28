@@ -3,7 +3,7 @@
 [![NPM release](https://github.com/Byloth/vuert/actions/workflows/release-npm.yml/badge.svg)](https://github.com/Byloth/vuert/actions/workflows/release-npm.yml)
 [![GPR release](https://github.com/Byloth/vuert/actions/workflows/release-gpr.yml/badge.svg)](https://github.com/Byloth/vuert/actions/workflows/release-gpr.yml)
 
-The headless alerts, notifications & popups library for Vue.js craftsmen.
+The headless alerts, modals, notifications & popups library for Vue.js craftsmen.
 
 ## 📝 Documentation
 

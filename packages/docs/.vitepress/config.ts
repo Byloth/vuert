@@ -10,7 +10,7 @@ function resolve(path: string): string
 
 export default defineConfig({
   title: "Vuert.js",
-  description: "The headless alerts, notifications & popups library for Vue.js & Nuxt.js craftsmen.",
+  description: "The headless alerts, modals, notifications & popups library for Vue.js & Nuxt.js craftsmen.",
 
   base: "/vuert/",
 
