@@ -5,9 +5,13 @@
 
     const vuert = useVuert();
 
+    const id = Symbol("[vuert-docs]: your-first-alert");
+
     const emitAlert = () => vuert.emit({
+        id: id,
         message: "This is your first Vuert alert!",
-        timeout: 2500
+        timeout: 2500,
+        custom: "example"
     });
 </script>
 
@@ -24,22 +28,34 @@
 
 <template>
     <AlertHandler v-slot="{ alert, isOpen }">
-        <div v-if="isOpen" class="alert">
-            {{ alert.message }}
+        <div v-if="isOpen" class="alert-overlay">
+            <div class="alert">
+                {{ alert.message }}
+            </div>
         </div>
     </AlertHandler>
 </template>
 
 <style scoped>
-    .alert
+    .alert-overlay
     {
-        background-color: #E2E3E5;
-        border: 1px solid rgba(0, 0, 0, 0.5);
-        border-radius: 1rem;
-        box-shadow: 2.5px 2.5px 5px rgba(0, 0, 0, 0.5);
+        align-items: center;
+        display: flex;
+        justify-content: center;
         position: fixed;
         top: 2rem;
+        user-select: none;
+        width: 100%;
         z-index: 10;
+    }
+    .alert
+    {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 1rem;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        user-select: text;
     }
 </style>
 ```
