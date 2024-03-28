@@ -20,6 +20,6 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "..",
     "rootDir": "..",
-    "outDir": "../types"
+    "outDir": "../build"
   }
 }

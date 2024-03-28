@@ -1,10 +1,6 @@
 module.exports = {
   root: true,
-  extends: [
-    "@byloth/eslint-config",
-    "@byloth/eslint-config-typescript",
-    "@byloth/eslint-config-vue"
-  ],
+  extends: ["@byloth/eslint-config-nuxt"],
   overrides: [{
     files: ["*.d.ts"],
     rules: { "@typescript-eslint/ban-types": "off" }
