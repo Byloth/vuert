@@ -1,4 +1,5 @@
 <template>
+    <!-- eslint-disable vue/no-multiple-template-root -->
     <AlertHandler v-slot="{ alert, customComponent, isOpen, resolve }"
                   class="modal-handler"
                   :filter="modalFilter">
