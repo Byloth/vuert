@@ -14,7 +14,8 @@
     "check:types:nuxt": "cd packages/nuxt && yarn check:types",
     "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
-    "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod"
+    "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
+    "postinstall": "yarn build:core"
   },
   "private": true,
   "devDependencies": {
