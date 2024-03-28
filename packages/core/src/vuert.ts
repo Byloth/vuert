@@ -18,7 +18,7 @@ export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> |
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.3.1";
+    public static readonly VERSION: string = "1.3.2";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
