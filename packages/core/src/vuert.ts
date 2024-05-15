@@ -57,12 +57,12 @@ export default class Vuert
                 const now = Date.now();
                 const last = this._throttlers.get(alert.id) ?? 0;
 
-                if ((now - last) > this._options.throttlingDuration)
-                {
-                    this._throttlers.set(alert.id, now);
+                this._throttlers.set(alert.id, now);
 
-                    return false;
-                }
+                if ((now - last) > this._options.throttlingDuration) { return false; }
+
+                // TODO: Debounce the alert instead of throttling it.
+                //        - Apply a maximum duration for the alert to be debounced.
 
                 return true;
             };
