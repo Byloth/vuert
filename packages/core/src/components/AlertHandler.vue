@@ -1,18 +1,8 @@
-<template>
-    <Component :is="is">
-        <slot v-if="context"
-              :alert="context.alert"
-              :custom-component="context.component"
-              :is-open="context.isOpen.value"
-              :queue="queue"
-              :resolve="context.resolve"
-              :reject="context.reject"></slot>
-    </Component>
-</template>
-
 <script lang="ts" setup>
     import { nextTick, onMounted, onUnmounted, ref, shallowRef } from "vue";
     import type { Component, PropType } from "vue";
+
+    import type { MaybePromise } from "@byloth/core";
 
     import { useVuert } from "../functions.js";
     import { Alert, Context } from "../models/index.js";
@@ -22,6 +12,8 @@
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type AnyContext = Context<any, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    type AnyContextResolver = (result?: MaybePromise<any>) => void;
 
     const props = defineProps({
         is: {
@@ -113,3 +105,15 @@
     });
     onUnmounted(() => _unsubscribe());
 </script>
+
+<template>
+    <Component :is="is">
+        <slot v-if="context"
+              :alert="context.alert"
+              :custom-component="context.component"
+              :is-open="context.isOpen.value"
+              :queue="queue"
+              :resolve="context.resolve as AnyContextResolver"
+              :reject="context.reject"></slot>
+    </Component>
+</template>

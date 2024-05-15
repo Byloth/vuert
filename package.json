@@ -1,7 +1,7 @@
 {
   "name": "@vuert/root",
-  "version": "1.3.0",
-  "packageManager": "yarn@4.1.0",
+  "version": "1.3.2",
+  "packageManager": "yarn@4.1.1",
   "workspaces": [
     "packages/*"
   ],
@@ -14,7 +14,8 @@
     "check:types:nuxt": "cd packages/nuxt && yarn check:types",
     "lint:prod": "yarn lint:prod:core && yarn lint:prod:nuxt",
     "lint:prod:core": "cd packages/core && yarn lint:prod",
-    "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod"
+    "lint:prod:nuxt": "cd packages/nuxt && yarn lint:prod",
+    "postinstall": "yarn build:core"
   },
   "private": true,
   "devDependencies": {
