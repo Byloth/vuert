@@ -1,4 +1,4 @@
-import { RuntimeException } from "@byloth/exceptions";
+import { RuntimeException } from "@byloth/core";
 
 import type { AlertOptions } from "./types/alert/index.js";
 

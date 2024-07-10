@@ -1,7 +1,7 @@
 import { inject, getCurrentScope } from "vue";
 import type { App, Plugin } from "vue";
 
-import { RuntimeException } from "@byloth/exceptions";
+import { RuntimeException } from "@byloth/core";
 
 import { InjectionKeys } from "./core.js";
 

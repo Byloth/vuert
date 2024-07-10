@@ -1,4 +1,4 @@
-import { ValueException } from "@byloth/exceptions";
+import { ValueException } from "@byloth/core";
 
 import type { IAlert, AlertOptions } from "../types/alert/index.js";
 
