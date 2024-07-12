@@ -931,10 +931,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@byloth/core@npm:~1.5.0-rc.8":
-  version: 1.5.0-rc.8
-  resolution: "@byloth/core@npm:1.5.0-rc.8"
-  checksum: 10c0/7a44abe88d1944e7b568597393d9c4eedb21f63309ba5033afe3a3e9480991e174da6967715877c4f41392c50104e2a62a978ff95411e5c6aef926ce684134bd
+"@byloth/core@npm:~1.5.0":
+  version: 1.5.0
+  resolution: "@byloth/core@npm:1.5.0"
+  checksum: 10c0/00b1439d7f2a330cd62fb33452a4261a01b25e448ba511d2114a0547adf99954c13198e232bc98ffaffbda2f21af155b55d0220e8d57af0df5b94eaf8912f1fe
   languageName: node
   linkType: hard
 
@@ -981,10 +981,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@byloth/exceptions@npm:~2.3.0-rc.1":
-  version: 2.3.0-rc.1
-  resolution: "@byloth/exceptions@npm:2.3.0-rc.1"
-  checksum: 10c0/d3cd220d2c6fe61dd27990b1483c30520cc348111f54ea4d38ab02aacdd9f79c6caf5ca770fb2ec148796b584056a583f7eb97ded87a3599f670ba3794b03c6c
+"@byloth/exceptions@npm:~2.3.0":
+  version: 2.3.0
+  resolution: "@byloth/exceptions@npm:2.3.0"
+  checksum: 10c0/ec784a1af9f1163b3eaa452952f7907cb8849c42d83dd07b8de59872f9e605ff0b6c234e79c78d6c6842cb513f81678fb170365350b15643ca579c07202eaf36
   languageName: node
   linkType: hard
 
@@ -1039,9 +1039,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@byloth/vuert@workspace:packages/core"
   dependencies:
-    "@byloth/core": "npm:~1.5.0-rc.8"
+    "@byloth/core": "npm:~1.5.0"
     "@byloth/eslint-config-nuxt": "npm:^2.8.1"
-    "@byloth/exceptions": "npm:~2.3.0-rc.1"
+    "@byloth/exceptions": "npm:~2.3.0"
     "@types/node": "npm:^20.14.10"
     "@typescript-eslint/eslint-plugin": "npm:^7.16.0"
     "@typescript-eslint/parser": "npm:^7.16.0"
