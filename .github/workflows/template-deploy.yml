@@ -42,8 +42,8 @@ jobs:
         run: pnpm build
       - name: Setting up the NPM registry
         run: |
-          echo "registry=https://${{ inputs.registry-url }}/" >> .npmrc
-          echo "'//${{ inputs.registry-url }}/:_authToken'=${{ secrets.AUTH_TOKEN }}" >> .npmrc
+          npm set "registry=https://${{ inputs.registry-url }}/"
+          npm set "//${{ inputs.registry-url }}/:_authToken=${{ secrets.AUTH_TOKEN }}"
 
       - if: ${{ github.event.release.prerelease == true }}
         name: Pulishing the prerelease package
