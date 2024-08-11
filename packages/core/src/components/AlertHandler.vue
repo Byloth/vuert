@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { nextTick, onMounted, onUnmounted, ref, shallowRef } from "vue";
+    import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from "vue";
     import type { Component, PropType } from "vue";
 
     import type { MaybePromise } from "@byloth/core";
@@ -103,7 +103,7 @@
             if (props.filter(options)) { return register(options); }
         });
     });
-    onUnmounted(() => _unsubscribe());
+    onBeforeUnmount(() => _unsubscribe());
 </script>
 
 <template>
