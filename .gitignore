@@ -12,7 +12,6 @@ Desktop.ini
 
 # Downloadable & installable modules & components
 #
-/.yarn/
 /node_modules/
 
 # Environmental files

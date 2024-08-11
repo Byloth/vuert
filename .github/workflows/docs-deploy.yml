@@ -12,31 +12,31 @@ jobs:
     name: Docs build
     runs-on: ubuntu-latest
     steps:
-      - name: Source code clone
+      - name: Cloning source code
         uses: actions/checkout@v4
-      - name: Node.js 20 (LTS) setup
+      - name: "`pnpm` installation"
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      - name: Configuring Node.js 20 (LTS)
         uses: actions/setup-node@v4
         with:
+          cache: pnpm
           node-version: 20
 
-      - name: Corepack activation
-        run: corepack enable
-      - name: Yarn installation
-        run: yarn set version stable
-      - name: Dependencies installation
-        run: yarn install --immutable
-      - name: Core source code build
-        run: yarn build:core
-      - name: Coding standard check
-        working-directory: packages/docs
-        run: yarn lint:prod
-      # - name: Types integrity check
-      #   working-directory: packages/docs
-      #   run: yarn check:types
-      - name: Docs source code build
-        working-directory: packages/docs
-        run: yarn build
-      - name: Artifact upload
+      - name: Installing dependencies
+        run: pnpm run ci
+      - name: Linting the source code
+        run: pnpm run lint:docs
+        env:
+          NODE_ENV: production
+
+      # - name: Checking type consistency
+      #   run: pnpm run typecheck:docs
+      - name: Building the source code
+        run: pnpm build:docs
+      - name: Creating the artifact
         uses: actions/upload-artifact@v4
         with:
           name: byloth-vuert-docs
@@ -52,20 +52,20 @@ jobs:
       id-token: write
 
     steps:
-      - name: Artifact download
+      - name: Downloading the artifact
         uses: actions/download-artifact@v4
         with:
           name: byloth-vuert-docs
 
-      - name: GitHub Pages setup
+      - name: Configuring GitHub Pages
         uses: actions/configure-pages@v4
-      - name: Artifact upload
+      - name: Uploading the GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
 
       - id: deployment
-        name: GitHub Pages deployment
+        name: Deploying GitHub Pages
         uses: actions/deploy-pages@v4
 
     environment:

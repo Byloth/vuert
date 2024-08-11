@@ -16,34 +16,39 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Source code clone
+      - name: Cloning source code
         uses: actions/checkout@v4
-      - name: Node.js 20 (LTS) setup
+      - name: "`pnpm` installation"
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      - name: Configuring Node.js 20 (LTS)
         uses: actions/setup-node@v4
         with:
+          cache: pnpm
           node-version: 20
 
-      - name: Corepack activation
-        run: corepack enable
-      - name: Yarn installation
-        run: yarn set version stable
-      - name: Dependencies installation
-        run: yarn install --immutable
-      - name: Coding standard check
-        run: yarn lint:prod
-      - name: Types integrity check
-        run: yarn check:types
-      - name: Source code build
-        run: yarn build
-      - name: NPM authentication setup
+      - name: Installing dependencies
+        run: pnpm run ci
+      - name: Linting the source code
+        run: pnpm run lint
+        env:
+          NODE_ENV: production
+
+      - name: Checking type consistency
+        run: pnpm run typecheck
+      - name: Building the source code
+        run: pnpm build
+      - name: Setting up the NPM registry
         run: |
           echo "registry=https://${{ inputs.registry-url }}/" >> .npmrc
           echo "'//${{ inputs.registry-url }}/:_authToken'=${{ secrets.AUTH_TOKEN }}" >> .npmrc
 
       - if: ${{ github.event.release.prerelease == true }}
-        name: Pre-release package publish
+        name: Pulishing the prerelease package
         run: lerna publish from-package --yes --pre-dist-tag next
 
       - if: ${{ github.event.release.prerelease == false }}
-        name: Latest package publish
+        name: Publishing the release package
         run: lerna publish from-package --yes
