@@ -32,8 +32,8 @@ jobs:
         env:
           NODE_ENV: production
 
-      # - name: Checking type consistency
-      #   run: pnpm run typecheck:docs
+      - name: Checking type consistency
+        run: pnpm run typecheck:docs
       - name: Building the source code
         run: pnpm build:docs
       - name: Creating the artifact

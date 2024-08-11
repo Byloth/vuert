@@ -16,6 +16,7 @@
   "devDependencies": {
     "@byloth/eslint-config-nuxt": "^2.8.2",
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "@types/node": "^20.14.15",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-vue": "^5.1.2",

@@ -13,3 +13,10 @@ declare module "@vitepress/theme/../shared.js"
 {
     export const EXTERNAL_URL_RE: RegExp;
 }
+
+declare module "@vitepress/theme/components/*.vue"
+{
+    import type { DefineComponent } from "vue";
+
+    export default { } satisfies DefineComponent;
+}
