@@ -89,9 +89,9 @@
 <style lang="scss">
     $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
 
-    @import "@fortawesome/fontawesome-free/scss/fontawesome";
-    @import "@fortawesome/fontawesome-free/scss/solid";
-    @import "@fortawesome/fontawesome-free/scss/brands";
+    @use "@fortawesome/fontawesome-free/scss/fontawesome" with ($fa-font-path: $fa-font-path);
+    @use "@fortawesome/fontawesome-free/scss/solid" with ($fa-font-path: $fa-font-path);
+    @use "@fortawesome/fontawesome-free/scss/brands" with ($fa-font-path: $fa-font-path);
 
     :root
     {

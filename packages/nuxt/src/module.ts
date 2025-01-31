@@ -3,6 +3,7 @@ import { addComponent, addImports, addPlugin } from "@nuxt/kit";
 import { defineNuxtModule, createResolver } from "@nuxt/kit";
 
 import type { VuertOptions } from "@byloth/vuert";
+import type { Nuxt } from "nuxt/schema";
 
 // https://nuxt.com/docs/guide/going-further/modules#developing-modules
 //
@@ -15,7 +16,7 @@ export default defineNuxtModule<Partial<VuertOptions>>({
         compatibility: { nuxt: "^3.0.0" }
     },
 
-    setup: (options, nuxt) =>
+    setup: (options: Partial<VuertOptions>, nuxt: Nuxt) =>
     {
         const resolver = createResolver(import.meta.url);
         const runtimeOptions: Partial<VuertOptions> = nuxt.options.runtimeConfig.public.vuert || { };

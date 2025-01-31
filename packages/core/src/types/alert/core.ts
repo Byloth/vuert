@@ -27,5 +27,5 @@ export interface CoreAlert<R = void, P extends Record<string, unknown> = never> 
     actions?: ActionOptions<R>[];
 }
 
-export type BlockingMixin = { dismissible?: false; timeout?: never };
+export interface BlockingMixin { dismissible?: false; timeout?: never }
 export type DismissibleMixin = { dismissible: true; } | { timeout: number };

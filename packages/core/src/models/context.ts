@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 import type { Component, ComputedRef, Ref } from "vue";
 
-import { delay, DeferredPromise, Subscribers } from "@byloth/core";
+import { delay, DeferredPromise, Publisher } from "@byloth/core";
 import type { MaybePromise, Timeout } from "@byloth/core";
 
 import type { Duration } from "../types/index.js";
@@ -13,15 +13,20 @@ import Alert from "./alert.js";
 
 export type ContextResult<R> = Action<R> | ActionCallback<R | undefined> | MaybePromise<R | undefined>;
 
+interface ContextEventMap
+{
+    opening: () => void;
+    opened: () => void;
+    closing: () => void;
+    closed: () => void;
+}
+
 export default class Context<T = void, P extends Record<string, unknown> = never> extends DeferredPromise<T>
 {
     protected _duration: Duration;
     protected _timeoutId?: Timeout;
 
-    protected _openingSubscribers: Subscribers;
-    protected _openedSubscribers: Subscribers;
-    protected _closingSubscribers: Subscribers;
-    protected _closedSubscribers: Subscribers;
+    protected _publisher: Publisher<ContextEventMap>;
 
     protected readonly _isOpen: Ref<boolean>;
 
@@ -47,9 +52,9 @@ export default class Context<T = void, P extends Record<string, unknown> = never
                 this._timeoutId = undefined;
             }
 
-            this._closingSubscribers.call();
+            this._publisher.publish("closing");
             await delay(this._duration.leave);
-            this._closedSubscribers.call();
+            this._publisher.publish("closed");
         };
 
         const _onFulfilled = (result?: MaybePromise<ContextResult<T>>): T =>
@@ -94,11 +99,7 @@ export default class Context<T = void, P extends Record<string, unknown> = never
             };
         }
 
-        this._openingSubscribers = new Subscribers();
-        this._openedSubscribers = new Subscribers();
-        this._closingSubscribers = new Subscribers();
-        this._closedSubscribers = new Subscribers();
-
+        this._publisher = new Publisher();
         this.alert = new Alert<T, P>(options as AlertOptions<T>);
 
         this._isOpen = ref(false);
@@ -116,9 +117,9 @@ export default class Context<T = void, P extends Record<string, unknown> = never
 
         this._isOpen.value = true;
 
-        this._openingSubscribers.call();
+        this._publisher.publish("opening");
         await delay(this._duration.enter);
-        this._openedSubscribers.call();
+        this._publisher.publish("opened");
 
         if (this.alert.timeout)
         {
@@ -128,18 +129,18 @@ export default class Context<T = void, P extends Record<string, unknown> = never
 
     public onOpening(subscriber: () => void): void
     {
-        this._openingSubscribers.add(subscriber);
+        this._publisher.subscribe("opening", subscriber);
     }
     public onOpened(subscriber: () => void): void
     {
-        this._openedSubscribers.add(subscriber);
+        this._publisher.subscribe("opened", subscriber);
     }
     public onClosing(subscriber: () => void): void
     {
-        this._closingSubscribers.add(subscriber);
+        this._publisher.subscribe("closing", subscriber);
     }
     public onClosed(subscriber: () => void): void
     {
-        this._closedSubscribers.add(subscriber);
+        this._publisher.subscribe("closed", subscriber);
     }
 }

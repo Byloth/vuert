@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "The headless alerts, modals, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -39,9 +39,14 @@
   "jsdelivr": "dist/vuert.global.js",
   "exports": {
     ".": {
-      "import": "./dist/vuert.esm.js",
-      "require": "./dist/vuert.cjs.js",
-      "types": "./types/index.d.ts"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/vuert.esm.js"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./dist/vuert.cjs.js"
+      }
     }
   },
   "types": "types/index.d.ts",
@@ -49,26 +54,22 @@
     "build": "pnpm run build:source && pnpm run build:types",
     "build:source": "vite build",
     "build:types": "vue-tsc --build --emitDeclarationOnly --force && rm -rf ./types && mv ./build/src ./types && rm -rf ./build",
-    "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore ."
+    "typecheck": "vue-tsc --build --force --noEmit",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@byloth/core": "~1.5.3",
-    "@byloth/exceptions": "~2.3.0",
-    "vue": "^3.4.37"
+    "@byloth/core": "~2.0.0",
+    "@byloth/exceptions": "~2.3.1",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^2.8.2",
-    "@types/node": "^20.14.15",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "@vitejs/plugin-vue": "^5.1.2",
-    "@vue/runtime-core": "^3.4.37",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.0",
-    "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^2.0.29"
+    "@byloth/eslint-config-nuxt": "^3.1.0",
+    "@eslint/compat": "^1.2.6",
+    "@types/node": "^22.13.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/runtime-core": "^3.5.13",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vue-tsc": "^2.2.0"
   }
 }

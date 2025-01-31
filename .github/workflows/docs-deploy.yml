@@ -19,11 +19,11 @@ jobs:
         with:
           version: latest
 
-      - name: Configuring Node.js 20 (LTS)
+      - name: Configuring Node.js 22 (LTS)
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version: 20
+          node-version: 22
 
       - name: Installing dependencies
         run: pnpm run ci

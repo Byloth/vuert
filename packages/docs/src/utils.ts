@@ -9,7 +9,7 @@ export const random = (min: number, max?: number): number =>
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
-export const pickOne = <T>(elements: Array<T>): T =>
+export const pickOne = <T>(elements: T[]): T =>
 {
     const index = random(elements.length);
     const element = elements[index];

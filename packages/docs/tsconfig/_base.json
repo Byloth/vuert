@@ -9,6 +9,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
+    "noImplicitOverride": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "isolatedModules": true,

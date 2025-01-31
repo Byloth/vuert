@@ -1,33 +1,29 @@
 {
   "name": "@vuert/docs",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress serve",
     "typecheck": "vue-tsc --build --force",
-    "lint": "eslint --ext .cjs,.js,.json,.ts,.vue --ignore-path .gitignore ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "@byloth/vuert": "workspace:~",
-    "vue": "^3.4.37"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^2.8.2",
-    "@fortawesome/fontawesome-free": "^6.6.0",
-    "@types/node": "^20.14.15",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "@vitejs/plugin-vue": "^5.1.2",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "sass": "^1.77.8",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.0",
-    "vitepress": "^1.3.2",
-    "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^2.0.29"
+    "@byloth/eslint-config-nuxt": "^3.1.0",
+    "@eslint/compat": "^1.2.6",
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@types/node": "^22.13.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "sass": "^1.83.4",
+    "typescript": "^5.7.3",
+    "vite": "^5.4.14",
+    "vitepress": "^1.6.3",
+    "vue-tsc": "^2.2.0"
   },
   "private": true
 }
