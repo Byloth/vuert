@@ -23,6 +23,13 @@
                        v-bind="alert.payload" />
         </Transition>
     </AlertHandler>
+    <AlertHandler v-slot="{ alert, isOpen }" :filter="exampleFilter">
+        <div v-if="isOpen" class="alert-container">
+            <div class="example-alert">
+                {{ alert.message }}
+            </div>
+        </div>
+    </AlertHandler>
     <DefaultTheme.Layout />
     <VuertFooter />
 </template>
@@ -46,6 +53,8 @@
 
     const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
     const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
+
+    const exampleFilter = (a: AlertOptions<unknown>) => a.custom === "example";
 
     const vuert = useVuert();
 
@@ -92,6 +101,28 @@
     @use "@fortawesome/fontawesome-free/scss/fontawesome" with ($fa-font-path: $fa-font-path);
     @use "@fortawesome/fontawesome-free/scss/solid" with ($fa-font-path: $fa-font-path);
     @use "@fortawesome/fontawesome-free/scss/brands" with ($fa-font-path: $fa-font-path);
+
+    .alert-container
+    {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top: calc(2rem + 64px);
+        width: 100%;
+        z-index: 10;
+        user-select: none;
+
+        & > .example-alert
+        {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+            border-radius: 1rem;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+            padding: 0.75rem 1rem;
+            user-select: text;
+        }
+    }
 
     :root
     {
