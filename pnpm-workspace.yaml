@@ -1,2 +1,7 @@
 packages:
-  - "packages/**"
+  - packages/**
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - nx
+onlyBuiltDependencies:
+  - esbuild
