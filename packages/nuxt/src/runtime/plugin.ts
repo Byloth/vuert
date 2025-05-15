@@ -11,9 +11,7 @@ export default defineNuxtPlugin({
     {
         const options: Partial<VuertOptions> = nuxtApp.$config.public.vuert || { };
 
-        // SMELLS: Remove `as any` when Nuxt.js will be properly typed.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        nuxtApp.vueApp.use(createVuert(options) as any);
+        nuxtApp.vueApp.use(createVuert(options));
 
         return { provide: { vuert: useVuert() } };
     }

@@ -29,17 +29,24 @@ export default defineConfig({
             }
         ],
         sidebar: {
-            "/guide/": [{
-                text: "Getting started",
-                collapsed: false,
-                items: [
-                    { text: "Introduction", link: "/guide/introduction" },
-                    { text: "Your first alert", link: "/guide/your-first-alert" },
-                    { text: "Theming alerts", link: "/guide/theming-alerts" },
-                    { text: "Dismissable alerts", link: "/guide/dismissable-alerts" },
-                    { text: "Alerts with actions", link: "/guide/alerts-with-actions" }
-                ]
-            }]
+            "/guide/": [
+                {
+                    text: "Getting started",
+                    collapsed: false,
+                    items: [
+                        { text: "Introduction", link: "/guide/introduction" },
+                        { text: "Your first alert", link: "/guide/how-to/your-first-alert" },
+                        { text: "Theming alerts", link: "/guide/how-to/theming-alerts" },
+                        { text: "Dismissable alerts", link: "/guide/how-to/dismissable-alerts" },
+                        { text: "Alerts with actions", link: "/guide/how-to/alerts-with-actions" }
+                    ]
+                },
+                {
+                    text: "Nuxt.js integration",
+                    collapsed: true,
+                    items: [{ text: "Getting started", link: "/guide/nuxt/getting-started" }]
+                }
+            ]
         },
         socialLinks: [{ icon: "github", link: REPO_HOME }]
     },
