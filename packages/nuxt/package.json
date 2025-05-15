@@ -65,6 +65,7 @@
     "@nuxt/module-builder": "^1.0.1",
     "@nuxt/schema": "^3.17.3",
     "@types/node": "^22.15.18",
+    "eslint": "^9.26.0",
     "nuxt": "^3.17.3",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
