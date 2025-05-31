@@ -21,10 +21,10 @@ export default defineConfig({
     lastUpdated: true,
     themeConfig: {
         nav: [
-            { text: "Guide", link: "/guide/" },
+            { text: "Guide", link: "/guide/how-to/introduction" },
             { text: "Configs", link: "/config/" },
             {
-                text: "1.3.5",
+                text: "1.3.6",
                 items: [{ text: "Releases", link: `${REPO_HOME}/releases` }]
             }
         ],
@@ -34,7 +34,7 @@ export default defineConfig({
                     text: "Getting started",
                     collapsed: false,
                     items: [
-                        { text: "Introduction", link: "/guide/introduction" },
+                        { text: "Introduction", link: "/guide/how-to/introduction" },
                         { text: "Your first alert", link: "/guide/how-to/your-first-alert" },
                         { text: "Theming alerts", link: "/guide/how-to/theming-alerts" },
                         { text: "Dismissable alerts", link: "/guide/how-to/dismissable-alerts" },

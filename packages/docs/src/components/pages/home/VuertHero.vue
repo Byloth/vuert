@@ -17,7 +17,7 @@
                         Surprise me!
                     </VuertButton>
                     <VuertButton size="medium"
-                                 href="/guide/introduction.html"
+                                 href="/guide/how-to/introduction.html"
                                  title="Getting started">
                         Get started
                     </VuertButton>

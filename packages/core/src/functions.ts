@@ -1,5 +1,5 @@
 import { inject, getCurrentScope } from "vue";
-import type { App, Plugin } from "vue";
+import type { App, ObjectPlugin } from "vue";
 
 import { RuntimeException } from "@byloth/core";
 
@@ -22,7 +22,7 @@ const _getActiveVuert = (): Vuert | undefined =>
 };
 
 export type PluginOptions = Partial<VuertOptions>;
-export const createVuert = (options?: PluginOptions): Plugin => ({
+export const createVuert = (options?: PluginOptions): ObjectPlugin<[]> => ({
     install: ({ config, provide }: App): void =>
     {
         const $vuert = new Vuert(options);

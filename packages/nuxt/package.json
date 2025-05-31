@@ -1,6 +1,6 @@
 {
   "name": "@byloth/nuxt-vuert-module",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "The headless alerts, modals, notifications & popups module for Nuxt.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -33,29 +33,25 @@
     "dist",
     "src"
   ],
-  "main": "dist/module.cjs",
+  "main": "dist/module.mjs",
   "module": "dist/module.mjs",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/types.d.ts",
+        "types": "./dist/types.d.mts",
         "default": "./dist/module.mjs"
-      },
-      "require": {
-        "types": "./dist/types.d.ts",
-        "default": "./dist/module.cjs"
       }
     }
   },
-  "types": "dist/types.d.ts",
+  "types": "dist/types.d.mts",
   "scripts": {
-    "build": "nuxt-module-build build",
+    "build": "nuxt build && nuxt-module-build build",
     "typecheck": "nuxt typecheck",
     "lint": "eslint ."
   },
   "dependencies": {
     "@byloth/vuert": "workspace:",
-    "@nuxt/kit": "^3.17.3",
+    "@nuxt/kit": "^3.17.4",
     "defu": "^6.1.4"
   },
   "devDependencies": {
@@ -63,10 +59,10 @@
     "@eslint/compat": "^1.2.9",
     "@nuxt/devtools": "^2.4.1",
     "@nuxt/module-builder": "^1.0.1",
-    "@nuxt/schema": "^3.17.3",
-    "@types/node": "^22.15.18",
-    "eslint": "^9.26.0",
-    "nuxt": "^3.17.3",
+    "@nuxt/schema": "^3.17.4",
+    "@types/node": "^22.15.29",
+    "eslint": "^9.28.0",
+    "nuxt": "^3.17.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vue-tsc": "^2.2.10"

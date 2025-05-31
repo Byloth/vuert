@@ -5,6 +5,7 @@
 # Generated & compiled files
 #
 /.nuxt/
+/.output/
 /dist/
 
 /*.tgz
