@@ -13,7 +13,7 @@ export default defineNuxtModule<Partial<VuertOptions>>({
     meta: {
         name: "@byloth/nuxt-vuert-module",
         configKey: "vuert",
-        compatibility: { nuxt: "^3.0.0" }
+        compatibility: { nuxt: "^4.0.0" }
     },
 
     setup: (options: Partial<VuertOptions>, nuxt: Nuxt) =>
