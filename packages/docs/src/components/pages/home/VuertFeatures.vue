@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+    defineProps({
+        grid: {
+            required: true,
+            type: Number
+        }
+    });
+</script>
+
 <template>
     <div class="vuert-features">
         <div class="container">
@@ -7,15 +16,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-    defineProps({
-        grid: {
-            required: true,
-            type: Number
-        }
-    });
-</script>
 
 <style lang="scss" scoped>
     .vuert-features

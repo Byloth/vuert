@@ -1,3 +1,62 @@
+<script lang="ts" setup>
+    import { onMounted, watch } from "vue";
+    import DefaultTheme from "vitepress/theme";
+
+    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
+
+    import { AlertHandler, useVuert } from "@byloth/vuert";
+    import type { AlertOptions } from "@byloth/vuert";
+
+    import VuertFooter from "../components/globals/VuertFooter.vue";
+    import ModalAlert from "../components/alerts/ModalAlert.vue";
+    import ToastAlert from "../components/alerts/ToastAlert.vue";
+
+    import { random } from "../utils.js";
+
+    const { hasSidebar } = useSidebar();
+
+    const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
+    const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
+
+    const vuert = useVuert();
+
+    const emitToast = () =>
+    {
+        const delay = random(10, 30) * 1000;
+        const callback = async () =>
+        {
+            await vuert.emit({
+                component: ToastAlert,
+                priority: "low",
+                timeout: 7500
+            });
+
+            emitToast();
+        };
+
+        setTimeout(callback, delay);
+    };
+
+    onMounted(emitToast);
+
+    if (!(import.meta.env.SSR))
+    {
+        const setBodyMargin = (isSidebarOpen: boolean) =>
+        {
+            if (isSidebarOpen)
+            {
+                document.body.style.marginBottom = "";
+            }
+            else
+            {
+                document.body.style.marginBottom = "112px";
+            }
+        };
+
+        watch(hasSidebar, setBodyMargin, { immediate: true });
+    }
+</script>
+
 <template>
     <!-- eslint-disable vue/no-multiple-template-root -->
     <AlertHandler v-slot="{ alert, customComponent, isOpen, resolve }"
@@ -27,71 +86,11 @@
     <VuertFooter />
 </template>
 
-<script lang="ts" setup>
-    import { onMounted, watch } from "vue";
-    import DefaultTheme from "vitepress/theme";
-
-    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
-
-    import { AlertHandler, useVuert } from "@byloth/vuert";
-    import type { AlertOptions } from "@byloth/vuert";
-
-    import VuertFooter from "../components/globals/VuertFooter.vue";
-    import ModalAlert from "../components/alerts/ModalAlert.vue";
-    import ToastAlert from "../components/alerts/ToastAlert.vue";
-
-    import { random } from "../utils.js";
-
-    const { hasSidebar } = useSidebar();
-
-    const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
-    const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
-
-    const vuert = useVuert();
-
-    const emitToast = () =>
-    {
-        const delay = random(10, 30) * 1000;
-
-        setTimeout(async () =>
-        {
-            await vuert.emit({
-                component: ToastAlert,
-                priority: "low",
-                timeout: 7500
-            });
-
-            emitToast();
-
-        }, delay);
-    };
-
-    onMounted(emitToast);
-
-    if (!(import.meta.env.SSR))
-    {
-        const setBodyMargin = (isSidebarOpen: boolean) =>
-        {
-            if (isSidebarOpen)
-            {
-                document.body.style.marginBottom = "";
-            }
-            else
-            {
-                document.body.style.marginBottom = "112px";
-            }
-        };
-
-        watch(hasSidebar, setBodyMargin, { immediate: true });
-    }
-</script>
-
 <style lang="scss">
-    $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
-
-    @use "@fortawesome/fontawesome-free/scss/fontawesome" with ($fa-font-path: $fa-font-path);
-    @use "@fortawesome/fontawesome-free/scss/solid" with ($fa-font-path: $fa-font-path);
-    @use "@fortawesome/fontawesome-free/scss/brands" with ($fa-font-path: $fa-font-path);
+    @use "@fortawesome/fontawesome-free/scss/variables" with ($font-path: "@fortawesome/fontawesome-free/webfonts");
+    @use "@fortawesome/fontawesome-free/scss/fontawesome";
+    @use "@fortawesome/fontawesome-free/scss/solid";
+    @use "@fortawesome/fontawesome-free/scss/brands";
 
     :root
     {

@@ -34,8 +34,10 @@ export default class Alert<R = void, P extends Record<string, unknown> = never> 
 
         if ((options.message !== undefined) && (options.component !== undefined))
         {
-            throw new ValueException("The `message` and `component` properties" +
-                                     " cannot both be valued at the same time.");
+            throw new ValueException(
+                "The `message` and `component` properties" +
+                " cannot both be valued at the same time."
+            );
         }
 
         this.message = options.message;
@@ -49,8 +51,10 @@ export default class Alert<R = void, P extends Record<string, unknown> = never> 
         {
             if (options.timeout <= 0)
             {
-                throw new ValueException("The `timeout` property must be a positive" +
-                                         " integer or -at least- `undefined`.");
+                throw new ValueException(
+                    "The `timeout` property must be a positive" +
+                    " integer or -at least- `undefined`."
+                );
             }
 
             this.timeout = options.timeout;

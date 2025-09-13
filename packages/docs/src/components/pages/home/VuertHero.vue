@@ -1,32 +1,3 @@
-<template>
-    <section class="vuert-hero">
-        <div class="container">
-            <div class="main">
-                <h1 class="title">
-                    <span>Vuert.js</span>
-                </h1>
-                <p class="subtitle">
-                    <span>
-                        The headless alerts, modals, notifications &amp; popups library for Vue.js & Nuxt.js craftsmen.
-                    </span>
-                </p>
-                <div class="actions">
-                    <VuertButton size="medium"
-                                 theme="brand"
-                                 @click="emitAlert">
-                        Surprise me!
-                    </VuertButton>
-                    <VuertButton size="medium"
-                                 href="/guide/how-to/introduction.html"
-                                 title="Getting started">
-                        Get started
-                    </VuertButton>
-                </div>
-            </div>
-        </div>
-    </section>
-</template>
-
 <script lang="ts" setup>
     import { useVuert } from "@byloth/vuert";
 
@@ -55,6 +26,35 @@
         });
     };
 </script>
+
+<template>
+    <section class="vuert-hero">
+        <div class="container">
+            <div class="main">
+                <h1 class="title">
+                    <span>Vuert.js</span>
+                </h1>
+                <p class="subtitle">
+                    <span>
+                        The headless alerts, modals, notifications &amp; popups library for Vue.js & Nuxt.js craftsmen.
+                    </span>
+                </p>
+                <div class="actions">
+                    <VuertButton size="medium"
+                                 theme="brand"
+                                 @click="emitAlert">
+                        Surprise me!
+                    </VuertButton>
+                    <VuertButton size="medium"
+                                 href="/guide/how-to/introduction.html"
+                                 title="Getting started">
+                        Get started
+                    </VuertButton>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>
 
 <style lang="scss" scoped>
     .vuert-hero

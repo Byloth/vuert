@@ -1,12 +1,3 @@
-<template>
-    <div class="flex horizontal toast-alert">
-        <img class="avatar" :src="avatar" />
-        <span>
-            <strong>{{ person }}</strong> just {{ action }}.
-        </span>
-    </div>
-</template>
-
 <script lang="ts" setup>
     import { Alert } from "@byloth/vuert";
 
@@ -26,6 +17,15 @@
     const person: string = pickOne(People);
     const action: string = pickOne(Actions);
 </script>
+
+<template>
+    <div class="flex horizontal toast-alert">
+        <img class="avatar" :src="avatar" />
+        <span>
+            <strong>{{ person }}</strong> just {{ action }}.
+        </span>
+    </div>
+</template>
 
 <style lang="scss" scoped>
     .toast-alert

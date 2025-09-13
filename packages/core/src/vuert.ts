@@ -1,7 +1,7 @@
 import { RuntimeException } from "@byloth/core";
 
 import { AlertThrottledException } from "./exceptions";
-import { Context } from "./models/index.js";
+import type { Context } from "./models/index.js";
 
 import type { Duration } from "./types/index.js";
 import type { AlertOptions } from "./types/alert/index.js";
@@ -18,7 +18,7 @@ export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> |
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.3.8";
+    public static readonly VERSION: string = "1.4.0";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
@@ -90,13 +90,17 @@ export default class Vuert
 
         if (!(results.length))
         {
-            throw new RuntimeException("Unable to handle the emitted alert properly. " +
-                                       "There wasn't found any supported subscribers.");
+            throw new RuntimeException(
+                "Unable to handle the emitted alert properly. " +
+                "There wasn't found any supported subscribers."
+            );
         }
         if (results.length > 1)
         {
-            throw new RuntimeException("Unable to handle the emitted alert properly. " +
-                                       "There were found too many supported subscribers.");
+            throw new RuntimeException(
+                "Unable to handle the emitted alert properly. " +
+                "There were found too many supported subscribers."
+            );
         }
 
         return results[0];

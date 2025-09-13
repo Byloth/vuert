@@ -1,3 +1,25 @@
+<script lang="ts" setup>
+    import type { Component, PropType } from "vue";
+    import { Alert } from "@byloth/vuert";
+
+    import VuertButton from "../ui/VuertButton.vue";
+
+    defineProps({
+        alert: {
+            required: true,
+            type: Alert
+        },
+        close: {
+            required: true,
+            type: Function as PropType<(result?: unknown) => void>
+        },
+        customComponent: {
+            default: undefined,
+            type: Object as PropType<Component>
+        }
+    });
+</script>
+
 <template>
     <div class="modal-alert flex overlay">
         <div class="modal">
@@ -37,29 +59,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-    import type { Component, PropType } from "vue";
-
-    import { Alert } from "@byloth/vuert";
-
-    import VuertButton from "../ui/VuertButton.vue";
-
-    defineProps({
-        alert: {
-            required: true,
-            type: Alert
-        },
-        close: {
-            required: true,
-            type: Function as PropType<(result?: unknown) => void>
-        },
-        customComponent: {
-            default: undefined,
-            type: Object as PropType<Component>
-        }
-    });
-</script>
 
 <style lang="scss" scoped>
     .modal

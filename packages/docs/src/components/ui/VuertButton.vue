@@ -1,14 +1,3 @@
-<template>
-    <Component :is="tag"
-               class="vuert-button"
-               :class="classes"
-               :href="url"
-               :target="isExternal ? '_blank' : undefined"
-               :rel="isExternal ? 'nofollow noopener noreferrer' : undefined">
-        <slot></slot>
-    </Component>
-</template>
-
 <script lang="ts" setup>
     import { computed } from "vue";
 
@@ -58,6 +47,17 @@
         return EXTERNAL_URL_RE.test(props.href);
     });
 </script>
+
+<template>
+    <Component :is="tag"
+               class="vuert-button"
+               :class="classes"
+               :href="url"
+               :target="isExternal ? '_blank' : undefined"
+               :rel="isExternal ? 'nofollow noopener noreferrer' : undefined">
+        <slot></slot>
+    </Component>
+</template>
 
 <style lang="scss" scoped>
     .vuert-button

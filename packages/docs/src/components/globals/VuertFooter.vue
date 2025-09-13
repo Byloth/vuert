@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
+
+    const { hasSidebar } = useSidebar();
+</script>
+
 <template>
     <footer class="vuert-footer" :hidden="hasSidebar">
         <div class="container">
@@ -16,12 +22,6 @@
         </div>
     </footer>
 </template>
-
-<script lang="ts" setup>
-    import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
-
-    const { hasSidebar } = useSidebar();
-</script>
 
 <style lang="scss" scoped>
     .vuert-footer

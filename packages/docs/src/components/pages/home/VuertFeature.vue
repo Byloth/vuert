@@ -1,23 +1,3 @@
-<template>
-    <div class="vuert-feature">
-        <VPLink class="content"
-                :href="link"
-                :no-icon="true">
-            <article class="box">
-                <div v-if="icon" class="icon">
-                    {{ icon }}
-                </div>
-                <slot></slot>
-                <div v-if="linkText" class="link">
-                    <p class="text">
-                        {{ linkText }} <VPIconArrowRight class="icon" />
-                    </p>
-                </div>
-            </article>
-        </VPLink>
-    </div>
-</template>
-
 <script lang="ts" setup>
     import VPLink from "@vitepress/theme/components/VPLink.vue";
     import VPIconArrowRight from "@vitepress/theme/components/icons/VPIconArrowRight.vue";
@@ -37,6 +17,26 @@
         }
     });
 </script>
+
+<template>
+    <div class="vuert-feature">
+        <VPLink class="content"
+                :href="link"
+                :no-icon="true">
+            <article class="box">
+                <div v-if="icon" class="icon">
+                    {{ icon }}
+                </div>
+                <slot></slot>
+                <div v-if="linkText" class="link">
+                    <p class="text">
+                        {{ linkText }} <VPIconArrowRight class="icon" />
+                    </p>
+                </div>
+            </article>
+        </VPLink>
+    </div>
+</template>
 
 <style lang="scss" scoped>
     .vuert-feature
