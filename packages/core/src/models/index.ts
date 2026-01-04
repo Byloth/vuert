@@ -1,5 +1,3 @@
-import Action from "./action.js";
-import Alert from "./alert.js";
-import Context from "./context.js";
-
-export { Action, Alert, Context };
+export { default as Action } from "./action.js";
+export { default as Alert } from "./alert.js";
+export { default as Context } from "./context.js";

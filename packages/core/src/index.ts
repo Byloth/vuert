@@ -1,4 +1,4 @@
-import AlertHandler from "./components/AlertHandler.vue";
+export { default as AlertHandler } from "./components/AlertHandler.vue";
 import Vuert from "./vuert.js";
 
 export { createVuert, useVuert } from "./functions.js";
@@ -17,8 +17,6 @@ export type { CustomAlert, BlockingCustomAlert, DismissibleCustomAlert } from ".
 export type { PluginOptions } from "./functions.js";
 
 export default Vuert;
-
-export { AlertHandler };
 
 declare module "@vue/runtime-core"
 {
