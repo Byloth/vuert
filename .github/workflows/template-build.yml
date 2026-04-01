@@ -1,0 +1,60 @@
+name: "<template:build>"
+on:
+  workflow_call:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning source code
+        uses: actions/checkout@v6
+      - name: "`pnpm` installation"
+        uses: pnpm/action-setup@v5
+        with:
+          version: latest
+
+      - name: Configuring Node.js 24 (LTS)
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          node-version: 24
+
+      - name: Installing dependencies
+        run: pnpm run ci
+      - name: Linting the source code
+        run: pnpm run lint
+        env:
+          NODE_ENV: production
+
+      - name: Checking type consistency
+        run: pnpm run typecheck
+      - name: Building the source code
+        run: pnpm build
+      - name: "Creating the `core` artifact"
+        working-directory: packages/core
+        run: |
+          PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
+          PACKAGE_NAME="byloth-vuert-${PACKAGE_VERSION}.tgz"
+          pnpm pack
+          tar -xzvf "${PACKAGE_NAME}" -C "."
+
+      - name: Uploading the artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: byloth-vuert
+          path: packages/core/package
+
+      - name: "Creating the `nuxt` artifact"
+        working-directory: packages/nuxt
+        run: |
+          PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
+          PACKAGE_NAME="byloth-nuxt-vuert-module-${PACKAGE_VERSION}.tgz"
+          pnpm pack
+          tar -xzvf "${PACKAGE_NAME}" -C "."
+
+      - name: Uploading the artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: byloth-nuxt-vuert-module
+          path: packages/nuxt/package
