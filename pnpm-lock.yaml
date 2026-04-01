@@ -58,7 +58,7 @@ importers:
   packages/docs:
     dependencies:
       '@byloth/vuert':
-        specifier: workspace:^
+        specifier: 'workspace:'
         version: link:../core
       vue:
         specifier: ^3.5.31
@@ -101,7 +101,7 @@ importers:
   packages/nuxt:
     dependencies:
       '@byloth/vuert':
-        specifier: workspace:^
+        specifier: 'workspace:'
         version: link:../core
       '@nuxt/kit':
         specifier: ^4.4.2
