@@ -30,15 +30,16 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          registry-url: https://registry.npmjs.org/
 
       - name: Updating npm to the latest version
         run: npm install -g npm@latest
       - if: ${{ github.event.release.prerelease == true }}
         name: Publishing pre-release package
-        run: npm publish --access public --tag next
+        run: npm publish --provenance --access public --tag next
       - if: ${{ github.event.release.prerelease == false }}
         name: Publishing latest package
-        run: npm publish --access public
+        run: npm publish --provenance --access public
 
   publish-nuxt:
     name: "Publish `nuxt` package"
@@ -59,12 +60,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          registry-url: https://registry.npmjs.org/
 
       - name: Updating npm to the latest version
         run: npm install -g npm@latest
       - if: ${{ github.event.release.prerelease == true }}
         name: Publishing pre-release package
-        run: npm publish --access public --tag next
+        run: npm publish --provenance --access public --tag next
       - if: ${{ github.event.release.prerelease == false }}
         name: Publishing latest package
-        run: npm publish --access public
+        run: npm publish --provenance --access public
