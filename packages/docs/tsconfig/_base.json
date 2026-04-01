@@ -20,7 +20,6 @@
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "..",
     "rootDir": ".."
   }
 }
