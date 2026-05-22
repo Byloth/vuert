@@ -1,6 +1,6 @@
 {
   "name": "@vuert/docs",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
@@ -10,21 +10,22 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@byloth/vuert": "workspace:",
-    "vue": "^3.5.31"
+    "@byloth/core": "^2.2.9",
+    "@byloth/vuert": "workspace:^",
+    "vue": "^3.5.34"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^4.0.0",
-    "@eslint/compat": "^2.0.3",
+    "@byloth/eslint-config-nuxt": "^4.0.1",
+    "@eslint/compat": "^2.1.0",
     "@fortawesome/fontawesome-free": "^7.2.0",
-    "@types/node": "^22.19.15",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "eslint": "^10.1.0",
-    "sass": "^1.98.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
+    "@types/node": "^24.12.4",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "eslint": "^10.4.0",
+    "sass": "^1.100.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14",
     "vitepress": "^1.6.4",
-    "vue-tsc": "^3.2.6"
+    "vue-tsc": "^3.3.1"
   },
   "private": true
 }

@@ -1,4 +1,4 @@
-import type { ActionCallback, CoreAction } from "./core";
+import type { ActionCallback, CoreAction } from "./core.js";
 
 export interface CallbackAction<R = void> extends CoreAction
 {

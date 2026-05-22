@@ -4,14 +4,13 @@
 
     import { useSidebar } from "@vitepress/theme/composables/sidebar.js";
 
+    import { Random } from "@byloth/core";
     import { AlertHandler, useVuert } from "@byloth/vuert";
     import type { AlertOptions } from "@byloth/vuert";
 
     import VuertFooter from "../components/globals/VuertFooter.vue";
     import ModalAlert from "../components/alerts/ModalAlert.vue";
     import ToastAlert from "../components/alerts/ToastAlert.vue";
-
-    import { random } from "../utils.js";
 
     const { hasSidebar } = useSidebar();
 
@@ -22,7 +21,7 @@
 
     const emitToast = () =>
     {
-        const delay = random(10, 30) * 1000;
+        const delay = Random.Integer(10, 30) * 1_000;
         const callback = async () =>
         {
             await vuert.emit({

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
+    import { Random } from "@byloth/core";
     import { Alert } from "@byloth/vuert";
 
     import Actions from "@/assets/data/actions.json";
     import People from "@/assets/data/people.json";
-
-    import { pickOne } from "../../utils.js";
 
     defineProps({
         alert: {
@@ -14,8 +13,8 @@
     });
 
     const avatar = "https://picsum.photos/50";
-    const person: string = pickOne(People);
-    const action: string = pickOne(Actions);
+    const person = Random.Choice(People);
+    const action = Random.Choice(Actions);
 </script>
 
 <template>

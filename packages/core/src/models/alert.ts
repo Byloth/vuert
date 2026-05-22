@@ -13,6 +13,7 @@ export default class Alert<R = void, P extends Record<string, unknown> = never> 
 
     public readonly icon?: string;
     public readonly title?: string;
+    public readonly subtitle?: string;
 
     public readonly message?: string;
     public readonly payload?: P;
@@ -31,6 +32,7 @@ export default class Alert<R = void, P extends Record<string, unknown> = never> 
 
         this.icon = options.icon;
         this.title = options.title;
+        this.subtitle = options.subtitle;
 
         if ((options.message !== undefined) && (options.component !== undefined))
         {

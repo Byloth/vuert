@@ -1,6 +1,6 @@
 {
   "name": "@byloth/vuert",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "The headless alerts, modals, notifications & popups library for Vue.js craftsmen. ℹ",
   "keywords": [
     "Alert",
@@ -47,6 +47,16 @@
         "types": "./types/index.d.ts",
         "default": "./dist/vuert.cjs.js"
       }
+    },
+    "./custom": {
+      "import": {
+        "types": "./types/custom.d.ts",
+        "default": "./dist/vuert.esm.js"
+      },
+      "require": {
+        "types": "./types/custom.d.ts",
+        "default": "./dist/vuert.cjs.js"
+      }
     }
   },
   "types": "types/index.d.ts",
@@ -63,14 +73,14 @@
     "vue": "^3.5.31"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^4.0.0",
-    "@eslint/compat": "^2.0.3",
-    "@types/node": "^22.19.15",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "@vue/runtime-core": "^3.5.31",
-    "eslint": "^10.1.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vue-tsc": "^3.2.6"
+    "@byloth/eslint-config-nuxt": "^4.0.1",
+    "@eslint/compat": "^2.1.0",
+    "@types/node": "^24.12.4",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/runtime-core": "^3.5.34",
+    "eslint": "^10.4.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.14",
+    "vue-tsc": "^3.3.1"
   }
 }

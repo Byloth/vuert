@@ -1,6 +1,6 @@
 import { RuntimeException } from "@byloth/core";
 
-import { AlertThrottledException } from "./exceptions";
+import { AlertThrottledException } from "./exceptions.js";
 import type { Context } from "./models/index.js";
 
 import type { Duration } from "./types/index.js";
@@ -18,7 +18,7 @@ export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> |
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.4.2";
+    public static readonly VERSION: string = "1.4.3";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {

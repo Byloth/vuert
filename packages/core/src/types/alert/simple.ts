@@ -6,5 +6,8 @@ export interface SimpleAlert<R = void, P extends Record<string, unknown> = never
     component?: never;
 }
 
-export type BlockingAlert<R = void> = SimpleAlert<R> & BlockingMixin;
-export type DismissibleAlert<R = void> = SimpleAlert<R> & DismissibleMixin;
+export type BlockingAlert<R = void, P extends Record<string, unknown> = never> =
+    SimpleAlert<R, P> & BlockingMixin;
+
+export type DismissibleAlert<R = void, P extends Record<string, unknown> = never> =
+    SimpleAlert<R, P> & DismissibleMixin;
