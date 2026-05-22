@@ -19,7 +19,7 @@ export type VuertSubscriber<R = void, P extends Record<string, unknown> = never>
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.4.4";
+    public static readonly VERSION: string = "1.4.5";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
@@ -74,12 +74,24 @@ export default class Vuert
         }
     }
 
-    public emit<R, P extends Record<string, unknown>>(alert: BlockingAlert<R, P>): Context<R, P>;
-    public emit<R, P extends Record<string, unknown>>(alert: DismissibleAlert<R, P>): Context<R | void, P>;
-    public emit<R, P extends Record<string, unknown>>(alert: BlockingCustomAlert<R, P>): Context<R, P>;
-    public emit<R, P extends Record<string, unknown>>(alert: DismissibleCustomAlert<R, P>): Context<R | void, P>;
-    public emit<R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>): Context<R | void, P>;
-    public emit<R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>): Context<R | void, P>
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: BlockingAlert<R, P>
+    ): Context<R, P>;
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: DismissibleAlert<R, P>
+    ): Context<R | void, P>;
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: BlockingCustomAlert<R, P>
+    ): Context<R, P>;
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: DismissibleCustomAlert<R, P>
+    ): Context<R | void, P>;
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: AlertOptions<R, P>
+    ): Context<R | void, P>;
+    public emit<R = void, P extends Record<string, unknown> = never>(
+        alert: AlertOptions<R, P>
+    ): Context<R | void, P>
     {
         if (this._throttle(alert)) { throw new AlertThrottledException(alert); }
 
@@ -107,7 +119,7 @@ export default class Vuert
         return results[0];
     }
 
-    public subscribe<R, P extends Record<string, unknown>>(
+    public subscribe<R = void, P extends Record<string, unknown> = never>(
         subscriber: VuertSubscriber<R, P>
     ): () => VuertSubscriber<R, P>
     {
