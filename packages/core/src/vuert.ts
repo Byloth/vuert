@@ -14,11 +14,12 @@ export interface VuertOptions
     throttlingDuration: number;
     transitionDuration: number | Duration;
 }
-export type VuertSubscriber<R = void> = (alert: AlertOptions<R>) => Context<R> | void;
+export type VuertSubscriber<R = void, P extends Record<string, unknown> = never> =
+    (alert: AlertOptions<R, P>) => Context<R, P> | void;
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.4.3";
+    public static readonly VERSION: string = "1.4.4";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {
@@ -30,7 +31,7 @@ export default class Vuert
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    protected _subscribers: VuertSubscriber<any>[];
+    protected _subscribers: VuertSubscriber<any, any>[];
     protected _throttlers: Map<symbol, number>;
 
     protected _options: VuertOptions;
@@ -39,7 +40,7 @@ export default class Vuert
         return { ...this._options };
     }
 
-    protected _throttle: <R>(alert: AlertOptions<R>) => boolean;
+    protected _throttle: <R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>) => boolean;
 
     public constructor(options?: Partial<VuertOptions>)
     {
@@ -50,7 +51,7 @@ export default class Vuert
 
         if (this._options.useThrottling)
         {
-            this._throttle = <R>(alert: AlertOptions<R>): boolean =>
+            this._throttle = <R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>): boolean =>
             {
                 if (!(alert.id)) { return false; }
 
@@ -73,12 +74,12 @@ export default class Vuert
         }
     }
 
-    public emit<R = void>(alert: BlockingAlert<R>): Context<R>;
-    public emit<R = void>(alert: DismissibleAlert<R>): Context<R | void>;
-    public emit<R = void>(alert: BlockingCustomAlert<R>): Context<R>;
-    public emit<R = void>(alert: DismissibleCustomAlert<R>): Context<R | void>;
-    public emit<R = void>(alert: AlertOptions<R>): Context<R | void>;
-    public emit<R = void>(alert: AlertOptions<R>): Context<R | void>
+    public emit<R, P extends Record<string, unknown>>(alert: BlockingAlert<R, P>): Context<R, P>;
+    public emit<R, P extends Record<string, unknown>>(alert: DismissibleAlert<R, P>): Context<R | void, P>;
+    public emit<R, P extends Record<string, unknown>>(alert: BlockingCustomAlert<R, P>): Context<R, P>;
+    public emit<R, P extends Record<string, unknown>>(alert: DismissibleCustomAlert<R, P>): Context<R | void, P>;
+    public emit<R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>): Context<R | void, P>;
+    public emit<R, P extends Record<string, unknown>>(alert: AlertOptions<R, P>): Context<R | void, P>
     {
         if (this._throttle(alert)) { throw new AlertThrottledException(alert); }
 
@@ -86,7 +87,7 @@ export default class Vuert
         const contexts = subscribers.map((subscriber) => subscriber(alert));
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const results = contexts.filter((context) => !!(context)) as Context<any>[];
+        const results = contexts.filter((context) => !!(context)) as Context<any, any>[];
 
         if (!(results.length))
         {
@@ -106,11 +107,13 @@ export default class Vuert
         return results[0];
     }
 
-    public subscribe<R>(subscriber: VuertSubscriber<R>): () => VuertSubscriber<R>
+    public subscribe<R, P extends Record<string, unknown>>(
+        subscriber: VuertSubscriber<R, P>
+    ): () => VuertSubscriber<R, P>
     {
         this._subscribers.push(subscriber);
 
-        return (): VuertSubscriber<R> =>
+        return (): VuertSubscriber<R, P> =>
         {
             const index = this._subscribers.indexOf(subscriber);
 

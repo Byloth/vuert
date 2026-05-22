@@ -2,11 +2,16 @@ import { RuntimeException } from "@byloth/core";
 
 import type { AlertOptions } from "./types/alert/index.js";
 
-export class AlertThrottledException<R, T extends AlertOptions<R>> extends RuntimeException
+export class AlertThrottledException<R = void, P extends Record<string, unknown> = never> extends RuntimeException
 {
-    public readonly alert: T;
+    public readonly alert: AlertOptions<R, P>;
 
-    public constructor(alert: T, message?: string, cause?: unknown, name = "AlertThrottledException")
+    public constructor(
+        alert: AlertOptions<R, P>,
+        message?: string,
+        cause?: unknown,
+        name = "AlertThrottledException"
+    )
     {
         if (message === undefined)
         {

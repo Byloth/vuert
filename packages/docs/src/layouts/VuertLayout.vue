@@ -14,8 +14,8 @@
 
     const { hasSidebar } = useSidebar();
 
-    const modalFilter = (a: AlertOptions<unknown>) => a.priority === "high";
-    const toastFilter = (a: AlertOptions<unknown>) => a.priority === "low";
+    const modalFilter = ({ priority }: AlertOptions<unknown, Record<string, unknown>>) => (priority === "high");
+    const toastFilter = ({ priority }: AlertOptions<unknown, Record<string, unknown>>) => (priority === "low");
 
     const vuert = useVuert();
 

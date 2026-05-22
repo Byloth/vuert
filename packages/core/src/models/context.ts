@@ -100,7 +100,7 @@ export default class Context<T = void, P extends Record<string, unknown> = never
         }
 
         this._publisher = new Publisher();
-        this.alert = new Alert<T, P>(options as AlertOptions<T>);
+        this.alert = new Alert(options);
 
         this._isOpen = ref(false);
         this.isOpen = computed((): boolean => this._isOpen.value);

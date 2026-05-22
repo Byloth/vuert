@@ -22,7 +22,7 @@
         },
         filter: {
             default: () => true,
-            type: Function as PropType<(options: AlertOptions<unknown>) => boolean>
+            type: Function as PropType<(options: AlertOptions<unknown, Record<string, unknown>>) => boolean>
         },
         transitionDuration: {
             default: () => useVuert().options.transitionDuration,
@@ -98,10 +98,13 @@
     let _unsubscribe: () => void;
     onMounted(() =>
     {
-        _unsubscribe = useVuert().subscribe(<R>(options: AlertOptions<R>): Context<R> | void =>
-        {
-            if (props.filter(options)) { return register(options); }
-        });
+        _unsubscribe = useVuert()
+            .subscribe((options) =>
+            {
+                if (props.filter(options)) { return register(options); }
+
+                return;
+            });
     });
     onBeforeUnmount(() => _unsubscribe());
 </script>
