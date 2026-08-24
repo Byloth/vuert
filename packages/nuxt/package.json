@@ -50,21 +50,21 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@byloth/vuert": "workspace:",
-    "@nuxt/kit": "^4.4.2",
-    "defu": "^6.1.4"
+    "@byloth/vuert": "workspace:^",
+    "@nuxt/kit": "^4.4.4",
+    "defu": "^6.1.7"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^4.0.0",
-    "@eslint/compat": "^2.0.3",
+    "@byloth/eslint-config-nuxt": "^4.0.1",
+    "@eslint/compat": "^2.0.5",
     "@nuxt/devtools": "^3.2.4",
     "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.4.2",
-    "@types/node": "^22.19.15",
-    "eslint": "^10.1.0",
-    "nuxt": "^4.4.2",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vue-tsc": "^3.2.6"
+    "@nuxt/schema": "^4.4.4",
+    "@types/node": "^24.12.2",
+    "eslint": "^10.3.0",
+    "nuxt": "^4.4.4",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vue-tsc": "^3.2.8"
   }
 }
