@@ -68,19 +68,19 @@
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "@byloth/core": "^2.2.6",
+    "@byloth/core": "^2.2.7",
     "@byloth/exceptions": "^2.3.1",
-    "vue": "^3.5.31"
+    "vue": "^3.5.34"
   },
   "devDependencies": {
-    "@byloth/eslint-config-nuxt": "^4.0.1",
-    "@eslint/compat": "^2.1.0",
-    "@types/node": "^24.12.4",
-    "@vitejs/plugin-vue": "^6.0.7",
-    "@vue/runtime-core": "^3.5.34",
-    "eslint": "^10.4.0",
+    "@byloth/eslint-config-nuxt": "^4.0.2",
+    "@eslint/compat": "^2.1.1",
+    "@types/node": "^24.13.4",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/runtime-core": "^3.5.42",
+    "eslint": "^10.10.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.14",
-    "vue-tsc": "^3.3.1"
+    "vite": "^8.2.2",
+    "vue-tsc": "^3.3.11"
   }
 }
