@@ -3,42 +3,53 @@ import { defineConfig } from "vite";
 
 import Vue from "@vitejs/plugin-vue";
 
+import type { LibraryFormats } from "vite";
+
 function resolve(path: string): string
 {
   return fileURLToPath(new URL(path, import.meta.url));
 }
 
-export default defineConfig({
-  build: {
-    lib: {
-      entry: resolve("./src/index.ts"),
-      fileName: (format) =>
-      {
-        if (format === "cjs") { return "vuert.cjs"; }
-        if (format === "es") { return "vuert.esm.js"; }
-        if (format === "iife") { return "vuert.global.js"; }
-        if (format === "umd") { return "vuert.umd.cjs"; }
+export default defineConfig(({ mode }) =>
+{
+  const isBundler = (mode === "bundler");
 
-        throw new Error(`Unknown build format: ${format}`);
+  const suffix = isBundler ? "bundler." : "";
+  const formats: LibraryFormats[] = isBundler ? ["es"] : ["es", "cjs", "iife"];
+
+  return {
+    build: {
+      minify: !(isBundler),
+      lib: {
+        entry: resolve("./src/index.ts"),
+        fileName: (format) =>
+        {
+          if (format === "cjs") { return "vuert.cjs"; }
+          if (format === "es") { return `vuert.esm.${suffix}js`; }
+          if (format === "iife") { return "vuert.global.js"; }
+
+          throw new Error(`Unknown build format: ${format}`);
+        },
+        formats: formats,
+        name: "Vuert"
       },
-      formats: ["cjs", "es", "iife", "umd"],
-      name: "Vuert"
-    },
-    rollupOptions: {
-      external: ["@byloth/core", "@byloth/exceptions", "vue"],
-      output: {
-        exports: "named",
-        globals: {
-          "@byloth/core": "Core",
-          "@byloth/exceptions": "Exceptions",
-          "vue": "Vue"
+      rollupOptions: {
+        external: ["@byloth/core", "@byloth/exceptions", "vue"],
+        output: {
+          exports: "named",
+          globals: {
+            "@byloth/core": "Core",
+            "@byloth/exceptions": "Exceptions",
+            "vue": "Vue"
+          }
         }
-      }
+      },
+      sourcemap: true,
+      emptyOutDir: !(isBundler)
     },
-    sourcemap: true
-  },
-  plugins: [Vue()],
-  resolve: {
-    alias: { "@": resolve("./src") }
-  }
+    plugins: [Vue()],
+    resolve: {
+      alias: { "@": resolve("./src") }
+    }
+  };
 });

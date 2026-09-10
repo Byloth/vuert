@@ -19,7 +19,7 @@ export type VuertSubscriber<R = void, P extends Record<string, unknown> = never>
 
 export default class Vuert
 {
-    public static readonly VERSION: string = "1.4.5";
+    public static readonly VERSION: string = "2.0.0-dev.1";
 
     public static get DEFAULT_OPTS(): VuertOptions
     {

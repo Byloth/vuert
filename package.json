@@ -1,6 +1,6 @@
 {
   "name": "@vuert/packages",
-  "version": "1.4.5",
+  "version": "2.0.0-dev.1",
   "scripts": {
     "build": "pnpm run build:core && pnpm run build:nuxt",
     "build:core": "cd packages/core && pnpm run build",

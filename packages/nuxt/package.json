@@ -1,6 +1,6 @@
 {
   "name": "@byloth/nuxt-vuert-module",
-  "version": "1.4.5",
+  "version": "2.0.0-dev.1",
   "description": "The headless alerts, modals, notifications & popups module for Nuxt.js craftsmen. ℹ",
   "keywords": [
     "Alert",

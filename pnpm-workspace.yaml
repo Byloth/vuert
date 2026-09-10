@@ -4,3 +4,5 @@ allowBuilds:
   '@parcel/watcher': true
   esbuild: true
   nx: true
+minimumReleaseAgeExclude:
+  - '@byloth/core@3.0.1'

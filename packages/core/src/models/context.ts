@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 import type { Component, ComputedRef, Ref } from "vue";
 
-import { delay, DeferredPromise, Publisher } from "@byloth/core";
+import { delay, DeferredPromise, EventEmitter } from "@byloth/core";
 import type { MaybePromise, Timeout } from "@byloth/core";
 
 import type { Duration } from "../types/index.js";
@@ -26,7 +26,7 @@ export default class Context<T = void, P extends Record<string, unknown> = never
     protected _duration: Duration;
     protected _timeoutId?: Timeout;
 
-    protected _publisher: Publisher<ContextEventMap>;
+    protected _emitter: EventEmitter<ContextEventMap>;
 
     protected readonly _isOpen: Ref<boolean>;
 
@@ -52,9 +52,9 @@ export default class Context<T = void, P extends Record<string, unknown> = never
                 this._timeoutId = undefined;
             }
 
-            this._publisher.publish("closing");
+            this._emitter.emit("closing");
             await delay(this._duration.leave);
-            this._publisher.publish("closed");
+            this._emitter.emit("closed");
         };
 
         const _onFulfilled = (result?: MaybePromise<ContextResult<T>>): T =>
@@ -99,7 +99,7 @@ export default class Context<T = void, P extends Record<string, unknown> = never
             };
         }
 
-        this._publisher = new Publisher();
+        this._emitter = new EventEmitter();
         this.alert = new Alert(options);
 
         this._isOpen = ref(false);
@@ -117,9 +117,9 @@ export default class Context<T = void, P extends Record<string, unknown> = never
 
         this._isOpen.value = true;
 
-        this._publisher.publish("opening");
+        this._emitter.emit("opening");
         await delay(this._duration.enter);
-        this._publisher.publish("opened");
+        this._emitter.emit("opened");
 
         if (this.alert.timeout)
         {
@@ -129,18 +129,18 @@ export default class Context<T = void, P extends Record<string, unknown> = never
 
     public onOpening(subscriber: () => void): void
     {
-        this._publisher.subscribe("opening", subscriber);
+        this._emitter.on("opening", subscriber);
     }
     public onOpened(subscriber: () => void): void
     {
-        this._publisher.subscribe("opened", subscriber);
+        this._emitter.on("opened", subscriber);
     }
     public onClosing(subscriber: () => void): void
     {
-        this._publisher.subscribe("closing", subscriber);
+        this._emitter.on("closing", subscriber);
     }
     public onClosed(subscriber: () => void): void
     {
-        this._publisher.subscribe("closed", subscriber);
+        this._emitter.on("closed", subscriber);
     }
 }
